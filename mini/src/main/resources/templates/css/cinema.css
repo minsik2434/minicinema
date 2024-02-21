@@ -1,0 +1,38 @@
+.header_ul{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    justify-content: flex-end;
+
+}
+.header_li{
+    margin-left: 20px;
+}
+.parent {
+    padding-right: 300px;
+    padding-left: 300px;
+    text-decoration-line: none;
+    position: relative;
+}
+
+.child {
+    position: absolute;
+    text-decoration: none;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.right{
+    text-align: right;
+}
+.nav{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+.parent a{
+    text-decoration: none;
+    color: black;
+}
