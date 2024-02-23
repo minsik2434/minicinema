@@ -10,11 +10,12 @@
     <div class="child">
         <h1><a href="">Mini 시네마</a></h1>
     </div>
-    <ul class="header_ul right" >
-        <li class="li_margin"><a href="">로그인</a></li>
-        <li><a href="">회원가입</a></li>
-    </ul>
-    <hr>
+    <div>
+        <ul class="header_ul right" >
+            <li class="li_margin"><a href="">로그인</a></li>
+            <li><a href="">회원가입</a></li>
+        </ul>
+    </div>
     <div>
         <ul class="nav">
             <li><a href="">검색</a></li>
@@ -25,6 +26,8 @@
     </div>
 </div>
 <div th:replace="${content}">
+</div>
+<div th:replace="~{view/layout/footer :: footer}">
 </div>
 </body>
 </html>

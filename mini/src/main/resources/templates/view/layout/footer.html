@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/cinema.css">
     <title>Title</title>
 </head>
 <body>
-
+<footer th:fragment="footer">
+    <div class="footer_div">
+        <h3>Mini 시네마</h3>
+        <ul class="footer-list">
+            <li>소개</li>
+            <li>이용약관</li>
+            <li>개인정보처리</li>
+            <li>이메일수집</li>
+            <li>소개</li>
+            <li>배정 기준</li>
+            <li>채용 안내</li>
+            <li>광고/임대</li>
+            <li>사회적 책임</li>
+        </ul>
+        <div>
+            <address>주소 : 수원시 장안구 정자동</address>
+            <br>
+            <span>
+                이메일
+                <em>minsik2434@gmail.com</em>
+            </span>
+            <span>
+                전화번호
+                <em>010-1234-5678</em>
+            </span>
+            <br>
+            <span>이름 : 최민식</span>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
