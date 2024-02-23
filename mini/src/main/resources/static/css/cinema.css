@@ -36,3 +36,29 @@
     text-decoration: none;
     color: black;
 }
+.movieChart{
+    display: flex;
+    margin-right: 50px;
+    margin-left: 50px;;
+    padding-right: 300px;
+    padding-left: 300px;
+    gap: 30px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.content {
+    flex: 0 0 auto;
+    margin-right: 32px;
+}
+.category{
+    padding-bottom: 50px;
+}
+.category_logo{
+    padding-left: 250px;
+    padding-bottom: 10px;
+}
+.content_image{
+    width: 170px;
+    height: 234px;
+}

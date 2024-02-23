@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../../css/cinema.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
 </head>
 <body>
 <div class="parent">
@@ -24,8 +24,7 @@
         </ul>
     </div>
 </div>
-<div >
+<div th:replace="${content}">
 </div>
-<hr>
 </body>
 </html>
