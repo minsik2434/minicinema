@@ -11,4 +11,9 @@ public class TheaterController {
     public String home(){
         return "view/home";
     }
+
+    @GetMapping("/mini")
+    public String home2(){
+        return "view/home";
+    }
 }
