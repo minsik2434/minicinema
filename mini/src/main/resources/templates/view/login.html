@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+</head>
+<body>
+    <section>
+        <div class="login_form">
+            <form>
+                <div class="panel_wrap">
+                    <div class="panel_item" style="display: block;">
+                        <div class="panel_inner">
+                            <div class="id_pw_wrap">
+                                <div class="input_row">
+                                    <div class="icon_cell">
+                                    </div>
+                                    <input type="text" placeholder="아이디" maxlength="41" value class="input_text" id="id">
+                                </div>
+                                <div class="input_row">
+                                    <div class="icon_cell">
+                                    </div>
+                                    <input type="password" placeholder="비밀번호" class="input_text" maxlength="16" id="pw">
+                                </div>
+                            </div>
+                            <div class="btn_login_wrap">
+                                <button type="submit" class="btn_login">
+                                    <span class="btn_text">로그인</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="find_wrap">
+                    <ul class="find_ul">
+                        <li>
+                            아이디 찾기
+                        </li>
+                        <li>
+                            비밀번호 찾기
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
