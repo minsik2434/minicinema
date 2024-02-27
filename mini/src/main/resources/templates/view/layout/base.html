@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content, loginMember)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,6 +10,7 @@
     <div class="child">
         <h1><a href="/mini">Mini 시네마</a></h1>
     </div>
+    <div th:text="${loginMember != null} ? 'User is logged in' : 'User is not logged in'"></div>
     <div>
         <ul class="header_ul right" >
             <li class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>

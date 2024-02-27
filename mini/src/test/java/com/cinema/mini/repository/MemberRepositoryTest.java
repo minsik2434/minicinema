@@ -22,7 +22,14 @@ public class MemberRepositoryTest {
     @Test
     @DisplayName("findById 테스트")
     void findByIdTest(){
-        Optional<Member> member = memberRepository.findById((long) 2);
-        assertThat(member.get().getMemberId()).isEqualTo(2);
+        Optional<Member> member = memberRepository.findById((long) 1);
+        assertThat(member.get().getMemberId()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("findByLoginId 테스트")
+    void findByLoginIdTest(){
+        Optional<Member> optionalLoginMember = memberRepository.findByLoginId("test");
+        assertThat(optionalLoginMember.get().getMemberId()).isEqualTo(1);
     }
 }

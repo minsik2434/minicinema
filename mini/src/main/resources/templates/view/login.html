@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section} ,${loginMember})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>로그인 페이지</title>
@@ -7,18 +7,18 @@
 <body>
     <section>
         <div class="login_form">
-            <form class="form">
-                <div class="panel_wrap">
-                    <div class="panel_item" style="display: block;">
-                        <div class="panel_inner">
+            <div class="panel_wrap">
+                <div class="panel_item" style="display: block;">
+                    <div class="panel_inner">
+                        <form class="form" action="home.html" th:action th:object="${loginDto}" method="post">
                             <div class="id_pw_wrap">
                                 <div class="input_row">
                                     <label for="id" class="icon_cell">ID</label>
-                                    <input type="text" placeholder="아이디" maxlength="41" value class="input_text" id="id">
+                                    <input type="text" placeholder="아이디" maxlength="41" value class="input_text" id="id" th:field="*{loginId}">
                                 </div>
                                 <div class="input_row">
                                     <label for="pw" class="icon_cell">PW</label>
-                                    <input type="password" placeholder="비밀번호" class="input_text" maxlength="16" id="pw">
+                                    <input type="password" placeholder="비밀번호" class="input_text" maxlength="16" id="pw" th:field="*{password}">
                                 </div>
                             </div>
                             <div class="btn_login_wrap">
@@ -26,20 +26,20 @@
                                     <span class="btn_text">로그인</span>
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="find_wrap">
-                    <ul class="find_ul">
-                        <li>
-                            아이디 찾기
-                        </li>
-                        <li>
-                            비밀번호 찾기
-                        </li>
-                    </ul>
-                </div>
-            </form>
+            </div>
+        </div>
+        <div class="find_wrap">
+            <ul class="find_ul">
+                <li>
+                    아이디 찾기
+                </li>
+                <li>
+                    비밀번호 찾기
+                </li>
+            </ul>
         </div>
     </section>
 </body>
