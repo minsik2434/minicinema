@@ -1,0 +1,23 @@
+.wrap{
+    width: 560px;
+    _height: 618px;
+    min-height: 618px;
+    margin: 0 auto;
+    text-align: left;
+}
+.header{
+    position: relative;
+    height: 80px;
+}
+.header a{
+    text-decoration: none;
+    color:black;
+}
+.container{
+    padding:33px 20px 0 81px;
+}
+
+.home{
+    border-width: 1px;
+
+}
