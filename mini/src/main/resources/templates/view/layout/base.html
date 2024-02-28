@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:fragment="layout (title, content, loginMember)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content, sessionId)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,11 +10,18 @@
     <div class="child">
         <h1><a href="/mini">Mini 시네마</a></h1>
     </div>
-    <div th:text="${loginMember != null} ? 'User is logged in' : 'User is not logged in'"></div>
+    <div th:text="${sessionId != null} ? 'User is logged in' : 'User is not logged in'"></div>
     <div>
         <ul class="header_ul right" >
-            <li class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>
-            <li><a href="">회원가입</a></li>
+
+            <li th:if="${sessionId == null}" class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>
+            <li th:unless="${sessionId == null}" class="li_margin">
+                <form th:action="@{/member/logout}" method="post">
+                    <button type="submit" style="font-size: 16px">로그아웃</button>
+                </form>
+            </li>
+            <li th:if="${sessionId == null}"><a href="">회원가입</a></li>
+            <li th:unless="${sessionId == null}"><a href="">마이페이지</a></li>
         </ul>
     </div>
     <div>

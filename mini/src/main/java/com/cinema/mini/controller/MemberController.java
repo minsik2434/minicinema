@@ -47,6 +47,16 @@ public class MemberController {
         return "redirect:"+redirectURL;
     }
 
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
     @PostMapping("/join")
     public String userRegister(){
         return null;
