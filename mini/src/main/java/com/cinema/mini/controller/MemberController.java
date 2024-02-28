@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -28,7 +29,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginDto loginDto, Model model, BindingResult bindingResult,
+    public String login(@Validated @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){
         log.info("loginId={}",loginDto.getLoginId());
@@ -38,7 +39,7 @@ public class MemberController {
         }
         Member loginMember = memberService.memberLogin(loginDto);
         if(loginMember == null){
-            bindingResult.reject("loginFail","아이디 또는 비밀번호가 맞지 않습니다");
+            bindingResult.reject("loginFail");
             return "view/login";
         }
         model.addAttribute("loginMember",loginMember);

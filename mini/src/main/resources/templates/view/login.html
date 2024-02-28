@@ -21,6 +21,11 @@
                                     <input type="password" placeholder="비밀번호" class="input_text" maxlength="16" id="pw" th:field="*{password}">
                                 </div>
                             </div>
+                            <div>
+                                <strong th:errors="*{loginId}">아이디를 입력해주세요</strong>
+                                <strong th:unless="${#fields.hasErrors('loginId')}" th:errors="*{password}"></strong>
+                                <strong th:if="${#fields.hasGlobalErrors()}"  th:each="err : ${#fields.globalErrors()}" th:text="${err}"></strong>
+                            </div>
                             <div class="btn_login_wrap">
                                 <button type="submit" class="btn_login">
                                     <span class="btn_text">로그인</span>
