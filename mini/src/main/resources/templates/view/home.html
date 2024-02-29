@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section}, ${session.mySessionId})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section},~{::link}, ${session.mySessionId})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Mini 시네마</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
 </head>
 <body>
     <section class="root">

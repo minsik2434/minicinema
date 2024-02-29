@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html th:fragment="layout (title, content, sessionId)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content, link, sessionId)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
+    <link th:replace="${link}" rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
 </head>
 <body>
 <div class="parent">
