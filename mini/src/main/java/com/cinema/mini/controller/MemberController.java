@@ -58,6 +58,11 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/join")
+    public String joinForm(){
+        return "view/join";
+    }
+
     @PostMapping("/join")
     public String userRegister(){
         return null;

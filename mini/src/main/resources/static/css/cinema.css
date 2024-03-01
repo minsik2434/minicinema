@@ -182,3 +182,16 @@ button, input, select, textarea {
 .icon_cell{
     width:35px;
 }
+
+.join_container {
+    position: relative;
+    height: 100%;
+}
+
+.join_inner{
+    width: 500px;
+    margin: 0 auto;
+}
+.join_inner input{
+    border: solid black;
+}

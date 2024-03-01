@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html th:fragment="layout (title, content, link, sessionId)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content, sessionId)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">Title</title>
-    <link th:replace="${link}" rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cinema.css}">
 </head>
 <body>
 <div class="parent">
@@ -17,10 +17,10 @@
             <li th:if="${sessionId == null}" class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>
             <li th:unless="${sessionId == null}" class="li_margin">
                 <form th:action="@{/member/logout}" method="post">
-                    <button type="submit" style="font-size: 16px">로그아웃</button>
+                    <button class="logout_button" type="submit" style="font-size: 16px">로그아웃</button>
                 </form>
             </li>
-            <li th:if="${sessionId == null}"><a href="">회원가입</a></li>
+            <li th:if="${sessionId == null}"><a th:onclick="|location.href='/member/join'|">회원가입</a></li>
             <li th:unless="${sessionId == null}"><a href="">마이페이지</a></li>
         </ul>
     </div>
