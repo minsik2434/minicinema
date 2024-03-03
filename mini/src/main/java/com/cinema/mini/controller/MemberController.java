@@ -2,9 +2,11 @@ package com.cinema.mini.controller;
 
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
+import com.cinema.mini.dto.MemberRegisterDto;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,12 +61,26 @@ public class MemberController {
     }
 
     @GetMapping("/join")
-    public String joinForm(){
+    public String joinForm(@ModelAttribute("memberRegisterDto") MemberRegisterDto memberRegisterDto){
         return "view/join";
     }
 
     @PostMapping("/join")
-    public String userRegister(){
-        return null;
+    public String userRegister(@Validated @ModelAttribute MemberRegisterDto memberRegisterDto,
+                               BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "view/join";
+        }
+        if(memberService.isDuplicateMemberId(memberRegisterDto.getLoginId())){
+            bindingResult.reject("DuplicateMemberLoginId");
+            return "view/join";
+        }
+        if(!memberRegisterDto.getPassword().equals(memberRegisterDto.getRePassword())){
+            bindingResult.reject("NotMatchPasswordAndRepassword");
+            return "view/join";
+        }
+
+        memberService.memberRegister(memberRegisterDto);
+        return "redirect:/";
     }
 }

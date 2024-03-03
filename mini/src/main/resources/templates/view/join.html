@@ -9,21 +9,22 @@
     <section>
         <div class="join_container">
             <div class="join_inner">
-                <form>
+                <form th:action method="post" th:object="${memberRegisterDto}">
                 <div>
                     <h3>
                         <label for="id">아이디</label>
                     </h3>
 			        <span class="join_box">
-                        <input type="text" id="id" class="join_int" maxlength="20">
+                        <input type="text" id="id" class="join_int" maxlength="20" th:field="*{loginId}">
                     </span>
+                    <span><strong th:errors="*{loginId}"></strong></span>
                 </div>
                 <div>
                     <h3>
                         <label for="password">비밀번호</label>
                     </h3>
                     <span class="join_box">
-                        <input type="password" class="join_int" id="password" maxlength="20">
+                        <input type="password" class="join_int" id="password" maxlength="20" th:field="*{password}">
                     </span>
                 </div>
                 <div>
@@ -31,7 +32,7 @@
                         <label for="re_password">비밀번호 재확인</label>
                     </h3>
                     <span class="join_box">
-                        <input type="password" id="re_password" class="join_int" maxlength="20">
+                        <input type="password" id="re_password" class="join_int" maxlength="20" th:field="*{rePassword}">
                     </span>
                 </div>
                 <div>
@@ -39,12 +40,7 @@
                         <label for="email">이메일</label>
                     </h3>
                     <span class="join_box">
-                        <input type="text" id="email" class="join_int" maxlength="20">
-                        <select class="step_url">
-                            <option value="naver.com">@naver.com</option>
-                            <option value="gmail.com">@gmail.com</option>
-                            <option value="daum.net">@daum.net</option>
-                        </select>
+                        <input type="text" id="email" class="join_int" maxlength="20" th:field="*{email}">
                     </span>
                 </div>
                 <div>
@@ -52,7 +48,7 @@
                         <label for="name">이름</label>
                     </h3>
                     <span class="join_box">
-                        <input type="text" id="name" class="join_int" maxlength="20">
+                        <input type="text" id="name" class="join_int" maxlength="20" th:field="*{name}">
                     </span>
                 </div>
                 <div>
@@ -63,14 +59,14 @@
                     <div class="join_birth_wrap">
                         <div class="join_birth_year">
                             <span class="join_box">
-                                <input type="text" id="year" class="join_int" maxlength="4" placeholder="년">
+                                <input type="text" id="year" class="join_int" maxlength="4" placeholder="년" th:field="*{birthYear}">
                             </span>
                         </div>
 
                         <div class="join_birth_month">
                             <span class="join_box">
-                                <select>
-                                    <option value="" disabled selected>월</option>
+                                <select th:field="*{birthMonth}">
+                                    <option value="" th:disabled selected>월</option>
                                     <option th:each="month : ${#numbers.sequence(1, 12)}" th:value="${month}" th:text="${month}"></option>
                                 </select>
                             </span>
@@ -78,8 +74,8 @@
 
                         <div class="join_birth_day">
                             <span class="join_box">
-                                <select>
-                                    <option value="" disabled selected>일</option>
+                                <select th:field="*{birthDay}">
+                                    <option value="" th:disabled th:selected>일</option>
                                     <option th:each="day : ${#numbers.sequence(1, 31)}" th:value="${day}" th:text="${day}"></option>
                                 </select>
                             </span>
