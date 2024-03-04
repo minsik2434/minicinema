@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section}, ${session.mySessionId})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/cinema.css">
+</head>
+<body>
+<section>
+    <div style="margin: 0 300px">
+        <div th:replace="~{view/layout/mynav::mynavbar}">
+        </div>
+    </div>
+</section>
+</body>
+</html>

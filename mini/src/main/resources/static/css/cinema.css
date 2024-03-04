@@ -189,7 +189,10 @@ button, input, select, textarea {
 }
 
 .join_inner{
-    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 0 300px;
 }
 
@@ -279,4 +282,31 @@ button, input, select, textarea {
     /*border: none;*/
     /*cursor: default;*/
     /*font-family: Dotum,'돋움',Helvetica,sans-serif;*/
+}
+
+.mypage_nav_ul {
+    display: flex;
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    border-bottom: solid 1px black;
+}
+.mypage_nav_ul li{
+    flex:1;
+}
+.mypage_nav_ul li a{
+    display: block;
+    color:#000000;
+    padding:8px;
+    text-decoration:none;
+    text-align: center;
+}
+.mypage_nav_ul li a:hover{
+    background-color: darkgray;
+    color:white;
+}
+
+.mypage_nav_wrap{
+
+    padding-top:10px;
 }

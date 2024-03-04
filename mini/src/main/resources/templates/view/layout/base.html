@@ -21,7 +21,7 @@
                 </form>
             </li>
             <li th:if="${sessionId == null}"><a th:onclick="|location.href='/member/join'|">회원가입</a></li>
-            <li th:unless="${sessionId == null}"><a href="">마이페이지</a></li>
+            <li th:unless="${sessionId == null}"><a th:onclick="|location.href='/member/mypage'|">마이페이지</a></li>
         </ul>
     </div>
     <div>

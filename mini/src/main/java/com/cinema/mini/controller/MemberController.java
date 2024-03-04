@@ -66,7 +66,7 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String userRegister(@Validated @ModelAttribute MemberRegisterDto memberRegisterDto,
+    public String memberRegister(@Validated @ModelAttribute MemberRegisterDto memberRegisterDto,
                                BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "view/join";
@@ -85,5 +85,10 @@ public class MemberController {
 
         memberService.memberRegister(memberRegisterDto);
         return "redirect:/";
+    }
+
+    @GetMapping("/mypage")
+    public String myPage(){
+        return "view/my";
     }
 }
