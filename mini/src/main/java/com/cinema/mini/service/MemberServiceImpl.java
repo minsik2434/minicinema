@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService{
         String birthString = memberRegisterDto.getBirthYear() + memberRegisterDto.getBirthMonth()
                 + memberRegisterDto.getBirthDay();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             return sdf.parse(birthString);
         } catch (ParseException e) {
             throw new RuntimeException(e);

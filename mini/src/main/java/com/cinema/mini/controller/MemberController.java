@@ -72,11 +72,14 @@ public class MemberController {
             return "view/join";
         }
         if(memberService.isDuplicateMemberId(memberRegisterDto.getLoginId())){
-            bindingResult.reject("DuplicateMemberLoginId");
+            //TODO 아이디 중복시에만 오류 메시지 출력하도록 변경해야함 필드오류?글로벌오류?
+            bindingResult.rejectValue("loginId",  "DuplicateMemberLoginId");
+            log.info("bindingResult={}",bindingResult);
             return "view/join";
         }
         if(!memberRegisterDto.getPassword().equals(memberRegisterDto.getRePassword())){
-            bindingResult.reject("NotMatchPasswordAndRepassword");
+            //TODO 비밀번호가 재입력 비밀번호와 다를시에만 오류 메시지 출력하도록 변경해야함
+            bindingResult.rejectValue("rePassword","NotMatchPasswordAndRepassword");
             return "view/join";
         }
 

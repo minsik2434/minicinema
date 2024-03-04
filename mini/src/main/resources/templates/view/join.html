@@ -34,6 +34,7 @@
                     <span class="join_box">
                         <input type="password" id="re_password" class="join_int" maxlength="20" th:field="*{rePassword}">
                     </span>
+                    <span><strong th:errors="*{rePassword}"></strong></span>
                 </div>
                 <div>
                     <h3>
