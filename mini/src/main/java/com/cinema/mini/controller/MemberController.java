@@ -6,7 +6,6 @@ import com.cinema.mini.dto.MemberRegisterDto;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,13 +71,11 @@ public class MemberController {
             return "view/join";
         }
         if(memberService.isDuplicateMemberId(memberRegisterDto.getLoginId())){
-            //TODO 아이디 중복시에만 오류 메시지 출력하도록 변경해야함 필드오류?글로벌오류?
             bindingResult.rejectValue("loginId",  "DuplicateMemberLoginId");
             log.info("bindingResult={}",bindingResult);
             return "view/join";
         }
         if(!memberRegisterDto.getPassword().equals(memberRegisterDto.getRePassword())){
-            //TODO 비밀번호가 재입력 비밀번호와 다를시에만 오류 메시지 출력하도록 변경해야함
             bindingResult.rejectValue("rePassword","NotMatchPasswordAndRepassword");
             return "view/join";
         }
@@ -87,8 +84,5 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/mypage")
-    public String myPage(){
-        return "view/my";
-    }
+
 }

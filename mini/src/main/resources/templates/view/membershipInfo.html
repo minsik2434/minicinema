@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section}, ${session.mySessionId})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/cinema.css">
+    <title>멤버십 혜택</title>
+</head>
+<body>
+    <section>
+        <div class="membership_info_container">
+            <h2> 멤버십 혜택 정보 </h2>
+            <div>
+                <h3> 멤버십 선정 기준</h3>
+                <hr>
+                <div class="membership_info_policy_wrap">
+                    <span></span>
+                    <span><img class="membership_image" th:src="@{/image/bronze.png}" alt="브론즈"></span>
+                    <span><img class="membership_image" th:src="@{/image/gold.png}" alt="골드"></span>
+                    <span><img class="membership_image" th:src="@{/image/platium.png}" alt="플래티넘"></span>
+                    <span><img class="membership_image" th:src="@{/image/diamond.png}" alt="다이아몬드"></span>
+                    <span>선정기준</span>
+                    <span><b>회원 가입시</b></span>
+                    <span><b>10회 이상 예매이력</b></span>
+                    <span><b>30회 이상 예매이력</b></span>
+                    <span><b>50회 이상 예매이력</b></span>
+                </div>
+                <div class="membership_benefits_wrap">
+
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

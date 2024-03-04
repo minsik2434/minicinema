@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
+@RequestMapping("/")
 public class TheaterController {
 
-    @GetMapping("/")
+    @GetMapping
     public String home(@SessionAttribute(name = SessionConst.SESSION_NAME, required = false)Member loginMember, Model model){
         if(loginMember != null){
             model.addAttribute("loginMember",loginMember);
@@ -21,8 +22,8 @@ public class TheaterController {
         return "view/home";
     }
 
-    @GetMapping("/mini")
-    public String home2(){
-        return "view/home";
+    @GetMapping("membership")
+    public String membership(){
+        return "view/membershipInfo";
     }
 }

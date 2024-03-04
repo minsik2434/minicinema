@@ -8,7 +8,7 @@
 <body>
 <div class="parent">
     <div class="child">
-        <h1><a href="/mini">Mini 시네마</a></h1>
+        <h1><a href="/">Mini 시네마</a></h1>
     </div>
     <div th:text="${sessionId != null} ? 'User is logged in' : 'User is not logged in'"></div>
     <div>
@@ -21,7 +21,7 @@
                 </form>
             </li>
             <li th:if="${sessionId == null}"><a th:onclick="|location.href='/member/join'|">회원가입</a></li>
-            <li th:unless="${sessionId == null}"><a th:onclick="|location.href='/member/mypage'|">마이페이지</a></li>
+            <li th:unless="${sessionId == null}"><a th:onclick="|location.href='/mypage/payment'|">마이페이지</a></li>
         </ul>
     </div>
     <div>
@@ -29,7 +29,7 @@
             <li><a href="">검색</a></li>
             <li><a href="">예매</a></li>
             <li><a href="">영화</a></li>
-            <li><a href="">혜택</a></li>
+            <li><a th:onclick="|location.href='/membership'|">혜택</a></li>
         </ul>
     </div>
 </div>
