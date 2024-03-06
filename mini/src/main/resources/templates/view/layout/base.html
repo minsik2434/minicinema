@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:fragment="layout (title, content, sessionId)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">Title</title>
@@ -10,18 +10,18 @@
     <div class="child">
         <h1><a href="/">Mini 시네마</a></h1>
     </div>
-    <div th:text="${sessionId != null} ? 'User is logged in' : 'User is not logged in'"></div>
+    <div th:text="${session.mySessionId != null} ? 'User is logged in' : 'User is not logged in'"></div>
     <div>
         <ul class="header_ul right" >
 
-            <li th:if="${sessionId == null}" class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>
-            <li th:unless="${sessionId == null}" class="li_margin">
+            <li th:if="${session.mySessionId == null}" class="li_margin"><a th:onclick="|location.href='/member/login'|">로그인</a></li>
+            <li th:unless="${session.mySessionId == null}" class="li_margin">
                 <form th:action="@{/member/logout}" method="post">
                     <button class="logout_button" type="submit" style="font-size: 16px">로그아웃</button>
                 </form>
             </li>
-            <li th:if="${sessionId == null}"><a th:onclick="|location.href='/member/join'|">회원가입</a></li>
-            <li th:unless="${sessionId == null}"><a th:onclick="|location.href='/mypage/payment'|">마이페이지</a></li>
+            <li th:if="${session.mySessionId == null}"><a th:onclick="|location.href='/member/join'|">회원가입</a></li>
+            <li th:unless="${session.mySessionId == null}"><a th:onclick="|location.href='/mypage/payment'|">마이페이지</a></li>
         </ul>
     </div>
     <div>

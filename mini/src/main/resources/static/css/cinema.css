@@ -376,6 +376,23 @@ button, input, select, textarea {
     margin-top: 24px;
 }
 
+.ic_rank_bronze{
+    background: url("../image/bronze.png") white no-repeat center -5px;
+    background-size: 60px 60px;
+}
+.ic_rank_gold{
+    background: url("../image/gold.png") white no-repeat center 1px;
+    background-size: 50px 50px;
+}
+.ic_rank_platinum{
+    background: url("../image/platium.png") white no-repeat center 1px;
+    background-size: 50px 50px;
+}
+.ic_rank_diamond{
+    background: url("../image/diamond.png") white no-repeat center 1px;
+    background-size: 50px 50px;
+}
+
 
 [class^="ic_rank_"] {
     position: absolute;

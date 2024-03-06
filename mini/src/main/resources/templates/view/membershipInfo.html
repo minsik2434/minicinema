@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section}, ${session.mySessionId})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../../static/css/cinema.css">
@@ -14,7 +14,7 @@
                 <h3>멤버십 선정 기준</h3>
                 <div class="membership_info_policy_rank">
                     <span></span>
-                    <span><img class="membership_image" th:src="@{/image/bronze.png}" alt="브론즈"></span>
+                    <span><img class="membership_image" th:src="@{/image/bronze.png}" src="../../static/image/bronze.png" alt="브론즈"></span>
                     <span><img class="membership_image" th:src="@{/image/gold.png}" alt="골드"></span>
                     <span><img class="membership_image" th:src="@{/image/platium.png}" alt="플래티넘"></span>
                     <span><img class="membership_image" th:src="@{/image/diamond.png}" alt="다이아몬드"></span>
@@ -53,7 +53,7 @@
                             </h4>
                             <ul class="benefit_list">
                                 <li>
-                                    <strong>팝콘 M 사이즈 교환권</strong>
+                                    <strong>팝콘 M 교환권</strong>
                                     X
                                     <span>
                                         <b>1</b>
@@ -75,7 +75,7 @@
                         </div>
                     </li>
                     <li>
-                        <strong class="ic_rank_bronze">Bronze</strong>
+                        <strong class="ic_rank_gold">Gold</strong>
                         <div class="benefit">
                             <h4 class="tit">영화혜택
                                 <span style="font-size: 11px">할인정책</span>
@@ -98,10 +98,10 @@
                             </h4>
                             <ul class="benefit_list">
                                 <li>
-                                    <strong>팝콘 M 사이즈 교환권</strong>
+                                    <strong>팝콘 M 교환권</strong>
                                     X
                                     <span>
-                                        <b>1</b>
+                                        <b>2</b>
                                         매
                                     </span>
                                 </li>
@@ -120,7 +120,7 @@
                         </div>
                     </li>
                     <li>
-                        <strong class="ic_rank_bronze">Bronze</strong>
+                        <strong class="ic_rank_platinum">Platinum</strong>
                         <div class="benefit">
                             <h4 class="tit">영화혜택
                                 <span style="font-size: 11px">할인정책</span>
@@ -143,7 +143,7 @@
                             </h4>
                             <ul class="benefit_list">
                                 <li>
-                                    <strong>팝콘 M 사이즈 교환권</strong>
+                                    <strong>팝콘 L 교환권</strong>
                                     X
                                     <span>
                                         <b>1</b>
@@ -165,7 +165,7 @@
                         </div>
                     </li>
                     <li>
-                        <strong class="ic_rank_bronze">Bronze</strong>
+                        <strong class="ic_rank_diamond">Diamond</strong>
                         <div class="benefit">
                             <h4 class="tit">영화혜택
                                 <span style="font-size: 11px">할인정책</span>
@@ -188,10 +188,10 @@
                             </h4>
                             <ul class="benefit_list">
                                 <li>
-                                    <strong>팝콘 M 사이즈 교환권</strong>
+                                    <strong>팝콘 L 교환권</strong>
                                     X
                                     <span>
-                                        <b>1</b>
+                                        <b>2</b>
                                         매
                                     </span>
                                 </li>
