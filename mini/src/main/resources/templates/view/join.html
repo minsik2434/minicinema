@@ -71,7 +71,7 @@
                             <span class="join_box">
                                 <select th:field="*{birthMonth}">
                                     <option value="" th:disabled selected>월</option>
-                                    <option th:each="month : ${#numbers.sequence(1, 12)}" th:value="${month}" th:text="${month}"></option>
+                                    <option th:each="month : ${#numbers.sequence(1, 12)}" th:value="${#numbers.formatInteger(month,2)}" th:text="${month}"></option>
                                 </select>
                             </span>
                         </div>
@@ -80,7 +80,7 @@
                             <span class="join_box">
                                 <select th:field="*{birthDay}">
                                     <option value="" th:disabled th:selected>일</option>
-                                    <option th:each="day : ${#numbers.sequence(1, 31)}" th:value="${day}" th:text="${day}"></option>
+                                    <option th:each="day : ${#numbers.sequence(1, 31)}" th:value="${#numbers.formatInteger(day,2)}" th:text="${day}"></option>
                                 </select>
                             </span>
                         </div>

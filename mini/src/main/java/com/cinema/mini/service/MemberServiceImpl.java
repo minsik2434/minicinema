@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -24,7 +25,7 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public void memberRegister(MemberRegisterDto memberRegisterDto) {
 
-        Date memberBirth = getMemberBirth(memberRegisterDto);
+        LocalDate memberBirth = getMemberBirth(memberRegisterDto);
         Member member = Member.builder()
                 .loginId(memberRegisterDto.getLoginId())
                 .password(memberRegisterDto.getPassword())
@@ -35,15 +36,10 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
     }
 
-    private Date getMemberBirth(MemberRegisterDto memberRegisterDto) {
-        String birthString = memberRegisterDto.getBirthYear() + memberRegisterDto.getBirthMonth()
-                + memberRegisterDto.getBirthDay();
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            return sdf.parse(birthString);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+    private LocalDate getMemberBirth(MemberRegisterDto memberRegisterDto) {
+        String birthString = memberRegisterDto.getBirthYear() +"-"+ memberRegisterDto.getBirthMonth() +"-"+
+                memberRegisterDto.getBirthDay();
+        return LocalDate.parse(birthString);
     }
 
     @Override

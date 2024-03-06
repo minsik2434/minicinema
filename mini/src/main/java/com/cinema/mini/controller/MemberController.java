@@ -87,9 +87,10 @@ public class MemberController {
 
     @GetMapping("/updateprofile")
     public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
-                                @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
-                                Model model){
-        model.addAttribute("loginMember",loginMember);
+                                    Model model){
+        ProfileUpdateDto profileUpdateDto = new ProfileUpdateDto(loginMember.getLoginId(),loginMember.getEmail(),loginMember.getName(),
+                Integer.toString(loginMember.getBirth().getYear()),Integer.toString(loginMember.getBirth().getMonthValue()),Integer.toString(loginMember.getBirth().getDayOfMonth()));
+        model.addAttribute("profileUpdateDto",profileUpdateDto);
         return "view/updateprofile";
     }
 

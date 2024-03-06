@@ -42,7 +42,7 @@
             <li style="border-bottom: none">
                 <div class="my_info_item">
                     <strong>생년월일</strong>
-                    <strong th:text="${#dates.format(loginMember.getBirth(), 'yyyy-MM-dd')}">멤버 생년월일</strong>
+                    <strong th:text="${loginMember.getBirth()}">멤버 생년월일</strong>
                 </div>
             </li>
         </ul>

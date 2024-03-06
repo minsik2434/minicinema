@@ -28,7 +28,7 @@ public class MemberServiceTest {
 
     @Test
     @DisplayName("로그인 서비스 테스트")
-    void memberLogin(){
+    void memberLoginTest(){
         LoginDto loginDto = new LoginDto();
         loginDto.setLoginId("test");
         loginDto.setPassword("test!");
@@ -68,7 +68,7 @@ public class MemberServiceTest {
 
     @Test
     @DisplayName("중복 아이디 체크 테스트")
-    void isDuplicateMemberId(){
+    void isDuplicateMemberIdTest(){
         boolean check = memberService.isDuplicateMemberId("test");
         assertThat(check).isEqualTo(true);
     }

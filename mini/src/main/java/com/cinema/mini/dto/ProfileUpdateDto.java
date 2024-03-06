@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ProfileUpdateDto {
     @NotBlank
     private String loginId;

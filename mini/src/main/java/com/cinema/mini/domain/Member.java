@@ -3,6 +3,7 @@ package com.cinema.mini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,7 +25,7 @@ public class Member {
     @Column(name="name")
     private String name;
     @Column(name="birth")
-    private Date birth;
+    private LocalDate birth;
     @Column(name="grade")
     private String grade;
 }
