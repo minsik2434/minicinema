@@ -415,9 +415,6 @@ button, input, select, textarea {
     padding: 25px 30px 0 30px;
     min-width: 500px;
 }
-.my_info{
-    /*padding: 25px 30px 0 30px*/
-}
 .my_grade{
     margin-bottom: 15px;
 }
@@ -432,6 +429,8 @@ button, input, select, textarea {
 
 .rank_progress_wrap{
     text-align: center;
+    background-color: lightgrey;
+    border-radius: 10px;
 }
 .rank_progress_ul{
     list-style: none;
@@ -447,4 +446,35 @@ button, input, select, textarea {
 
 .rank_progress_bar{
     width: 400px;
+}
+
+.my_info_box{
+    border: 1px solid black;
+    margin: 50px 300px;
+    padding: 25px 30px 0 30px;
+    border-radius: 10px;
+    min-width: 500px;
+}
+.my_info_tit{
+    display: flex;
+    justify-content: space-between;
+}
+.my_info_box ul{
+    list-style: none;
+    padding-inline-start: 0;
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.my_info_item{
+    display: flex;
+    gap:50px;
+    margin-bottom: 5px;
+
+}
+
+.my_info_box li{
+    margin-top: 10px;
+    border-bottom: 1px solid lightslategrey;
 }

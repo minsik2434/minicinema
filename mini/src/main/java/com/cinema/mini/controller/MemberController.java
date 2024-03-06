@@ -84,5 +84,10 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/update")
+    public String updateMember(){
+        return "view/update";
+    }
+
 
 }
