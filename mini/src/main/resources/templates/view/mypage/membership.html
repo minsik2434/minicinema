@@ -11,6 +11,38 @@
         <div th:replace="~{view/layout/mynav::mynavbar}">
         </div>
     </div>
+    <div class="my_benefit_box">
+        <div>
+            <span class="my_grade">브론즈</span>
+            <p class="my_name"><strong>이름</strong>님 반갑습니다</p>
+            <div class="my_next_rank">
+                <p>다음랭크 까지 남은 예매 횟수
+                    <em>X</em> 회
+                </p>
+            </div>
+        </div>
+        <div>
+            <div class="rank_progress_wrap">
+                <ul class="rank_progress_ul">
+                    <li>
+                        <img src="../../../static/image/bronze.png" th:src="@{/image/bronze.png}" alt="브론즈">
+                    </li>
+                    <li>
+                        <img src="../../../static/image/gold.png" th:src="@{/image/gold.png}" alt="골드">
+                    </li>
+                </ul>
+                <progress class="rank_progress_bar" value="20" max="100"></progress>
+                <ul class="rank_progress_ul">
+                    <li>
+                        <span><em>0</em></span>
+                    </li>
+                    <li>
+                        <span><em>10</em></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
 </body>
 </html>
