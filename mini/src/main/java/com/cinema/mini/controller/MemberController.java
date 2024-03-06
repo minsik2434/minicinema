@@ -3,6 +3,7 @@ package com.cinema.mini.controller;
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
+import com.cinema.mini.dto.ProfileUpdateDto;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -84,10 +85,23 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/update")
-    public String updateMember(){
-        return "view/update";
+    @GetMapping("/updateprofile")
+    public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
+                                @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
+                                Model model){
+        model.addAttribute("loginMember",loginMember);
+        return "view/updateprofile";
     }
 
+    @PostMapping("/updateprofile")
+    public String updateProfile(@ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto){
+        log.info("month={}",profileUpdateDto.getBirthMonth());
+        return null;
+    }
+
+    @GetMapping("/updatepassword")
+    public String updatePassword(){
+        return "view/updatepassword";
+    }
 
 }

@@ -455,11 +455,30 @@ button, input, select, textarea {
     border-radius: 10px;
     min-width: 500px;
 }
-.my_info_tit{
+.profile_tit{
     display: flex;
     justify-content: space-between;
 }
+.security_box{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.security_item{
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+.profile_tit a{
+    display: flex;
+    flex-direction: column;
+    text-decoration-line: none;
+    justify-content: center;
+
+}
 .my_info_box ul{
+    margin-top: 2px;
     list-style: none;
     padding-inline-start: 0;
     padding: 10px 20px;
@@ -477,4 +496,15 @@ button, input, select, textarea {
 .my_info_box li{
     margin-top: 10px;
     border-bottom: 1px solid lightslategrey;
+}
+
+.info_update_btn{
+    background-color: #bff4ff;
+    border: 1px solid #00d5ff;
+    border-radius: 30px;
+}
+
+.info_update_btn:hover{
+    background-color: darkgray;
+    color:white;
 }

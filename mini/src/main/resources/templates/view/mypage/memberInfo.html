@@ -12,10 +12,12 @@
         </div>
     </div>
     <div class="my_info_box">
-        <div class="my_info_tit">
-            <h2>내 정보</h2>
-            <a th:href="@{/member/update}">
-                <button>정보 변경하기</button>
+        <h2>내 정보</h2>
+
+        <div class="profile_tit">
+            <span><b>프로필 정보</b></span>
+            <a th:href="@{/member/updateprofile}">
+                <button class="info_update_btn">프로필 변경</button>
             </a>
         </div>
         <ul>
@@ -44,6 +46,15 @@
                 </div>
             </li>
         </ul>
+        <div class="security_box">
+            <span><b>보안 설정</b></span>
+            <div class="security_item">
+                <strong>비밀번호</strong>
+                <a th:href="@{/member/updatepassword}">
+                    <button class="info_update_btn">변경</button>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 </body>
