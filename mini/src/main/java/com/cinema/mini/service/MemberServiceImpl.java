@@ -3,6 +3,7 @@ package com.cinema.mini.service;
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
+import com.cinema.mini.dto.ProfileUpdateDto;
 import com.cinema.mini.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -41,6 +43,11 @@ public class MemberServiceImpl implements MemberService{
                 memberRegisterDto.getBirthDay();
         return LocalDate.parse(birthString);
     }
+    private LocalDate getProfileBirth(ProfileUpdateDto profileUpdateDto) {
+        String birthString = profileUpdateDto.getBirthYear() +"-"+ profileUpdateDto.getBirthMonth() +"-"+
+                profileUpdateDto.getBirthDay();
+        return LocalDate.parse(birthString);
+    }
 
     @Override
     public Member memberLogin(LoginDto loginDto) {
@@ -51,5 +58,16 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean isDuplicateMemberId(String userId) {
         return memberRepository.findByLoginId(userId).isPresent();
+    }
+
+    @Override
+    @Transactional
+    public void profileUpdate(long memberId, ProfileUpdateDto profileUpdateDto) {
+        Member member = memberRepository.findById(memberId).get();
+        member.setLoginId(profileUpdateDto.getLoginId());
+        member.setEmail(profileUpdateDto.getEmail());
+        member.setName(profileUpdateDto.getName());
+        member.setBirth(getProfileBirth(profileUpdateDto));
+        memberRepository.save(member);
     }
 }

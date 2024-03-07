@@ -95,8 +95,11 @@ public class MemberController {
     }
 
     @PostMapping("/updateprofile")
-    public String updateProfile(@ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto){
-        log.info("profileUpdateDto={}",profileUpdateDto);
+    public String updateProfile(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
+                                @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
+                                HttpSession session){
+        session.removeAttribute(SessionConst.SESSION_NAME);
+        memberService.profileUpdate(loginMember.getMemberId(),profileUpdateDto);
         return "view/home";
     }
 
