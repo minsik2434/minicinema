@@ -86,18 +86,18 @@ public class MemberController {
     }
 
     @GetMapping("/updateprofile")
-    public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
-                                    Model model){
-        ProfileUpdateDto profileUpdateDto = new ProfileUpdateDto(loginMember.getLoginId(),loginMember.getEmail(),loginMember.getName(),
-                Integer.toString(loginMember.getBirth().getYear()),Integer.toString(loginMember.getBirth().getMonthValue()),Integer.toString(loginMember.getBirth().getDayOfMonth()));
+    public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember, Model model){
+//
+        log.info("member={}", loginMember != null);
+        ProfileUpdateDto profileUpdateDto = new ProfileUpdateDto(loginMember);
         model.addAttribute("profileUpdateDto",profileUpdateDto);
         return "view/updateprofile";
     }
 
     @PostMapping("/updateprofile")
     public String updateProfile(@ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto){
-        log.info("month={}",profileUpdateDto.getBirthMonth());
-        return null;
+        log.info("profileUpdateDto={}",profileUpdateDto);
+        return "view/home";
     }
 
     @GetMapping("/updatepassword")
