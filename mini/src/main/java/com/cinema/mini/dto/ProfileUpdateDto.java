@@ -7,7 +7,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
 public class ProfileUpdateDto {
     @NotBlank
     private String loginId;
@@ -31,6 +31,4 @@ public class ProfileUpdateDto {
         this.birthDay = Integer.toString(member.getBirth().getDayOfMonth());
     }
 
-    public ProfileUpdateDto(){
-    }
 }

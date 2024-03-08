@@ -1,19 +1,16 @@
 package com.cinema.mini.repository;
 
 import com.cinema.mini.domain.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.io.IOException;
-import java.util.Optional;
-
+import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 public class MemberRepositoryTest {
 
     @Autowired
@@ -22,14 +19,29 @@ public class MemberRepositoryTest {
     @Test
     @DisplayName("findById 테스트")
     void findByIdTest(){
-        Optional<Member> member = memberRepository.findById((long) 1);
-        assertThat(member.get().getMemberId()).isEqualTo(1);
+        Member newMember = createTestMember();
+        Member saveMember = memberRepository.save(newMember);
+        Member member = memberRepository.findById((newMember.getMemberId())).get();
+        assertThat(saveMember).isEqualTo(member);
     }
 
     @Test
     @DisplayName("findByLoginId 테스트")
     void findByLoginIdTest(){
-        Optional<Member> optionalLoginMember = memberRepository.findByLoginId("test");
-        assertThat(optionalLoginMember.get().getMemberId()).isEqualTo(1);
+        Member newMember = createTestMember();
+        Member saveMember = memberRepository.save(newMember);
+        Member member = memberRepository.findByLoginId(newMember.getLoginId()).get();
+        assertThat(saveMember).isEqualTo(member);
+    }
+
+    private Member createTestMember() {
+        LocalDate localDate = LocalDate.parse("1999-12-25");
+        return Member.builder()
+                .loginId("test")
+                .password("test!")
+                .email("test@naver.com")
+                .name("테스터")
+                .birth(localDate)
+                .grade("Bronze").build();
     }
 }

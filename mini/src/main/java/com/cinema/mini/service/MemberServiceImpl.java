@@ -9,18 +9,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
-    final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     public static final String BRONZE = "Bronze";
 
     @Override
