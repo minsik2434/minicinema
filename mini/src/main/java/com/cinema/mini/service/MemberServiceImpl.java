@@ -21,7 +21,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public Member memberRegister(MemberRegisterDto memberRegisterDto) {
-
         LocalDate memberBirth = getMemberBirth(memberRegisterDto);
         Member member = Member.builder()
                 .loginId(memberRegisterDto.getLoginId())
@@ -32,18 +31,6 @@ public class MemberServiceImpl implements MemberService{
                 .grade(BRONZE).build();
         return memberRepository.save(member);
     }
-
-    private LocalDate getMemberBirth(MemberRegisterDto memberRegisterDto) {
-        String birthString = memberRegisterDto.getBirthYear() +"-"+ memberRegisterDto.getBirthMonth() +"-"+
-                memberRegisterDto.getBirthDay();
-        return LocalDate.parse(birthString);
-    }
-    private LocalDate getProfileBirth(ProfileUpdateDto profileUpdateDto) {
-        String birthString = profileUpdateDto.getBirthYear() +"-"+ profileUpdateDto.getBirthMonth() +"-"+
-                profileUpdateDto.getBirthDay();
-        return LocalDate.parse(birthString);
-    }
-
     @Override
     public Member memberLogin(LoginDto loginDto) {
         return memberRepository.findByLoginId(loginDto.getLoginId())
@@ -65,4 +52,16 @@ public class MemberServiceImpl implements MemberService{
         member.setBirth(getProfileBirth(profileUpdateDto));
         memberRepository.save(member);
     }
+
+    private LocalDate getMemberBirth(MemberRegisterDto memberRegisterDto) {
+        String birthString = memberRegisterDto.getBirthYear() +"-"+ memberRegisterDto.getBirthMonth() +"-"+
+                memberRegisterDto.getBirthDay();
+        return LocalDate.parse(birthString);
+    }
+    private LocalDate getProfileBirth(ProfileUpdateDto profileUpdateDto) {
+        String birthString = profileUpdateDto.getBirthYear() +"-"+ profileUpdateDto.getBirthMonth() +"-"+
+                profileUpdateDto.getBirthDay();
+        return LocalDate.parse(birthString);
+    }
+
 }

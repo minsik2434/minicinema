@@ -87,8 +87,6 @@ public class MemberController {
 
     @GetMapping("/updateprofile")
     public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember, Model model){
-//
-        log.info("member={}", loginMember != null);
         ProfileUpdateDto profileUpdateDto = new ProfileUpdateDto(loginMember);
         model.addAttribute("profileUpdateDto",profileUpdateDto);
         return "view/updateprofile";
@@ -98,6 +96,7 @@ public class MemberController {
     public String updateProfile(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
                                 @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
                                 HttpSession session){
+        log.info("updateprofile");
         session.removeAttribute(SessionConst.SESSION_NAME);
         memberService.profileUpdate(loginMember.getMemberId(),profileUpdateDto);
         return "view/home";
@@ -107,5 +106,6 @@ public class MemberController {
     public String updatePassword(){
         return "view/updatepassword";
     }
+
 
 }

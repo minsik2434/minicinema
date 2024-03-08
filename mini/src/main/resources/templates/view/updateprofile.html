@@ -8,74 +8,76 @@
 <body>
 <section>
     <div class="join_container">
-        <div class="join_inner">
-            <form th:action method="post" th:object="${profileUpdateDto}">
-                <div>
-                    <h3>
-                        <label for="id">아이디</label>
-                    </h3>
-                    <span class="join_box">
-                        <input type="text" id="id" class="join_int" th:field="*{loginId}" maxlength="20">
-                    </span>
-                </div>
-                <div>
-                    <h3>
-                        <label for="email">이메일</label>
-                    </h3>
-                    <span class="join_box">
-                        <input type="text" id="email" th:field="*{email}" class="join_int" maxlength="20" >
-                    </span>
-                </div>
-                <div>
-                    <h3>
-                        <label for="name">이름</label>
-                    </h3>
-                    <span class="join_box">
-                        <input type="text" id="name" th:field="*{name}" class="join_int" maxlength="20">
-                    </span>
-                </div>
-                <div>
-                    <h3>
-                        <label for="year">생년월일</label>
-                    </h3>
+        <div class="join_content">
+            <div class="join_inner">
+                <form th:action method="post" th:object="${profileUpdateDto}">
+                    <div>
+                        <h3>
+                            <label for="id">아이디</label>
+                        </h3>
+                        <span class="join_box">
+                            <input type="text" id="id" class="join_int" th:field="*{loginId}" maxlength="20">
+                        </span>
+                    </div>
+                    <div>
+                        <h3>
+                            <label for="email">이메일</label>
+                        </h3>
+                        <span class="join_box">
+                            <input type="text" id="email" th:field="*{email}" class="join_int" maxlength="20" >
+                        </span>
+                    </div>
+                    <div>
+                        <h3>
+                            <label for="name">이름</label>
+                        </h3>
+                        <span class="join_box">
+                            <input type="text" id="name" th:field="*{name}" class="join_int" maxlength="20">
+                        </span>
+                    </div>
+                    <div>
+                        <h3>
+                            <label for="year">생년월일</label>
+                        </h3>
 
-                    <div class="join_birth_wrap">
-                        <div class="join_birth_year">
-                            <span class="join_box">
-                                <input type="text" id="year" th:field="*{birthYear}"
-                                       class="join_int" maxlength="4" placeholder="년">
-                            </span>
-                        </div>
+                        <div class="join_birth_wrap">
+                            <div class="join_birth_year">
+                                <span class="join_box">
+                                    <input type="text" id="year" th:field="*{birthYear}"
+                                           class="join_int" maxlength="4" placeholder="년">
+                                </span>
+                            </div>
 
-                        <div class="join_birth_month">
-                            <span class="join_box">
-                                <select th:field="*{birthMonth}">
-                                    <option value="" th:disabled selected>월</option>
-                                    <option th:each="month : ${#numbers.sequence(1, 12)}"
-                                            th:selected="${(month - 1) == profileUpdateDto.getBirthMonth()}" th:value="${month}"
-                                            th:text="${month}"></option>
-                                </select>
-                            </span>
-                        </div>
+                            <div class="join_birth_month">
+                                <span class="join_box">
+                                    <select th:field="*{birthMonth}">
+                                        <option value="" th:disabled selected>월</option>
+                                        <option th:each="month : ${#numbers.sequence(1, 12)}"
+                                                th:selected="${(month - 1) == profileUpdateDto.getBirthMonth()}" th:value="${month}"
+                                                th:text="${month}"></option>
+                                    </select>
+                                </span>
+                            </div>
 
-                        <div class="join_birth_day">
-                            <span class="join_box">
-                                <select th:field="*{birthDay}">
-                                    <option value="" th:disabled th:selected>일</option>
-                                    <option th:each="day : ${#numbers.sequence(1, 31)}"
-                                            th:selected="${day == profileUpdateDto.getBirthDay()}"
-                                            th:value="${day}" th:text="${day}"></option>
-                                </select>
-                            </span>
+                            <div class="join_birth_day">
+                                <span class="join_box">
+                                    <select th:field="*{birthDay}">
+                                        <option value="" th:disabled th:selected>일</option>
+                                        <option th:each="day : ${#numbers.sequence(1, 31)}"
+                                                th:selected="${day == profileUpdateDto.getBirthDay()}"
+                                                th:value="${day}" th:text="${day}"></option>
+                                    </select>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="join_btn_wrap">
-                    <button type="submit" id="btnJoin" class="btn_login">
-                        <span>변경하기</span>
-                    </button>
-                </div>
-            </form>
+                    <div class="join_btn_wrap">
+                        <button type="submit" id="btnJoin" class="btn_login">
+                            <span>변경하기</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
