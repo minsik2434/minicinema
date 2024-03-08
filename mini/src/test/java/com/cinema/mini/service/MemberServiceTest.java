@@ -35,18 +35,19 @@ public class MemberServiceTest {
     @Test
     @DisplayName("회원 저장 테스트")
     void memberRegisterTest(){
-        MemberRegisterDto memberRegisterDto = new MemberRegisterDto();
-        memberRegisterDto.setLoginId("test");
-        memberRegisterDto.setPassword("test!");
-        memberRegisterDto.setRePassword("test!");
-        memberRegisterDto.setEmail("test@naver.com");
-        memberRegisterDto.setName("최민식");
-        memberRegisterDto.setBirthYear("1999");
-        memberRegisterDto.setBirthMonth("12");
-        memberRegisterDto.setBirthDay("25");
-        memberService.memberRegister(memberRegisterDto);
-        Optional<Member> registerMember = memberRepository.findByLoginId("test123");
-        assertThat(registerMember).isPresent();
+        MemberRegisterDto memberRegisterDto = new MemberRegisterDto(
+                "test",
+                "test!",
+                "test!",
+                "test@naver.com",
+                "최민식",
+                "1999",
+                "12",
+                "25"
+        );
+        Member registerMember = memberService.memberRegister(memberRegisterDto);
+        Member findMember = memberRepository.findByLoginId("test").get();
+        assertThat(registerMember).isEqualTo(findMember);
     }
     @Test
     @DisplayName("중복 아이디 체크 테스트")

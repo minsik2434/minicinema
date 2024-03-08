@@ -4,13 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class MemberRegisterDto {
     @NotBlank
     private String loginId;

@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public void memberRegister(MemberRegisterDto memberRegisterDto) {
+    public Member memberRegister(MemberRegisterDto memberRegisterDto) {
 
         LocalDate memberBirth = getMemberBirth(memberRegisterDto);
         Member member = Member.builder()
@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService{
                 .name(memberRegisterDto.getName())
                 .birth(memberBirth)
                 .grade(BRONZE).build();
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
     private LocalDate getMemberBirth(MemberRegisterDto memberRegisterDto) {

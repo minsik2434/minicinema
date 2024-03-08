@@ -7,7 +7,7 @@ import com.cinema.mini.dto.ProfileUpdateDto;
 
 public interface MemberService {
 
-    void memberRegister(MemberRegisterDto memberRegisterDto);
+    Member memberRegister(MemberRegisterDto memberRegisterDto);
     Member memberLogin(LoginDto loginDto);
     boolean isDuplicateMemberId(String userId);
     void profileUpdate(long memberId, ProfileUpdateDto profileUpdateDto);
