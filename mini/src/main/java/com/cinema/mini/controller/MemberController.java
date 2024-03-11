@@ -4,6 +4,7 @@ import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
 import com.cinema.mini.dto.ProfileUpdateDto;
+import com.cinema.mini.dto.PasswordUpdateDto;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -94,17 +95,27 @@ public class MemberController {
 
     @PostMapping("/updateprofile")
     public String updateProfile(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
-                                @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
+                                @Validated @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
+                                BindingResult bindingResult,
                                 HttpSession session){
-        log.info("updateprofile");
+
+        if(bindingResult.hasErrors()){
+            return "view/updateprofile";
+        }
         session.removeAttribute(SessionConst.SESSION_NAME);
         memberService.profileUpdate(loginMember.getMemberId(),profileUpdateDto);
         return "view/home";
     }
 
     @GetMapping("/updatepassword")
-    public String updatePassword(){
+    public String updatePasswordForm(@ModelAttribute("passwordUpdateDto") PasswordUpdateDto passwordUpdateDto){
         return "view/updatepassword";
+    }
+
+    @PostMapping("/updatepassword")
+    public String updatePassword(){
+        //TODO 패스워드 업데이트 구현
+        return null;
     }
 
 

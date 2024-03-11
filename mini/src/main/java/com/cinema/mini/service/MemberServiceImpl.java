@@ -3,6 +3,7 @@ package com.cinema.mini.service;
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
+import com.cinema.mini.dto.PasswordUpdateDto;
 import com.cinema.mini.dto.ProfileUpdateDto;
 import com.cinema.mini.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,14 @@ public class MemberServiceImpl implements MemberService{
         member.setEmail(profileUpdateDto.getEmail());
         member.setName(profileUpdateDto.getName());
         member.setBirth(getProfileBirth(profileUpdateDto));
+        memberRepository.save(member);
+    }
+
+    @Override
+    @Transactional
+    public void passwordUpdate(long memberId, String password) {
+        Member member = memberRepository.findById(memberId).get();
+        member.setPassword(password);
         memberRepository.save(member);
     }
 

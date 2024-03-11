@@ -18,6 +18,7 @@
                         <span class="join_box">
                             <input type="text" id="id" class="join_int" th:field="*{loginId}" maxlength="20">
                         </span>
+                        <span><strong th:errors="*{loginId}"></strong></span>
                     </div>
                     <div>
                         <h3>
@@ -26,6 +27,7 @@
                         <span class="join_box">
                             <input type="text" id="email" th:field="*{email}" class="join_int" maxlength="20" >
                         </span>
+                        <span><strong th:errors="*{email}"></strong></span>
                     </div>
                     <div>
                         <h3>
@@ -34,6 +36,7 @@
                         <span class="join_box">
                             <input type="text" id="name" th:field="*{name}" class="join_int" maxlength="20">
                         </span>
+                        <span><strong th:errors="*{name}"></strong></span>
                     </div>
                     <div>
                         <h3>
