@@ -59,19 +59,30 @@ button, input, select, textarea {
     display: flex;
     gap: 30px;
     text-align: center;
-    align-items: center;
+}
+
+.movieChartBox{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    /*width: 20%; !* 각 영화 상자의 너비를 설정 *!*/
+    overflow: hidden; /* 내용이 박스를 초과할 경우 숨김 처리 */
+}
+
+.content_image{
+    width: 100%; /* 이미지 너비를 박스에 맞춰 조정 */
+    height: 100%; /* 이미지의 원래 비율을 유지하면서 높이 조정 */
+}
+
+.movieTitle, .movieChartBox span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%; /* 텍스트가 박스 너비를 초과하지 않도록 설정 */
 }
 .category{
     padding-bottom: 50px;
-
-}
-.category_logo{
-    /*padding-left: 140px;*/
-    /*padding-bottom: 10px;*/
-}
-.content_image{
-    width: 170px;
-    height: 234px;
+    width: 1000px;
 }
 
 .footer-list {

@@ -23,14 +23,10 @@
                     <h2>최신 상영작</h2>
                 </div>
                 <div class="movieChart">
-                    <div th:each="movie : ${lastestMovieDtos}">
-                        <div>
-                            <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
-                        </div>
-                        <div>
-                            <strong th:text="${movie.getTitle()}"></strong></br>
-                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
-                        </div>
+                    <div class="movieChartBox" th:each="movie : ${lastestMovieDtos}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
+                        <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                        <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                     </div>
                 </div>
             </div>
@@ -40,14 +36,10 @@
                 </div>
                 <div class="movieChart">
                     <!--영화 포스터 + 제목 + 평점 + 예매-->
-                    <div th:each="movie : ${popularMovieDtos}">
-                        <div>
-                            <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
-                        </div>
-                        <div>
-                            <strong th:text="${movie.getTitle()}"></strong></br>
-                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
-                        </div>
+                    <div class="movieChartBox" th:each="movie : ${popularMovieDtos}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
+                        <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                        <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                     </div>
                 </div>
             </div>
