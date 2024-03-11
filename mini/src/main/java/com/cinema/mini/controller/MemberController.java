@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Objects;
 
@@ -97,14 +98,16 @@ public class MemberController {
     public String updateProfile(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember,
                                 @Validated @ModelAttribute("profileUpdateDto") ProfileUpdateDto profileUpdateDto,
                                 BindingResult bindingResult,
-                                HttpSession session){
+                                HttpSession session,
+                                RedirectAttributes attributes){
 
         if(bindingResult.hasErrors()){
             return "view/updateprofile";
         }
         session.removeAttribute(SessionConst.SESSION_NAME);
         memberService.profileUpdate(loginMember.getMemberId(),profileUpdateDto);
-        return "view/home";
+        attributes.addAttribute("re_login", true);
+        return "redirect:/";
     }
 
     @GetMapping("/updatepassword")
@@ -115,7 +118,8 @@ public class MemberController {
     @PostMapping("/updatepassword")
     public String updatePassword(@SessionAttribute(SessionConst.SESSION_NAME)Member loginMember,
                                  @Validated @ModelAttribute PasswordUpdateDto passwordUpdateDto,
-                                 BindingResult bindingResult , HttpSession session){
+                                 BindingResult bindingResult , HttpSession session,
+                                 RedirectAttributes attributes){
         if(bindingResult.hasErrors()){
             return "view/updatepassword";
         }
@@ -133,8 +137,7 @@ public class MemberController {
         }
         memberService.passwordUpdate(loginMember.getMemberId(), passwordUpdateDto.getNewPassword());
         session.removeAttribute(SessionConst.SESSION_NAME);
-        return "view/home";
+        attributes.addAttribute("re_login", true);
+        return "redirect:/";
     }
-
-
 }

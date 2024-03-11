@@ -5,65 +5,31 @@
 </head>
 <body>
     <section class="root">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            // 이 함수는 페이지 로드 시 실행됩니다.
+            document.addEventListener('DOMContentLoaded', function() {
+                // URL에 'loggedIn' 파라미터가 있을 경우에만 메시지를 표시합니다.
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('re_login')) {
+                    alert('다시 로그인 해주세요.');
+                }
+            });
+            /*]]>*/
+        </script>
         <div class="content_wrap">
             <div class="category">
                 <div class="category_logo">
                     <h2>최신 상영작</h2>
                 </div>
                 <div class="movieChart">
-                    <!--영화 포스터 + 제목 + 평점 + 예매-->
-                    <div>
+                    <div th:each="movie : ${lastestMovieDtos}">
                         <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
+                            <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
                         </div>
                         <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
+                            <strong th:text="${movie.getTitle()}"></strong></br>
+                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                         </div>
                     </div>
                 </div>
@@ -74,58 +40,13 @@
                 </div>
                 <div class="movieChart">
                     <!--영화 포스터 + 제목 + 평점 + 예매-->
-                    <div >
+                    <div th:each="movie : ${popularMovieDtos}">
                         <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
+                            <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
                         </div>
                         <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
-                        </div>
-                    </div>
-
-                    <div >
-                        <div>
-                            <img class="content_image" th:src="@{/image/test.jpeg}" alt="파묘">
-                        </div>
-                        <div>
-                            <strong>파묘</strong></br>
-                            <span>94%</span>
-                            <span>예매율 40.9%</span>
+                            <strong th:text="${movie.getTitle()}"></strong></br>
+                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                         </div>
                     </div>
                 </div>

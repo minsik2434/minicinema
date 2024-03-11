@@ -14,18 +14,18 @@ import java.util.Date;
 @Builder
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column
     private long memberId;
-    @Column(name ="login_id")
+    @Column
     private String loginId;
-    @Column(name ="password")
+    @Column
     private String password;
-    @Column(name ="email")
+    @Column
     private String email;
-    @Column(name="name")
+    @Column
     private String name;
-    @Column(name="birth")
+    @Column
     private LocalDate birth;
-    @Column(name="grade")
+    @Column
     private String grade;
 }
