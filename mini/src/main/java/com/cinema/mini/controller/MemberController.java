@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Controller
 @RequestMapping(value = "/member")
 @RequiredArgsConstructor
@@ -35,8 +37,6 @@ public class MemberController {
     public String login(@Validated @ModelAttribute LoginDto loginDto, BindingResult bindingResult, Model model,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){
-        log.info("loginId={}",loginDto.getLoginId());
-        log.info("password={}",loginDto.getPassword());
         if(bindingResult.hasErrors()){
             return "view/login";
         }
@@ -113,9 +113,27 @@ public class MemberController {
     }
 
     @PostMapping("/updatepassword")
-    public String updatePassword(){
-        //TODO 패스워드 업데이트 구현
-        return null;
+    public String updatePassword(@SessionAttribute(SessionConst.SESSION_NAME)Member loginMember,
+                                 @Validated @ModelAttribute PasswordUpdateDto passwordUpdateDto,
+                                 BindingResult bindingResult , HttpSession session){
+        if(bindingResult.hasErrors()){
+            return "view/updatepassword";
+        }
+        if(!loginMember.getPassword().equals(passwordUpdateDto.getCurPassword())){
+            bindingResult.rejectValue("curPassword","NotMatchedPassword");
+            return "view/updatepassword";
+        }
+        if(!passwordUpdateDto.getNewPassword().equals(passwordUpdateDto.getReNewPassword())){
+            bindingResult.reject("NotMatchPasswordAndRepassword");
+            return "view/updatepassword";
+        }
+        if(passwordUpdateDto.getNewPassword().equals(passwordUpdateDto.getCurPassword())){
+            bindingResult.reject("samePassword");
+            return "view/updatepassword";
+        }
+        memberService.passwordUpdate(loginMember.getMemberId(), passwordUpdateDto.getNewPassword());
+        session.removeAttribute(SessionConst.SESSION_NAME);
+        return "view/home";
     }
 
 
