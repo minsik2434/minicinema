@@ -1,20 +1,18 @@
 package com.cinema.mini.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
     @Id
     private String movieId;
@@ -31,7 +29,7 @@ public class Movie {
     @Column
     private double grade;
 
-    public Movie() {
+    @OneToMany(mappedBy = "movie",  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MovieGenre> movieGenres;
 
-    }
 }
