@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HomeMovieListDto {
+public class MovieListDto {
     private String title;
     private String posterPath;
     private double grade;
 
-    public HomeMovieListDto(Movie movie){
+    public MovieListDto(Movie movie){
         this.title = movie.getTitle();
         this.posterPath = movie.getPosterPath();
         this.grade = movie.getGrade();

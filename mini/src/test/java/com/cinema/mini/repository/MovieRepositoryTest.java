@@ -1,25 +1,31 @@
 package com.cinema.mini.repository;
 
+import com.cinema.mini.domain.Genre;
 import com.cinema.mini.domain.Movie;
-import com.cinema.mini.dto.HomeMovieListDto;
+import com.cinema.mini.domain.MovieGenre;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.PATH;
 
 @SpringBootTest
 @Slf4j
+@Transactional
 public class MovieRepositoryTest {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    GenreRepository genreRepository;
 
     @Test
     void findLastestMovieList(){
@@ -50,6 +56,18 @@ public class MovieRepositoryTest {
         for (Movie movie : list) {
             assertThat(movie.getTitle()).isEqualTo(titles.get(idx++));
         }
+    }
+
+    @Test
+    void findRomanceMovieList(){
+        Pageable pageable = PageRequest.of(0,5);
+        List<Movie> list = movieRepository.findByMovieGenres_Genre_GenreName("로맨스", pageable);
+        Genre genre = genreRepository.findByGenreName("로맨스").orElseThrow();
+        list.forEach(movie -> {
+            boolean containsRomance = movie.getMovieGenres().stream()
+                    .anyMatch(movieGenre -> movieGenre.getGenre().equals(genre));
+            assertThat(containsRomance).isTrue();
+        });
     }
 
 }

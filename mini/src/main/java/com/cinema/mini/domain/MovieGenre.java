@@ -22,5 +22,4 @@ public class MovieGenre {
     @JoinColumn(name = "genre_id", insertable = false, updatable = false)
     private Genre genre;
 
-
 }

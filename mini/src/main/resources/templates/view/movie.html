@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mini 시네마</title>
+</head>
+<body>
+<section>
+    <div class="content_wrap">
+        <div class="category">
+            <div class="category_logo">
+                <h2>로맨스 영화</h2>
+            </div>
+            <div class="movieChart">
+                <div class="movieChartBox" th:each="movie : ${romanceMovieDtos}">
+                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
+                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="category_logo">
+                <h2>액션 영화</h2>
+            </div>
+            <div class="movieChart">
+                <!--영화 포스터 + 제목 + 평점 + 예매-->
+                <div class="movieChartBox" th:each="movie : ${actionMovieDtos}">
+                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
+                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="category_logo">
+                <h2>애니메이션 영화</h2>
+            </div>
+            <div class="movieChart">
+                <!--영화 포스터 + 제목 + 평점 + 예매-->
+                <div class="movieChartBox" th:each="movie : ${animationMovieDtos}">
+                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
+                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="category_logo">
+                <h2>판타지 영화</h2>
+            </div>
+            <div class="movieChart">
+                <!--영화 포스터 + 제목 + 평점 + 예매-->
+                <div class="movieChartBox" th:each="movie : ${fantasyMovieDtos}">
+                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
+                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
+                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,10 +1,13 @@
 package com.cinema.mini.service;
 
-import com.cinema.mini.dto.HomeMovieListDto;
+import com.cinema.mini.dto.MovieListDto;
 
 import java.util.List;
 
 public interface TheaterService {
-    List<HomeMovieListDto> lastestMovieList();
-    List<HomeMovieListDto> popularMovieList();
+    List<MovieListDto> lastestMovieList();
+    List<MovieListDto> popularMovieList();
+
+    List<MovieListDto> genreByMovieList(String genreName);
+//    List<>
 }
