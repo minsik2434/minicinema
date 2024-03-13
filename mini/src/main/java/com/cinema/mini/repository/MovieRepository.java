@@ -16,6 +16,4 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     List<Movie> findByMovieGenres_Genre_GenreName(String genreName, Pageable pageable);
 
-//    @Query("select m from Movie m where m.movieGenres.get")
-//    List<Movie> findRomanceMovieList();
 }

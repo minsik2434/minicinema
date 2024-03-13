@@ -18,8 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Objects;
-
 @Controller
 @RequestMapping(value = "/member")
 @RequiredArgsConstructor
@@ -31,7 +29,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto")LoginDto loginDto){
-        return "view/login";
+        return "view/memberManagement/login";
     }
 
     @PostMapping("/login")
@@ -39,12 +37,12 @@ public class MemberController {
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){
         if(bindingResult.hasErrors()){
-            return "view/login";
+            return "view/memberManagement/login";
         }
         Member loginMember = memberService.memberLogin(loginDto);
         if(loginMember == null){
             bindingResult.reject("loginFail");
-            return "view/login";
+            return "view/memberManagement/login";
         }
         model.addAttribute("loginMember",loginMember);
         HttpSession session = request.getSession();
@@ -64,23 +62,23 @@ public class MemberController {
 
     @GetMapping("/join")
     public String joinForm(@ModelAttribute("memberRegisterDto") MemberRegisterDto memberRegisterDto){
-        return "view/join";
+        return "view/memberManagement/join";
     }
 
     @PostMapping("/join")
     public String memberRegister(@Validated @ModelAttribute MemberRegisterDto memberRegisterDto,
                                BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "view/join";
+            return "view/memberManagement/join";
         }
         if(memberService.isDuplicateMemberId(memberRegisterDto.getLoginId())){
             bindingResult.rejectValue("loginId",  "DuplicateMemberLoginId");
             log.info("bindingResult={}",bindingResult);
-            return "view/join";
+            return "view/memberManagement/join";
         }
         if(!memberRegisterDto.getPassword().equals(memberRegisterDto.getRePassword())){
             bindingResult.rejectValue("rePassword","NotMatchPasswordAndRepassword");
-            return "view/join";
+            return "view/memberManagement/join";
         }
 
         memberService.memberRegister(memberRegisterDto);
@@ -91,7 +89,7 @@ public class MemberController {
     public String updateProfileForm(@SessionAttribute(name = SessionConst.SESSION_NAME)Member loginMember, Model model){
         ProfileUpdateDto profileUpdateDto = new ProfileUpdateDto(loginMember);
         model.addAttribute("profileUpdateDto",profileUpdateDto);
-        return "view/updateprofile";
+        return "view/memberManagement/updateprofile";
     }
 
     @PostMapping("/updateprofile")
@@ -102,7 +100,7 @@ public class MemberController {
                                 RedirectAttributes attributes){
 
         if(bindingResult.hasErrors()){
-            return "view/updateprofile";
+            return "view/memberManagement/updateprofile";
         }
         session.removeAttribute(SessionConst.SESSION_NAME);
         memberService.profileUpdate(loginMember.getMemberId(),profileUpdateDto);
@@ -112,7 +110,7 @@ public class MemberController {
 
     @GetMapping("/updatepassword")
     public String updatePasswordForm(@ModelAttribute("passwordUpdateDto") PasswordUpdateDto passwordUpdateDto){
-        return "view/updatepassword";
+        return "view/memberManagement/updatepassword";
     }
 
     @PostMapping("/updatepassword")
@@ -121,19 +119,19 @@ public class MemberController {
                                  BindingResult bindingResult , HttpSession session,
                                  RedirectAttributes attributes){
         if(bindingResult.hasErrors()){
-            return "view/updatepassword";
+            return "view/memberManagement/updatepassword";
         }
         if(!loginMember.getPassword().equals(passwordUpdateDto.getCurPassword())){
             bindingResult.rejectValue("curPassword","NotMatchedPassword");
-            return "view/updatepassword";
+            return "view/memberManagement/updatepassword";
         }
         if(!passwordUpdateDto.getNewPassword().equals(passwordUpdateDto.getReNewPassword())){
             bindingResult.reject("NotMatchPasswordAndRepassword");
-            return "view/updatepassword";
+            return "view/memberManagement/updatepassword";
         }
         if(passwordUpdateDto.getNewPassword().equals(passwordUpdateDto.getCurPassword())){
             bindingResult.reject("samePassword");
-            return "view/updatepassword";
+            return "view/memberManagement/updatepassword";
         }
         memberService.passwordUpdate(loginMember.getMemberId(), passwordUpdateDto.getNewPassword());
         session.removeAttribute(SessionConst.SESSION_NAME);

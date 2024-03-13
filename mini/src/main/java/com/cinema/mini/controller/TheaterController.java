@@ -23,7 +23,7 @@ public class TheaterController {
         List<MovieListDto> popularMovieDtos = theaterService.popularMovieList();
         model.addAttribute("lastestMovieDtos", lastestMovieDtos);
         model.addAttribute("popularMovieDtos", popularMovieDtos);
-        return "view/home";
+        return "home";
     }
 
     @GetMapping("membership")
@@ -43,5 +43,10 @@ public class TheaterController {
         model.addAttribute("animationMovieDtos",animationMovieDtos);
         model.addAttribute("fantasyMovieDtos",fantasyMovieDtos);
         return "view/movie";
+    }
+
+    @GetMapping("search")
+    public String search(){
+        return "view/search";
     }
 }

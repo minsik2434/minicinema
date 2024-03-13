@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mini 시네마</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/cinema.css">
+</head>
+<body>
+<section>
+    <div class="search_container">
+        <div>
+            <label class="search_box" for="search_input">
+                <input type="text" id="search_input" class="search_int" placeholder="제목을 입력해주세요">
+                <button type="button" class="search_btn">
+                </button>
+            </label>
+        </div>
+        <div class="search_list">
+            <ul>
+                <li>
+                    <div class="search_movieBox">
+                        <img>
+                        <strong></strong>
+                        <span></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+</body>
+</html>
