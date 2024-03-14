@@ -45,8 +45,4 @@ public class TheaterController {
         return "view/movie";
     }
 
-    @GetMapping("search")
-    public String search(){
-        return "view/search";
-    }
 }
