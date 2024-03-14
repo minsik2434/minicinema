@@ -12,5 +12,4 @@ public class MovieController {
         return "view/search";
     }
 
-
 }
