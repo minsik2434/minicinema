@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
+    //movieController
     @GetMapping("/search")
     public String search(){
         return "view/search";
