@@ -601,10 +601,27 @@ button, input, select, textarea {
     margin-top: 50px;
 }
 
-.search_list ul{
+.search_ul{
+    list-style: none;
     display: flex;
+    padding-left: 0;
+    gap: 55px;
+    flex-wrap: wrap;
+    min-width: 1000px; /* ul의 최대 너비를 설정 */
+    width: 100%;
+
 }
 
-.search_movieBox{
+.search_ul li{
+    width: 260px;
+    margin-bottom: 40px;
+}
 
+.search_movieBox_img{
+    width: 260px;
+    height: 371px;
+}
+
+.search_title_box{
+    text-align: center;
 }

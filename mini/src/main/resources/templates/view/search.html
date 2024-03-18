@@ -15,12 +15,14 @@
             </label>
         </div>
         <div class="search_list">
-            <ul>
+            <ul class="search_ul">
                 <li>
-                    <div class="search_movieBox">
-                        <img>
-                        <strong></strong>
-                        <span></span>
+                    <div>
+                        <img class="search_movieBox_img" th:src="@{/image/test.jpeg}" alt="test">
+                        <div class="search_title_box">
+                            <strong class="movieTitle" th:text="test"></strong><br>
+                            <span>평점 : <a th:text="0.0"></a></span>
+                        </div>
                     </div>
                 </li>
             </ul>
