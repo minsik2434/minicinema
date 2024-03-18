@@ -70,5 +70,17 @@ public class MovieRepositoryTest {
         });
     }
 
+    @Test
+    void findByTitleIsLikeTest(){
+        List<Movie> list = movieRepository.findByTitleContaining("가");
+        List<String> nameList = new ArrayList<>();
+        nameList.add("가여운 것들");
+        nameList.add("아가일");
+        list.forEach(movie -> {
+            boolean containMovie = nameList.contains(movie.getTitle());
+            assertThat(containMovie).isTrue();
+        });
+    }
+
 }
 

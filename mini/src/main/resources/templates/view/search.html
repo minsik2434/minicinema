@@ -7,25 +7,27 @@
 <body>
 <section>
     <div class="search_container">
-        <div>
-            <label class="search_box" for="search_input">
-                <input type="text" id="search_input" class="search_int" placeholder="제목을 입력해주세요">
-                <button type="button" class="search_btn">
-                </button>
-            </label>
-        </div>
-        <div class="search_list">
-            <ul class="search_ul">
-                <li>
+        <form th:action="@{/movie/search}" method="get">
+            <div class="search_box">
+                <input type="text" name="title" class="search_int" placeholder="제목을 입력해주세요">
+                <button type="submit" class="search_btn"></button>
+            </div>
+        </form>
+        <div class="search_list" th:if="${searchMovieList!=null}">
+            <ul class="search_ul" th:if="${searchMovieList.size()>0}">
+                <li th:each="movie : ${searchMovieList}">
                     <div>
-                        <img class="search_movieBox_img" th:src="@{/image/test.jpeg}" alt="test">
+                        <img class="search_movieBox_img" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" alt="test">
                         <div class="search_title_box">
-                            <strong class="movieTitle" th:text="test"></strong><br>
-                            <span>평점 : <a th:text="0.0"></a></span>
+                            <strong class="movieTitle" th:text="${movie.getTitle()}"></strong><br>
+                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                         </div>
                     </div>
                 </li>
             </ul>
+            <div th:if="${searchMovieList.size()==0}">
+                검색 결과가 없습니다
+            </div>
         </div>
     </div>
 </section>
