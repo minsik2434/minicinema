@@ -10,7 +10,7 @@
             // 이 함수는 페이지 로드 시 실행됩니다.
             document.addEventListener('DOMContentLoaded', function() {
                 // URL에 'loggedIn' 파라미터가 있을 경우에만 메시지를 표시합니다.
-                var urlParams = new URLSearchParams(window.location.search);
+                const urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('re_login')) {
                     alert('다시 로그인 해주세요.');
                 }
@@ -24,7 +24,7 @@
                 </div>
                 <div class="movieChart">
                     <div class="movieChartBox" th:each="movie : ${lastestMovieDtos}">
-                        <a th:href="@{/movie/detail(title=${movie.getTitle()})}">
+                        <a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}">
                             <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
                         </a>
                         <strong class="movieTitle"><a th:href="@{/movie/detail(title=${movie.getTitle()})}" th:text="${movie.getTitle()}"></a></strong><br>
@@ -37,9 +37,8 @@
                     <h2>인기 TOP 상영작</h2>
                 </div>
                 <div class="movieChart">
-                    <!--영화 포스터 + 제목 + 평점 + 예매-->
                     <div class="movieChartBox" th:each="movie : ${popularMovieDtos}">
-                        <a th:href="@{/movie/detail(title=${movie.getTitle()})}">
+                        <a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}">
                             <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
                         </a>
                         <strong class="movieTitle"><a th:href="@{/movie/detail(title=${movie.getTitle()})}" th:text="${movie.getTitle()}"></a></strong><br>

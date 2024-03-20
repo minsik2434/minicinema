@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,32 +30,36 @@ public class MovieRepositoryTest {
 
     @Test
     void findLastestMovieList(){
-        List<Movie> list = movieRepository.findLastestMovieList();
-        List<String> titles = new ArrayList<>();
-        titles.add("쿵푸팬더 4");
-        titles.add("Megamind vs. the Doom Syndicate");
-        titles.add("듄: 파트 2");
-        titles.add("코드 8: 파트 2");
-        titles.add("우주인");
-        int idx = 0;
-        for (Movie movie : list) {
-            assertThat(movie.getTitle()).isEqualTo(titles.get(idx++));
-            log.info(movie.getTitle());
+        List<Movie> createMovieList = new ArrayList<>();
+        createMovieList.add(createTestMovie("test01","테스트1", "2024-03-01",4.5));
+        createMovieList.add(createTestMovie("test02","테스트2", "2024-03-02",4.5));
+        createMovieList.add(createTestMovie("test03","테스트3", "2024-03-03",4.5));
+        createMovieList.add(createTestMovie("test04","테스트4", "2024-03-04",4.5));
+        createMovieList.add(createTestMovie("test05","테스트5", "2024-03-05",4.5));
+        movieRepository.saveAll(createMovieList);
+        List<Movie> lastestMovieList = movieRepository.findLastestMovieList();
+
+        assertThat(lastestMovieList).hasSize(5);
+        for (int i = 0; i < lastestMovieList.size(); i++) {
+            assertThat(lastestMovieList.get(i).getMovieId())
+                    .isEqualTo(createMovieList.get(createMovieList.size() - 1 - i).getMovieId());
         }
     }
 
     @Test
     void findPopularMovieList(){
-        List<Movie> list = movieRepository.findPopularMovieList();
-        List<String> titles = new ArrayList<>();
-        titles.add("듄: 파트 2");
-        titles.add("가여운 것들");
-        titles.add("듄");
-        titles.add("인투 더 월드");
-        titles.add("비키퍼");
-        int idx = 0;
-        for (Movie movie : list) {
-            assertThat(movie.getTitle()).isEqualTo(titles.get(idx++));
+        List<Movie> createMovieList = new ArrayList<>();
+        createMovieList.add(createTestMovie("test01","테스트1", "2024-03-01",1.5));
+        createMovieList.add(createTestMovie("test02","테스트2", "2024-03-02",2.5));
+        createMovieList.add(createTestMovie("test03","테스트3", "2024-03-03",3.5));
+        createMovieList.add(createTestMovie("test04","테스트4", "2024-03-04",4.5));
+        createMovieList.add(createTestMovie("test05","테스트5", "2024-03-05",5.0));
+        movieRepository.saveAll(createMovieList);
+        List<Movie> popularMovieList = movieRepository.findPopularMovieList();
+        assertThat(popularMovieList).hasSize(5);
+        for (int i = 0; i < popularMovieList.size(); i++) {
+            assertThat(popularMovieList.get(i).getMovieId())
+                    .isEqualTo(createMovieList.get(createMovieList.size() - 1 - i).getMovieId());
         }
     }
 
@@ -82,5 +87,15 @@ public class MovieRepositoryTest {
         });
     }
 
+    private Movie createTestMovie(String movieId, String movieTitle, String localDate, double grade) {
+        return Movie.builder()
+                .movieId(movieId)
+                .title(movieTitle)
+                .adult(true)
+                .posterPath("testPosterPath")
+                .releaseDate(LocalDate.parse(localDate))
+                .overview("테스트 영화")
+                .grade(grade).build();
+    }
 }
 

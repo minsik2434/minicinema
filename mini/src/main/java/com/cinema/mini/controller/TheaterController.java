@@ -1,7 +1,7 @@
 package com.cinema.mini.controller;
 
-import com.cinema.mini.dto.MovieListDto;
-import com.cinema.mini.service.TheaterService;
+import com.cinema.mini.dto.MovieDto;
+import com.cinema.mini.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TheaterController {
 
-    final TheaterService theaterService;
+    private final MovieService movieService;
 
     @GetMapping
     public String home(Model model){
-        List<MovieListDto> lastestMovieDtos = theaterService.lastestMovieList();
-        List<MovieListDto> popularMovieDtos = theaterService.popularMovieList();
+        List<MovieDto> lastestMovieDtos = movieService.lastestMovieList();
+        List<MovieDto> popularMovieDtos = movieService.popularMovieList();
         model.addAttribute("lastestMovieDtos", lastestMovieDtos);
         model.addAttribute("popularMovieDtos", popularMovieDtos);
         return "home";
@@ -34,10 +34,10 @@ public class TheaterController {
 
     @GetMapping("movie")
     public String movie(Model model){
-        List<MovieListDto> romanceMovieDtos = theaterService.genreByMovieList("로맨스");
-        List<MovieListDto> actionMovieDtos = theaterService.genreByMovieList("액션");
-        List<MovieListDto> animationMovieDtos = theaterService.genreByMovieList("애니메이션");
-        List<MovieListDto> fantasyMovieDtos = theaterService.genreByMovieList("판타지");
+        List<MovieDto> romanceMovieDtos = movieService.genreByMovieList("로맨스");
+        List<MovieDto> actionMovieDtos = movieService.genreByMovieList("액션");
+        List<MovieDto> animationMovieDtos = movieService.genreByMovieList("애니메이션");
+        List<MovieDto> fantasyMovieDtos = movieService.genreByMovieList("판타지");
         model.addAttribute("romanceMovieDtos", romanceMovieDtos);
         model.addAttribute("actionMovieDtos", actionMovieDtos);
         model.addAttribute("animationMovieDtos",animationMovieDtos);
