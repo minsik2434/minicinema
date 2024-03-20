@@ -69,8 +69,8 @@ button, input, select, textarea {
 }
 
 .content_image{
-    width: 100%;
-    height: 100%;
+    width: 176px;
+    height: 269px;
 }
 
 .movieTitle, .movieChartBox span{
@@ -79,6 +79,12 @@ button, input, select, textarea {
     text-overflow: ellipsis;
     width: 100%; /* 텍스트가 박스 너비를 초과하지 않도록 설정 */
 }
+
+.movieTitle a{
+    text-decoration: none;
+    color: black;
+}
+
 .category{
     padding-bottom: 50px;
     width: 1000px;
@@ -102,9 +108,6 @@ button, input, select, textarea {
     min-width: 800px;
     margin-top: 100px;
     margin-left: 50px;
-}
-.root{
-    /*width: 1300px;*/
 }
 .content_wrap{
     display: flex;
@@ -624,4 +627,37 @@ button, input, select, textarea {
 
 .search_title_box{
     text-align: center;
+}
+
+.detail_image{
+    width: 200px;
+    height: 300px;
+    margin-right: 50px;
+}
+
+.detail_container{
+    padding-top:50px;
+    display: flex;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.detail_info_box{
+    width: 500px;
+}
+
+.detail_title strong{
+    font-size: 30px;
+}
+
+.detail_grade{
+    margin-top: 25px;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+
+.detail_info{
+    display: flex;
+    flex-direction: column;
+    padding-top: 18px;
 }

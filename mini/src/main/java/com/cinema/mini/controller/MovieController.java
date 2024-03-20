@@ -28,4 +28,13 @@ public class MovieController {
         return "view/search";
     }
 
+    @GetMapping("/detail")
+    public String detail(@Param("title") String title, Model model){
+        if(title == null){
+            return "redirect:/";
+        }
+
+        return "view/movie_detail";
+    }
+
 }
