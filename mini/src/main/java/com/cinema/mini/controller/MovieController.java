@@ -1,5 +1,6 @@
 package com.cinema.mini.controller;
 
+import com.cinema.mini.dto.MovieDetailDto;
 import com.cinema.mini.dto.MovieDto;
 import com.cinema.mini.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ import java.util.List;
 public class MovieController {
     private final MovieService movieService;
     @GetMapping("/search")
-    public String search(@RequestParam("title") String title, Model model){
-        if(title == null){
+    public String search(@RequestParam(value = "title",required = false) String title, Model model){
+        if(title == null || title.isEmpty()){
             return "view/search";
         }
         List<MovieDto> movieListDtos = movieService.searchMovieByTitle(title);
@@ -29,12 +30,12 @@ public class MovieController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam("mvid") String movieId, Model model){
-        if(movieId == null){
+    public String detail(@RequestParam(value = "mvid", defaultValue = "") String movieId, Model model){
+        if(movieId == null || movieId.isEmpty()){
             return "redirect:/";
         }
-        //TODO service..
+        MovieDetailDto movieDetailDto = movieService.detailMovieInfo(movieId);
+        model.addAttribute("movieDetailDto",movieDetailDto);
         return "view/movie_detail";
     }
-
 }

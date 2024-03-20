@@ -5,19 +5,20 @@
 </head>
 <body>
     <section>
-        <div class="detail_container">
-            <img class="detail_image" th:src="@{/image/test.jpeg}" alt="파묘">
+        <div class="detail_container" th:object="${movieDetailDto}">
+            <img class="detail_image" th:src="@{https://image.tmdb.org/t/p/original/__${movieDetailDto.posterPath}__}"
+                 th:alt="*{title}">
             <div class="detail_info_box">
                 <div class="detail_title">
-                    <strong>파묘</strong>
+                    <strong th:text="*{title}"></strong>
                 </div>
                 <div class="detail_grade">
-                    <span>평점 :<a>10</a></span>
+                    <span>평점 :<a th:text="*{grade}"></a></span>
                 </div>
                 <div class="detail_info">
-                    <span><b>줄거리 : </b><a>어쩌구저쩌구</a></span>
-                    <span><b>장르 : </b><a>어쩌구 저쩌구</a></span>
-                    <span><b>개봉일 : </b><a>2020-12-11</a></span>
+                    <span><b>줄거리 : </b><a th:text="*{overview}"></a></span>
+                    <span><b>장르 : </b><a th:text="*{genres}"></a></span>
+                    <span><b>개봉일 : </b><a th:text="*{releaseDate}"></a></span>
                 </div>
             </div>
         </div>

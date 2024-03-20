@@ -1,8 +1,10 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Movie;
+import com.cinema.mini.dto.MovieDetailDto;
 import com.cinema.mini.dto.MovieDto;
 import com.cinema.mini.repository.MovieRepository;
+import com.cinema.mini.util.MovieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,17 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
+@Transactional
 public class MovieServiceTest {
 
     @Autowired
     MovieService movieService;
     @Autowired
     MovieRepository movieRepository;
+    @Autowired
+    MovieUtil movieUtil;
 
     @Test
-    @Transactional
     void searchMovieByTitleTest(){
         List<Movie> createMovieList = new ArrayList<>();
         createMovieList.add(createTestMovie("test02", "test_2"));
@@ -55,6 +59,26 @@ public class MovieServiceTest {
         for (MovieDto lastestMovieDto : lastestMovieDtos) {
             assertThat(lastestMovieDto.getTitle()).isEqualTo(titles.get(idx++));
         }
+    }
+
+    @Test
+    void detailMovieInfoTest(){
+        Movie movie = movieUtil.createMovieAndMovieGenre("test01", "테스트1",
+                "2024-03-01", 4.5, new String[]{"액션", "가족","모험"});
+        MovieDetailDto movieDetailDto = movieService.detailMovieInfo("test01");
+
+        assertThat(movieDetailDto).isNotNull();
+
+        assertThat(movie.getMovieId()).isEqualTo(movieDetailDto.getMovieId());
+        assertThat(movie.getTitle()).isEqualTo(movieDetailDto.getTitle());
+        assertThat(movie.getPosterPath()).isEqualTo(movieDetailDto.getPosterPath());
+        assertThat(movie.getOverview()).isEqualTo(movieDetailDto.getOverview());
+        assertThat(movie.getGrade()).isEqualTo(movieDetailDto.getGrade());
+        assertThat(movie.getReleaseDate()).isEqualTo(movieDetailDto.getReleaseDate());
+        assertThat(movieDetailDto.getGenres())
+                .containsExactlyInAnyOrderElementsOf(movie.getMovieGenres()
+                        .stream()
+                        .map(movieGenre -> movieGenre.getGenre().getGenreName()).toList());
     }
 
 

@@ -1,6 +1,7 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Movie;
+import com.cinema.mini.domain.MovieGenre;
 import com.cinema.mini.dto.MovieDetailDto;
 import com.cinema.mini.dto.MovieDto;
 import com.cinema.mini.repository.MovieRepository;
@@ -10,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,7 +29,8 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public MovieDetailDto detailMovieInfo(String movieId) {
-        return null;
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
+        return new MovieDetailDto(movie);
     }
 
     @Override
