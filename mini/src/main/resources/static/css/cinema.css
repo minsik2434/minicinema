@@ -662,3 +662,11 @@ button, input, select, textarea {
     flex-direction: column;
     padding-top: 18px;
 }
+
+.movie_scroll{
+    display: flex;
+}
+
+.wrap_reserve{
+    display: flex;
+}
