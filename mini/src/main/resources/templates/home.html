@@ -28,7 +28,7 @@
                             <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
                         </a>
                         <strong class="movieTitle"><a th:href="@{/movie/detail(title=${movie.getTitle()})}" th:text="${movie.getTitle()}"></a></strong><br>
-                        <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                        <span>평점 : <a th:text="${#numbers.formatDecimal(movie.grade,1,1)}"></a></span>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                             <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
                         </a>
                         <strong class="movieTitle"><a th:href="@{/movie/detail(title=${movie.getTitle()})}" th:text="${movie.getTitle()}"></a></strong><br>
-                        <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                        <span>평점 : <a th:text="${#numbers.formatDecimal(movie.grade,1,1)}"></a></span>
                     </div>
                 </div>
             </div>

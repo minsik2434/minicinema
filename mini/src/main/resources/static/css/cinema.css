@@ -637,6 +637,7 @@ button, input, select, textarea {
 
 .detail_container{
     padding-top:50px;
+    justify-content: center;
     display: flex;
     margin-left: 100px;
     margin-right: 100px;

@@ -17,10 +17,12 @@
             <ul class="search_ul" th:if="${searchMovieList.size()>0}">
                 <li th:each="movie : ${searchMovieList}">
                     <div>
-                        <img class="search_movieBox_img" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" alt="test">
+                        <a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}">
+                            <img class="search_movieBox_img" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" alt="test">
+                        </a>
                         <div class="search_title_box">
-                            <strong class="movieTitle" th:text="${movie.getTitle()}"></strong><br>
-                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                            <strong class="movieTitle"><a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}" th:text="${movie.getTitle()}"></a></strong><br>
+                            <span>평점 : <a th:text="${#numbers.formatDecimal(movie.grade,1,1)}"></a></span>
                         </div>
                     </div>
                 </li>

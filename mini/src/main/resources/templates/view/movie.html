@@ -12,9 +12,11 @@
             </div>
             <div class="movieChart">
                 <div class="movieChartBox" th:each="movie : ${romanceMovieDtos}">
-                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="*{movie.getTitle()}">
-                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
-                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                    <a th:href="@{/movie/detail(mvid=${movie.movieId})}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" th:alt="*{movie.title}">
+                    </a>
+                    <strong class="movieTitle" th:text="${movie.title}"></strong></br>
+                    <span>평점 : <a th:text="${movie.grade}"></a></span>
                 </div>
             </div>
         </div>
@@ -23,11 +25,12 @@
                 <h2>액션 영화</h2>
             </div>
             <div class="movieChart">
-                <!--영화 포스터 + 제목 + 평점 + 예매-->
                 <div class="movieChartBox" th:each="movie : ${actionMovieDtos}">
-                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
-                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
-                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                    <a th:href="@{/movie/detail(mvid=${movie.movieId})}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" th:alt="${movie.title}">
+                    </a>
+                    <strong class="movieTitle" th:text="${movie.title}"></strong></br>
+                    <span>평점 : <a th:text="${movie.grade}"></a></span>
                 </div>
             </div>
         </div>
@@ -36,11 +39,12 @@
                 <h2>애니메이션 영화</h2>
             </div>
             <div class="movieChart">
-                <!--영화 포스터 + 제목 + 평점 + 예매-->
                 <div class="movieChartBox" th:each="movie : ${animationMovieDtos}">
-                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
-                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
-                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                    <a th:href="@{/movie/detail(mvid=${movie.movieId})}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" th:alt="${movie.title}">
+                    </a>
+                    <strong class="movieTitle" th:text="${movie.title}"></strong></br>
+                    <span>평점 : <a th:text="${movie.grade}"></a></span>
                 </div>
             </div>
         </div>
@@ -49,11 +53,12 @@
                 <h2>판타지 영화</h2>
             </div>
             <div class="movieChart">
-                <!--영화 포스터 + 제목 + 평점 + 예매-->
                 <div class="movieChartBox" th:each="movie : ${fantasyMovieDtos}">
-                    <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.getTitle()}">
-                    <strong class="movieTitle" th:text="${movie.getTitle()}"></strong></br>
-                    <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
+                    <a th:href="@{/movie/detail(mvid=${movie.movieId})}">
+                        <img class="content_image" th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" th:alt="${movie.title}">
+                    </a>
+                    <strong class="movieTitle" th:text="${movie.title}"></strong></br>
+                    <span>평점 : <a th:text="${movie.grade}"></a></span>
                 </div>
             </div>
         </div>

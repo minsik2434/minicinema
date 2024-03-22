@@ -13,7 +13,7 @@
                     <strong th:text="*{title}"></strong>
                 </div>
                 <div class="detail_grade">
-                    <span>평점 :<a th:text="*{grade}"></a></span>
+                    <span>평점 :<a th:text="${#numbers.formatDecimal(movieDetailDto.grade,1,1)}"></a></span>
                 </div>
                 <div class="detail_info">
                     <span><b>줄거리 : </b><a th:text="*{overview}"></a></span>
