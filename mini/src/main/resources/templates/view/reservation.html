@@ -6,20 +6,19 @@
 </head>
 <body>
     <section>
-        <div>
+        <div class="reserve_container">
             <div class="wrap_reserve">
-
                 <div>
-                    <div>
+                    <div class="reserve_toplogo">
                         <h4>선택한 영화 제목</h4>
                     </div>
-                    <div class="movie_scroll">
-                        <div>
+                    <div>
+                        <div class="movie_scroll">
                             <ul style="padding: 0">
-                                <li style=" min-height: 116px">
+                                <li style=" min-height: 116px; width: 350px">
                                     <div style="padding: 10px 20px; display: flex;" >
                                         <div style="width: 68px; height: 96px">
-                                            <img src="../../static/image/test.jpeg" alt="파묘" style="width: 100%; height: 100%;">
+                                            <img th:src="@{/image/test.jpeg}" alt="파묘" style="width: 100%; height: 100%;">
                                         </div>
                                         <div>
                                             <div>파묘</div>
@@ -30,8 +29,23 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="reserve_toplogo">
+                        <h4>선택한 날짜</h4>
+                    </div>
+                    <div>
                         <div>
-                            리스트
+                            <div style="display:flex;">
+                                <div id="top_logo"></div>
+                                <button id="prevWeekBtn" onclick="updateWeek(-1)">&lt;</button>
+                                <div id="weekDates"></div>
+                                <button id="nextWeekBtn" onclick="updateWeek(1)">&gt;</button>
+                            </div>
+                        </div>
+                        <div>
+                            상영관 선택 div
                         </div>
                     </div>
                 </div>
@@ -40,3 +54,59 @@
     </section>
 </body>
 </html>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let currentDate = new Date();
+    let today = new Date();
+    today.setHours(0,0,0,0);
+    function updateWeek(shift = 0) {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const dayOfWeek = currentDate.getDay();
+        const startOfWeek = new Date(currentDate.valueOf() - dayOfWeek * oneDay);
+        startOfWeek.setDate(startOfWeek.getDate()+ shift * 7);
+
+        let nextMonth = new Date(today.getFullYear(), today.getMonth()+2, 0);
+        document.getElementById('prevWeekBtn').disabled = startOfWeek < today;
+        document.getElementById('nextWeekBtn').disabled = startOfWeek >= nextMonth;
+
+        let weekDates = '';
+        let lastMonth = null;
+        const daysOfWeek = ['일','월','화','수','목','금','토'];
+        for (let i = 0; i < 7; i++) {
+            const day = new Date(startOfWeek.valueOf() + i * oneDay);
+            const month = day.getMonth();
+            const dayOfWeek = daysOfWeek[day.getDay()];
+
+            if(lastMonth !== null && month !== lastMonth){
+                weekDates += `<div>
+                                <h5>${day.getFullYear()}</h5>
+                                ${day.toLocaleDateString('ko-KR',{month : 'long'})}
+                              </div>`;
+            }
+
+            weekDates += `<div onclick="showDatePopup('${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}')">
+                                <h5>${day.getDate()}</h5>
+                                ${dayOfWeek}
+                          </div>`;
+
+            lastMonth = month;
+        }
+        document.getElementById('weekDates').innerHTML = weekDates;
+        currentDate = startOfWeek;
+    }
+
+    function showDatePopup(date){
+        alert(date);
+    }
+
+    window.onload = function() {
+        updateWeek();
+    };
+
+    function checkedBox(){
+        document.getElementById()
+    }
+
+    /*]]>*/
+</script>

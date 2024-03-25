@@ -665,8 +665,44 @@ button, input, select, textarea {
 
 .movie_scroll{
     display: flex;
+    overflow: auto;
+    height: 500px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
+
 
 .wrap_reserve{
     display: flex;
+    height: 870px;
+    /*width: 1280px;*/
+}
+
+.reserve_toplogo{
+    text-align: center;
+    border: 1px black solid;
+}
+
+.reserve_container{
+    margin-top: 50px;
+    padding: 0 100px;
+}
+
+#weekDates {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    gap: 20px;
+}
+
+#weekDates h5{
+    margin: 0;
+}
+
+.movie_scroll_ul{
+
 }
