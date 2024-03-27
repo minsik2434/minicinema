@@ -32,4 +32,7 @@ public class Movie {
     @OneToMany(mappedBy = "movie",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MovieGenre> movieGenres;
 
+    @OneToMany(mappedBy = "movie")
+    private List<Screening> screenings;
+
 }
