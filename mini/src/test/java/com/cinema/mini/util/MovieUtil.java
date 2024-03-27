@@ -3,6 +3,7 @@ package com.cinema.mini.util;
 import com.cinema.mini.domain.Genre;
 import com.cinema.mini.domain.Movie;
 import com.cinema.mini.domain.MovieGenre;
+import com.cinema.mini.domain.Screening;
 import com.cinema.mini.repository.GenreRepository;
 import com.cinema.mini.repository.MovieRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,8 @@ public class MovieUtil {
     @Autowired
     GenreRepository genreRepository;
     public Movie createTestMovie(String movieId, String movieTitle, String localDate, double grade) {
-        List<MovieGenre> list = new ArrayList<>();
+        List<MovieGenre> movieGenres = new ArrayList<>();
+        List<Screening> screenings = new ArrayList<>();
         return Movie.builder()
                 .movieId(movieId)
                 .title(movieTitle)
@@ -33,7 +35,9 @@ public class MovieUtil {
                 .releaseDate(LocalDate.parse(localDate))
                 .overview("테스트 영화")
                 .grade(grade)
-                .movieGenres(list).build();
+                .movieGenres(movieGenres)
+                .screenings(screenings)
+                .build();
     }
 
     @Transactional

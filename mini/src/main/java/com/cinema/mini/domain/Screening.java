@@ -1,10 +1,16 @@
 package com.cinema.mini.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Screening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

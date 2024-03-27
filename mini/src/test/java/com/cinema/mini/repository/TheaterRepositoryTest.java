@@ -1,5 +1,6 @@
 package com.cinema.mini.repository;
 
+import com.cinema.mini.domain.Screening;
 import com.cinema.mini.domain.Theater;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -20,16 +23,21 @@ public class TheaterRepositoryTest {
 
 
     @Test
-    @Commit
     void saveTest(){
-        Theater theater = Theater.builder().theaterName("9관").seatCount(150).build();
-        Theater save = theaterRepository.save(theater);
-        Theater findTheater = theaterRepository.findById(6L).orElseThrow();
-        assertThat(save.getTheaterName()).isEqualTo(findTheater.getTheaterName());
+        Theater theater1 = getTheater("1관", 30);
+        Theater theater2 = getTheater("2관", 130);
+        Theater save1 = theaterRepository.save(theater1);
+        Theater save2 = theaterRepository.save(theater2);
+
+        Theater findTheater1 = theaterRepository.findByTheaterName("1관").orElseThrow();
+        Theater findTheater2 = theaterRepository.findByTheaterName("2관").orElseThrow();
+
+        assertThat(save1.getTheaterId()).isEqualTo(findTheater1.getTheaterId());
+        assertThat(save2.getTheaterId()).isEqualTo(findTheater2.getTheaterId());
     }
 
-    @Test
-    void findByIdTest(){
-        theaterRepository.findById(1L);
+    private Theater getTheater(String theaterName, int seatCount) {
+        List<Screening> list = new ArrayList<>();
+        return Theater.builder().theaterName(theaterName).seatCount(seatCount).screenings(list).build();
     }
 }
