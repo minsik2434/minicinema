@@ -10,20 +10,20 @@
             <div class="wrap_reserve">
                 <div>
                     <div class="reserve_toplogo">
-                        <h4>선택한 영화 제목</h4>
+                        <h4 id="selected_movie">선택한 영화</h4>
                     </div>
                     <div>
                         <div class="movie_scroll">
-                            <ul style="padding: 0">
-                                <li style=" min-height: 116px; width: 350px">
-                                    <div style="padding: 10px 20px; display: flex;" >
-                                        <div style="width: 68px; height: 96px">
-                                            <img th:src="@{/image/test.jpeg}" alt="파묘" style="width: 100%; height: 100%;">
+                            <ul class="movie_scroll_ul" id="scroll_movie_list">
+                                <li class="movie_item" data-movietitle="파묘">
+                                    <div class="reserve_content_box">
+                                        <div class="reserve_content_img_wrap">
+                                            <img th:src="@{/image/test.jpeg}" class="reserve_content_img" alt="파묘">
                                         </div>
-                                        <div>
-                                            <div>파묘</div>
-                                            <span>134분</span>
-                                            <div>개봉일</div>
+                                        <div class="reserve_content_info">
+                                            <strong class="reserve_content_tit">영화제목</strong>
+                                            <span>상영 시간 : 134분</span>
+                                            <span>개봉일 : 2024-01-01</span>
                                         </div>
                                     </div>
                                 </li>
@@ -33,19 +33,19 @@
                 </div>
                 <div>
                     <div class="reserve_toplogo">
-                        <h4>선택한 날짜</h4>
+                        <h4 id="selected-date">선택한 날짜</h4>
                     </div>
                     <div>
-                        <div>
-                            <div style="display:flex;">
+                        <div class="reserve_screening_info">
+                            <div class="reserve-date-wrap">
                                 <div id="top_logo"></div>
                                 <button id="prevWeekBtn" onclick="updateWeek(-1)">&lt;</button>
                                 <div id="weekDates"></div>
                                 <button id="nextWeekBtn" onclick="updateWeek(1)">&gt;</button>
                             </div>
-                        </div>
-                        <div>
-                            상영관 선택 div
+                            <div class="reserve_theater_wrap">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,11 +56,14 @@
 </html>
 
 <script th:inline="javascript">
-    /*<![CDATA[*/
     let currentDate = new Date();
-    let today = new Date();
-    today.setHours(0,0,0,0);
+    let checked_date = null;
+    let checked_tit = null;
+
     function updateWeek(shift = 0) {
+        let today = new Date();
+        today.setHours(0,0,0,0);
+
         const oneDay = 24 * 60 * 60 * 1000;
         const dayOfWeek = currentDate.getDay();
         const startOfWeek = new Date(currentDate.valueOf() - dayOfWeek * oneDay);
@@ -84,8 +87,7 @@
                                 ${day.toLocaleDateString('ko-KR',{month : 'long'})}
                               </div>`;
             }
-
-            weekDates += `<div onclick="showDatePopup('${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}')">
+            weekDates += `<div class="day-item" data-date="${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}">
                                 <h5>${day.getDate()}</h5>
                                 ${dayOfWeek}
                           </div>`;
@@ -94,19 +96,66 @@
         }
         document.getElementById('weekDates').innerHTML = weekDates;
         currentDate = startOfWeek;
+
+        addClickEventToDays();
     }
 
-    function showDatePopup(date){
-        alert(date);
+    function addClickEventToDays() {
+        const dayItems = document.querySelectorAll('#weekDates > div.day-item');
+        dayItems.forEach(item => {
+            item.addEventListener('click', function (){
+                const isAlreadyChecked = this.classList.contains('checked-date');
+
+                dayItems.forEach(item => {
+                    item.classList.remove('checked-date');
+                    let selected_date = document.querySelector('#selected-date');
+                    selected_date.innerText = '선택한 날짜';
+                    checked_date=null;
+                });
+
+                if (!isAlreadyChecked) {
+                    this.classList.add('checked-date');
+                    let selected_date = document.querySelector('#selected-date');
+                    selected_date.innerText = this.getAttribute('data-date');
+                    checked_date = this.getAttribute('data-date');
+                }
+            });
+        });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const movieItems = document.querySelectorAll('.movie_item');
+        movieItems.forEach(item => {
+            item.addEventListener('click', function() {
+
+                const isAlreadyChecked = this.classList.contains('checked');
+
+                movieItems.forEach(item => {
+                    item.classList.remove('checked');
+                    if(item.lastElementChild.classList.contains('check-mark')){
+                        item.removeChild(item.lastElementChild);
+                        let selected_title = document.querySelector('#selected_movie');
+                        selected_title.innerText = '선택한 영화'
+                        checked_tit=null;
+                    }
+                });
+
+                if (!isAlreadyChecked) {
+                    this.classList.add('checked');
+
+                    const checkDiv = document.createElement('div');
+                    checkDiv.classList.add('check-mark');
+                    this.appendChild(checkDiv);
+                    let selected_title = document.querySelector('#selected_movie');
+                    selected_title.innerText = this.querySelector('.reserve_content_tit').innerText;
+                    checked_tit = this.querySelector('.reserve_content_tit').innerText;
+                }
+            });
+        });
+    });
+
 
     window.onload = function() {
         updateWeek();
     };
-
-    function checkedBox(){
-        document.getElementById()
-    }
-
-    /*]]>*/
 </script>
