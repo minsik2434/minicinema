@@ -2,7 +2,7 @@ package com.cinema.mini.repository;
 
 import com.cinema.mini.domain.Genre;
 import com.cinema.mini.domain.Movie;
-import com.cinema.mini.domain.MovieGenre;
+import com.cinema.mini.domain.Screening;
 import com.cinema.mini.util.MovieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -116,5 +113,20 @@ public class MovieRepositoryTest {
             assertThat(movie.getTitle()).contains("테스트");
         }
     }
-}
 
+    @Test
+    void movieReferenceTest(){
+        Movie findMovie = movieRepository.findById("test01").orElseThrow();
+        List<Screening> screenings = findMovie.getScreenings();
+        assertThat(screenings).isNotNull();
+    }
+
+    @Test
+    void playingMovieTest(){
+        List<Movie> playingMovie = movieRepository.findByPlayingMovie();
+        assertThat(playingMovie).isNotEmpty();
+        for (Movie movie : playingMovie) {
+            assertThat(movie.getScreenings()).isNotEmpty();
+        }
+    }
+}

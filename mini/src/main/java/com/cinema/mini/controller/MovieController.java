@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -37,5 +38,11 @@ public class MovieController {
         MovieDetailDto movieDetailDto = movieService.detailMovieInfo(movieId);
         model.addAttribute("movieDetailDto",movieDetailDto);
         return "view/movie_detail";
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public String test(){
+        return "ok";
     }
 }

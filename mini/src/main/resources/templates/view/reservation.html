@@ -15,15 +15,15 @@
                     <div>
                         <div class="movie_scroll">
                             <ul class="movie_scroll_ul" id="scroll_movie_list">
-                                <li class="movie_item" data-movietitle="파묘">
+                                <li th:each="movie : ${playingMovieDtos}" class="movie_item">
                                     <div class="reserve_content_box">
                                         <div class="reserve_content_img_wrap">
-                                            <img th:src="@{/image/test.jpeg}" class="reserve_content_img" alt="파묘">
+                                            <img th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" class="reserve_content_img" alt="파묘">
                                         </div>
                                         <div class="reserve_content_info">
-                                            <strong class="reserve_content_tit">영화제목</strong>
-                                            <span>상영 시간 : 134분</span>
-                                            <span>개봉일 : 2024-01-01</span>
+                                            <strong class="reserve_content_tit" th:text="${movie.title}"></strong>
+                                            <span>상영 시간 : <a>130분</a></span>
+                                            <span>평점 : <a th:text="${movie.getGrade()}"></a></span>
                                         </div>
                                     </div>
                                 </li>
@@ -44,7 +44,17 @@
                                 <button id="nextWeekBtn" onclick="updateWeek(1)">&gt;</button>
                             </div>
                             <div class="reserve_theater_wrap">
-
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <strong>20:20</strong>
+                                            <div style="display: flex; justify-content: space-between">
+                                                <span>34/40</span>
+                                                <span>1관</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -118,6 +128,7 @@
                     let selected_date = document.querySelector('#selected-date');
                     selected_date.innerText = this.getAttribute('data-date');
                     checked_date = this.getAttribute('data-date');
+                    checkSelectionAndSend();
                 }
             });
         });
@@ -149,13 +160,29 @@
                     let selected_title = document.querySelector('#selected_movie');
                     selected_title.innerText = this.querySelector('.reserve_content_tit').innerText;
                     checked_tit = this.querySelector('.reserve_content_tit').innerText;
+                    checkSelectionAndSend();
                 }
             });
         });
     });
 
+    function checkSelectionAndSend(){
+        if(checked_tit && checked_date){
+            axios.get('/movie/test',{
+                movieTitle:checked_tit,
+                selectedDate:checked_date
+            })
+                .then(function (response){
+                    console.log(response);
+                })
+                .catch(function (error){
+                    console.log(error)
+                });
+        }
+    }
 
     window.onload = function() {
         updateWeek();
     };
+
 </script>

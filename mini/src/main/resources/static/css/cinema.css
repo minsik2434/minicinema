@@ -763,10 +763,26 @@ button, input, select, textarea {
 }
 .reserve_screening_info{
     height: 500px;
+    width: 440px; /*123*/
     border-right: #D5D5D5 solid 1px;
     border-bottom: #D5D5D5 solid 1px;
 }
 .reserve_theater_wrap{
     margin-top: 40px;
-    padding: 30px 50px;
+    padding: 30px 20px;
+}
+
+.reserve_theater_wrap ul{
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    gap: 17px;
+    flex-flow: wrap;
+}
+.reserve_theater_wrap ul >li{
+    width: 100px;
+    border: black 1px solid;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center
 }

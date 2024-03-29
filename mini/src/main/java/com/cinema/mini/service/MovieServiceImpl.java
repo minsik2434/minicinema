@@ -51,4 +51,11 @@ public class MovieServiceImpl implements MovieService{
         List<Movie> genreByMovieList = movieRepository.findByMovieGenres_Genre_GenreName(genreName, pageable);
         return genreByMovieList.stream().map(MovieDto::new).toList();
     }
+
+    @Override
+    public List<MovieDto> playingMovie() {
+        //screenings 가 있는 영화 정보..
+        List<Movie> playingMovieList = movieRepository.findByPlayingMovie();
+        return playingMovieList.stream().map(MovieDto::new).toList();
+    }
 }

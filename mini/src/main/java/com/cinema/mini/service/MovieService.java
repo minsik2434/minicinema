@@ -12,4 +12,5 @@ public interface MovieService {
     List<MovieDto> lastestMovieList();
     List<MovieDto> popularMovieList();
     List<MovieDto> genreByMovieList(String genreName);
+    List<MovieDto> playingMovie();
 }
