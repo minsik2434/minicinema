@@ -15,7 +15,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -50,7 +54,18 @@ public class ScreeningRepositoryTest {
         Screening save = screeningRepository.save(testScreening);
 
         Movie findMovie = movieRepository.findById("test").orElseThrow();
-        Assertions.assertThat(findMovie).isEqualTo(save.getMovie());
+        assertThat(findMovie).isEqualTo(save.getMovie());
+    }
+
+    @Test
+    void findByMovieMovieIdAndStartTimeBetweenTest(){
+        LocalDate startDate = LocalDate.parse("2024-01-01");
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = startDate.plusDays(1).atStartOfDay();
+        List<Screening> screenings = screeningRepository.findByMovieMovieIdAndStartTimeBetween("test01", startDateTime, endDateTime);
+
+//        Map<Long, List<Screening>> groupedByTheater = screenings.stream().collect(Collectors.groupingBy(screening -> screening.getTheater().getTheaterId()));
+
     }
 
 

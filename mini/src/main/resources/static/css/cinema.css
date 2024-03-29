@@ -768,8 +768,7 @@ button, input, select, textarea {
     border-bottom: #D5D5D5 solid 1px;
 }
 .reserve_theater_wrap{
-    margin-top: 40px;
-    padding: 30px 20px;
+    padding: 20px 20px;
 }
 
 .reserve_theater_wrap ul{
@@ -777,12 +776,19 @@ button, input, select, textarea {
     padding-left: 0;
     display: flex;
     gap: 17px;
+    margin-top: 0;
     flex-flow: wrap;
 }
 .reserve_theater_wrap ul >li{
     width: 100px;
-    border: black 1px solid;
+    border: #D5D5D5 1px solid;
     padding: 5px 10px;
     border-radius: 5px;
     text-align: center
+}
+
+.reserve_time{
+    display: flex;
+    justify-content: space-between;
+
 }

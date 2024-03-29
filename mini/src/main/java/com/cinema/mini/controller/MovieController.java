@@ -40,9 +40,5 @@ public class MovieController {
         return "view/movie_detail";
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(){
-        return "ok";
-    }
+
 }

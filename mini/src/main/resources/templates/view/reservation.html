@@ -44,17 +44,34 @@
                                 <button id="nextWeekBtn" onclick="updateWeek(1)">&gt;</button>
                             </div>
                             <div class="reserve_theater_wrap">
-                                <ul>
-                                    <li>
-                                        <div>
-                                            <strong>20:20</strong>
-                                            <div style="display: flex; justify-content: space-between">
-                                                <span>34/40</span>
-                                                <span>1관</span>
+                                <div style="margin-top: 20px">
+                                    <span> 상영관 이름 </span>
+                                    <ul> <!-- 상영관 별로 리스트-->
+                                        <li>
+                                            <div>
+                                                <strong>20:20</strong>
+                                                <div class="reserve_time">
+                                                    <span>34/40</span>
+                                                    <span>1관</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="margin-top: 40px">
+                                    <span> 상영관 이름 </span>
+                                    <ul> <!-- 상영관 별로 리스트-->
+                                        <li>
+                                            <div>
+                                                <strong>20:20</strong>
+                                                <div class="reserve_time">
+                                                    <span>34/40</span>
+                                                    <span>1관</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -168,9 +185,11 @@
 
     function checkSelectionAndSend(){
         if(checked_tit && checked_date){
-            axios.get('/movie/test',{
-                movieTitle:checked_tit,
-                selectedDate:checked_date
+            axios.get('/reservation/test',{
+                params: {
+                    movieTitle: checked_tit,
+                    selectedDate: checked_date
+                }
             })
                 .then(function (response){
                     console.log(response);
