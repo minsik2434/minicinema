@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,10 +63,21 @@ public class ScreeningRepositoryTest {
         LocalDate startDate = LocalDate.parse("2024-01-01");
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = startDate.plusDays(1).atStartOfDay();
-        List<Screening> screenings = screeningRepository.findByMovieMovieIdAndStartTimeBetween("test01", startDateTime, endDateTime);
+        List<Screening> screenings = screeningRepository.findByMovieMovieIdAndStartTimeBetween("test01", startDateTime, endDateTime).orElseThrow();
 
-//        Map<Long, List<Screening>> groupedByTheater = screenings.stream().collect(Collectors.groupingBy(screening -> screening.getTheater().getTheaterId()));
+        Map<Long, List<Screening>> groupedByTheater = screenings.stream().collect(Collectors.groupingBy(screening -> screening.getTheater().getTheaterId()));
+        List<Screening> screenings1 = groupedByTheater.get(15L);
+    }
 
+    @Test
+    void dateFormatterTest(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+        LocalDate localDate1 = LocalDate.parse("2024-10-3",formatter);
+        LocalDate localDate2 = LocalDate.parse("2024-9-3",formatter);
+        LocalDate localDate3 = LocalDate.parse("2024-12-12",formatter);
+        log.info("localDate1={}",localDate1);
+        log.info("localDate2={}",localDate2);
+        log.info("localDate3={}",localDate3);
     }
 
 

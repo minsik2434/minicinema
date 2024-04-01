@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
-    List<Screening> findByMovieMovieIdAndStartTimeBetween(String movieId, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Optional<List<Screening>> findByMovieMovieIdAndStartTimeBetween(String movieId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
 }

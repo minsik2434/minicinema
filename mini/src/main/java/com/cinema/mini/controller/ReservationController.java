@@ -1,13 +1,15 @@
 package com.cinema.mini.controller;
 
-import com.cinema.mini.repository.MovieRepository;
+import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.service.MovieService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.cinema.mini.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/reservation")
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
 
     private final MovieService movieService;
+    private final ReservationService reservationService;
     @GetMapping
     public String reservationForm(Model model){
         model.addAttribute("playingMovieDtos", movieService.playingMovie());
@@ -24,8 +27,7 @@ public class ReservationController {
 
     @GetMapping("/test")
     @ResponseBody
-    public String test(@RequestParam String movieTitle, @RequestParam String selectedDate){
-
-        return "ok";
+    public List<ScreeningDto> test(@RequestParam String movieId, @RequestParam String selectedDate){
+        return reservationService.getScreeningInfoForTheater(movieId,selectedDate);
     }
 }

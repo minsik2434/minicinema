@@ -15,7 +15,7 @@
                     <div>
                         <div class="movie_scroll">
                             <ul class="movie_scroll_ul" id="scroll_movie_list">
-                                <li th:each="movie : ${playingMovieDtos}" class="movie_item">
+                                <li th:each="movie : ${playingMovieDtos}" class="movie_item" th:data-id="${movie.movieId}">
                                     <div class="reserve_content_box">
                                         <div class="reserve_content_img_wrap">
                                             <img th:src="@{https://image.tmdb.org/t/p/original/__${movie.posterPath}__}" class="reserve_content_img" alt="파묘">
@@ -85,7 +85,7 @@
 <script th:inline="javascript">
     let currentDate = new Date();
     let checked_date = null;
-    let checked_tit = null;
+    let checked_id = null;
 
     function updateWeek(shift = 0) {
         let today = new Date();
@@ -164,7 +164,7 @@
                         item.removeChild(item.lastElementChild);
                         let selected_title = document.querySelector('#selected_movie');
                         selected_title.innerText = '선택한 영화'
-                        checked_tit=null;
+                        checked_id=null;
                     }
                 });
 
@@ -176,7 +176,7 @@
                     this.appendChild(checkDiv);
                     let selected_title = document.querySelector('#selected_movie');
                     selected_title.innerText = this.querySelector('.reserve_content_tit').innerText;
-                    checked_tit = this.querySelector('.reserve_content_tit').innerText;
+                    checked_id = this.getAttribute('data-id');
                     checkSelectionAndSend();
                 }
             });
@@ -184,10 +184,10 @@
     });
 
     function checkSelectionAndSend(){
-        if(checked_tit && checked_date){
+        if(checked_id && checked_date){
             axios.get('/reservation/test',{
                 params: {
-                    movieTitle: checked_tit,
+                    movieId: checked_id,
                     selectedDate: checked_date
                 }
             })
