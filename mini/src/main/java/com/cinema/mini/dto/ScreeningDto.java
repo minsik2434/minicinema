@@ -8,12 +8,12 @@ import java.util.List;
 @Data
 public class ScreeningDto {
     private long theaterId;
+    private String theaterName;
     List<ScreeningByTheater> screenings;
 
     @Data
     public static class ScreeningByTheater{
         private long screeningId;
-        private String theaterName;
         private LocalDateTime startTime;
         private LocalDateTime endTime;
         private int maxSeat;

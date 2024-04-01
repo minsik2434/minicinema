@@ -44,33 +44,19 @@
                                 <button id="nextWeekBtn" onclick="updateWeek(1)">&gt;</button>
                             </div>
                             <div class="reserve_theater_wrap">
-                                <div style="margin-top: 20px">
-                                    <span> 상영관 이름 </span>
-                                    <ul> <!-- 상영관 별로 리스트-->
-                                        <li>
-                                            <div>
-                                                <strong>20:20</strong>
-                                                <div class="reserve_time">
-                                                    <span>34/40</span>
-                                                    <span>1관</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div style="margin-top: 40px">
-                                    <span> 상영관 이름 </span>
-                                    <ul> <!-- 상영관 별로 리스트-->
-                                        <li>
-                                            <div>
-                                                <strong>20:20</strong>
-                                                <div class="reserve_time">
-                                                    <span>34/40</span>
-                                                    <span>1관</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div class="time_select">
+<!--                                    <span> 상영관 이름 </span>-->
+<!--                                    <ul> &lt;!&ndash; 상영관 별로 리스트&ndash;&gt;-->
+<!--                                        <li>-->
+<!--                                            <div>-->
+<!--                                                <strong>20:20</strong>-->
+<!--                                                <div class="reserve_time">-->
+<!--                                                    <span>남은좌석/최대좌석</span>-->
+<!--                                                    <span>1관</span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
                                 </div>
                             </div>
                         </div>
@@ -192,7 +178,33 @@
                 }
             })
                 .then(function (response){
-                    console.log(response);
+                    const screeningList = response.data;
+                    const timeSelectDiv = document.querySelector('.time_select'); // 상영 정보를 추가할 부모 요소 선택
+                    timeSelectDiv.innerHTML=``;
+                    screeningList.forEach(screeningDto => {
+                        const ul = document.createElement('ul'); // 상영관 별로 리스트 생성
+                        const span = document.createElement('span');
+                        span.innerText = `${screeningDto.theaterName}`;
+                        screeningDto.screenings.forEach(screening => {
+                            const li = document.createElement('li');
+                            const div = document.createElement('div');
+                            const strong = document.createElement('strong');
+                            const reserveTimeDiv = document.createElement('div');
+                            reserveTimeDiv.className = 'reserve_time';
+
+                            // 날짜 및 시간 포맷팅
+                            const startTime = new Date(screening.startTime);
+                            strong.textContent = `${startTime.getHours()}:${startTime.getMinutes()}`;
+                            reserveTimeDiv.innerHTML = `<span>${screening.remainSeat}/${screening.maxSeat}</span><span>${screeningDto.theaterName}</span>`;
+
+                            div.appendChild(strong);
+                            div.appendChild(reserveTimeDiv);
+                            li.appendChild(div);
+                            ul.appendChild(li);
+                        });
+                        timeSelectDiv.appendChild(span);
+                        timeSelectDiv.appendChild(ul);
+                    });
                 })
                 .catch(function (error){
                     console.log(error)

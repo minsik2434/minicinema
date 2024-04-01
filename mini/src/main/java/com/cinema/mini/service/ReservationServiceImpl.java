@@ -37,10 +37,10 @@ public class ReservationServiceImpl implements ReservationService{
         return groupedByTheater.entrySet().stream().map(entry ->{
             ScreeningDto screeningDto = new ScreeningDto();
             screeningDto.setTheaterId(entry.getKey());
+            screeningDto.setTheaterName(entry.getValue().get(0).getTheater().getTheaterName());
             List<ScreeningDto.ScreeningByTheater> screenings = entry.getValue().stream().map(screening -> {
                 ScreeningDto.ScreeningByTheater screeningByTheater = new ScreeningDto.ScreeningByTheater();
                 screeningByTheater.setScreeningId(screening.getScreeningId());
-                screeningByTheater.setTheaterName(screening.getTheater().getTheaterName());
                 screeningByTheater.setStartTime(screening.getStartTime());
                 screeningByTheater.setEndTime(screening.getEndTime());
                 screeningByTheater.setMaxSeat(screening.getTheater().getSeatCount());
