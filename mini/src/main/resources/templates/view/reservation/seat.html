@@ -10,12 +10,15 @@
         <div class="select_num_people">
             <div>
                 <div class="group_info">
-                    <img class="screening_img" src="../../../static/image/test.jpeg" alt="test">
+                    <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${screeningInfo.posterPath}__}" alt="test">
                     <div class="screening_info_wrap">
-                        <strong class="movieTitle">파묘</strong><br>
-                        <span>날짜</span>
-                        <span>상영시작시간 ~ 상영종료시간</span>
-                        <span>상영관 번호</span>
+                        <strong class="movieTitle" th:text="${screeningInfo.title}"></strong><br>
+                        <span th:text="${#temporals.format(screeningInfo.getStartTime(), 'yyyy-MM-dd')}">날짜</span>
+                        <span>
+                            <a th:text="${#temporals.format(screeningInfo.getStartTime(), 'HH:mm')}"></a> ~
+                            <a th:text="${#temporals.format(screeningInfo.getEndTime(), 'HH:mm')}"></a>
+                        </span>
+                        <span th:text="${screeningInfo.theaterName}">상영관 번호</span>
                     </div>
                 </div>
             </div>

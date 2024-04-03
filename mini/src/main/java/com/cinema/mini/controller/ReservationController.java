@@ -39,7 +39,7 @@ public class ReservationController {
             return "redirect:/reservation";
         }
         MovieAndScreeningDto movieAndScreeningDto = reservationService.getScreeningInfoForScreeningId(screeningId);
-
+        model.addAttribute("screeningInfo",movieAndScreeningDto);
 
         return "view/reservation/seat";
     }

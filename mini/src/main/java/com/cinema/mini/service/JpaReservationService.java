@@ -56,8 +56,7 @@ public class JpaReservationService implements ReservationService{
 
     @Override
     public MovieAndScreeningDto getScreeningInfoForScreeningId(Long screeningId) {
-        Optional<Screening> optionalScreening = screeningRepository.findByScreeningId(screeningId);
-
-        return null;
+        Screening screening = screeningRepository.findByScreeningId(screeningId).orElseThrow();
+        return new MovieAndScreeningDto(screening);
     }
 }
