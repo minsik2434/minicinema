@@ -1,6 +1,7 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Screening;
+import com.cinema.mini.dto.MovieAndScreeningDto;
 import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,15 +11,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ReservationServiceImpl implements ReservationService{
+public class JpaReservationService implements ReservationService{
     private final ScreeningRepository screeningRepository;
     @Override
     public List<ScreeningDto> getScreeningInfoForTheater(String movieId, String selectedDate) {
@@ -44,11 +45,19 @@ public class ReservationServiceImpl implements ReservationService{
                 screeningByTheater.setStartTime(screening.getStartTime());
                 screeningByTheater.setEndTime(screening.getEndTime());
                 screeningByTheater.setMaxSeat(screening.getTheater().getSeatCount());
+                //TODO 남은 좌석은 예약 좌석 로직 구현후 구현예정
                 screeningByTheater.setRemainSeat(0);
                 return screeningByTheater;
             }).toList();
             screeningDto.setScreenings(screenings);
             return screeningDto;
         }).toList();
+    }
+
+    @Override
+    public MovieAndScreeningDto getScreeningInfoForScreeningId(Long screeningId) {
+        Optional<Screening> optionalScreening = screeningRepository.findByScreeningId(screeningId);
+
+        return null;
     }
 }

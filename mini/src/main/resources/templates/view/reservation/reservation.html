@@ -2,7 +2,7 @@
 <html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Mini 시네마</title>
-    <link rel="stylesheet" type="text/css" href="../../static/css/cinema.css">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/cinema.css">
 </head>
 <body>
     <section>
@@ -45,18 +45,6 @@
                             </div>
                             <div class="reserve_theater_wrap">
                                 <div class="time_select">
-<!--                                    <span> 상영관 이름 </span>-->
-<!--                                    <ul> &lt;!&ndash; 상영관 별로 리스트&ndash;&gt;-->
-<!--                                        <li>-->
-<!--                                            <div>-->
-<!--                                                <strong>20:20</strong>-->
-<!--                                                <div class="reserve_time">-->
-<!--                                                    <span>남은좌석/최대좌석</span>-->
-<!--                                                    <span>1관</span>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
                                 </div>
                             </div>
                         </div>
@@ -71,7 +59,8 @@
 <script th:inline="javascript">
     let currentDate = new Date();
     let checked_date = null;
-    let checked_id = null;
+    let checked_movieId = null;
+    let checked_screening = null;
 
     function updateWeek(shift = 0) {
         let today = new Date();
@@ -150,7 +139,7 @@
                         item.removeChild(item.lastElementChild);
                         let selected_title = document.querySelector('#selected_movie');
                         selected_title.innerText = '선택한 영화'
-                        checked_id=null;
+                        checked_movieId=null;
                     }
                 });
 
@@ -162,7 +151,7 @@
                     this.appendChild(checkDiv);
                     let selected_title = document.querySelector('#selected_movie');
                     selected_title.innerText = this.querySelector('.reserve_content_tit').innerText;
-                    checked_id = this.getAttribute('data-id');
+                    checked_movieId = this.getAttribute('data-id');
                     checkSelectionAndSend();
                 }
             });
@@ -170,36 +159,43 @@
     });
 
     function checkSelectionAndSend(){
-        if(checked_id && checked_date){
-            axios.get('/reservation/test',{
+        if(checked_movieId && checked_date){
+            axios.get('/reservation/screening',{
                 params: {
-                    movieId: checked_id,
+                    movieId: checked_movieId,
                     selectedDate: checked_date
                 }
             })
                 .then(function (response){
                     const screeningList = response.data;
-                    const timeSelectDiv = document.querySelector('.time_select'); // 상영 정보를 추가할 부모 요소 선택
+                    const timeSelectDiv = document.querySelector('.time_select');
                     timeSelectDiv.innerHTML=``;
+                    if(screeningList.length===0){
+                        timeSelectDiv.innerHTML=`<div style="text-align: center"><h4>조회 가능한 상영 시간이 없습니다</h4></div>`;
+                    }
                     screeningList.forEach(screeningDto => {
-                        const ul = document.createElement('ul'); // 상영관 별로 리스트 생성
+                        const ul = document.createElement('ul');
                         const span = document.createElement('span');
                         span.innerText = `${screeningDto.theaterName}`;
                         screeningDto.screenings.forEach(screening => {
+                            const a = document.createElement('a');
+                            a.role='button';
+                            a.onclick = function (){
+                                checked_screening = screening.screeningId;
+                                sendData();
+                            };
+                            a.className = 'time_btn';
                             const li = document.createElement('li');
-                            const div = document.createElement('div');
                             const strong = document.createElement('strong');
                             const reserveTimeDiv = document.createElement('div');
                             reserveTimeDiv.className = 'reserve_time';
 
-                            // 날짜 및 시간 포맷팅
                             const startTime = new Date(screening.startTime);
                             strong.textContent = `${startTime.getHours()}:${startTime.getMinutes()}`;
                             reserveTimeDiv.innerHTML = `<span>${screening.remainSeat}/${screening.maxSeat}</span><span>${screeningDto.theaterName}</span>`;
-
-                            div.appendChild(strong);
-                            div.appendChild(reserveTimeDiv);
-                            li.appendChild(div);
+                            a.appendChild(strong);
+                            a.appendChild(reserveTimeDiv);
+                            li.appendChild(a);
                             ul.appendChild(li);
                         });
                         timeSelectDiv.appendChild(span);
@@ -210,6 +206,24 @@
                     console.log(error)
                 });
         }
+    }
+
+
+
+    function sendData() {
+        let form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/reservation/seat';
+
+        let inputScreening = document.createElement('input');
+        inputScreening.type = 'hidden';
+        inputScreening.name = 'screeningId';
+        inputScreening.value = checked_screening;
+        form.appendChild(inputScreening);
+        document.cookie = "ticketing=true"
+
+        document.body.appendChild(form);
+        form.submit();
     }
 
     window.onload = function() {

@@ -3,7 +3,6 @@ package com.cinema.mini.service;
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
-import com.cinema.mini.dto.PasswordUpdateDto;
 import com.cinema.mini.dto.ProfileUpdateDto;
 import com.cinema.mini.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +14,9 @@ import java.time.LocalDate;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class JpaMemberService implements MemberService{
     private final MemberRepository memberRepository;
     public static final String BRONZE = "Bronze";
-
     @Override
     @Transactional
     public Member memberRegister(MemberRegisterDto memberRegisterDto) {
@@ -46,7 +44,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void profileUpdate(long memberId, ProfileUpdateDto profileUpdateDto) {
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).orElseThrow();
         member.setLoginId(profileUpdateDto.getLoginId());
         member.setEmail(profileUpdateDto.getEmail());
         member.setName(profileUpdateDto.getName());
@@ -57,7 +55,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void passwordUpdate(long memberId, String password) {
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findById(memberId).orElseThrow();
         member.setPassword(password);
         memberRepository.save(member);
     }

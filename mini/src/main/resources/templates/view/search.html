@@ -18,7 +18,7 @@
                 <li th:each="movie : ${searchMovieList}">
                     <div>
                         <a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}">
-                            <img class="search_movieBox_img" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" alt="test">
+                            <img class="search_movieBox_img" th:src="@{https://image.tmdb.org/t/p/original/__${movie.getPosterPath()}__}" th:alt="${movie.title}">
                         </a>
                         <div class="search_title_box">
                             <strong class="movieTitle"><a th:href="@{/movie/detail(mvid=${movie.getMovieId()})}" th:text="${movie.getTitle()}"></a></strong><br>

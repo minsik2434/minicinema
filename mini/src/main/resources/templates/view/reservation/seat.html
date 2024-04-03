@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mini 시네마</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/cinema.css">
+</head>
+<body>
+<section>
+    <div class="seat_container">
+        <div class="select_num_people">
+            <div>
+                <div class="group_info">
+                    <img class="screening_img" src="../../../static/image/test.jpeg" alt="test">
+                    <div class="screening_info_wrap">
+                        <strong class="movieTitle">파묘</strong><br>
+                        <span>날짜</span>
+                        <span>상영시작시간 ~ 상영종료시간</span>
+                        <span>상영관 번호</span>
+                    </div>
+                </div>
+            </div>
+            <div class="count_people">
+                <strong>인원 수</strong>
+                <div class="people_num_box">
+                    <button id="plus">
+                        <span>
+                                +
+                        </span>
+                    </button>
+                    <span id="person">0</span>
+                    <button id="minus">
+                        <span>
+                                -
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function (){
+        const plus = document.querySelector('#plus');
+        const minus = document.querySelector('#minus');
+        let person = document.querySelector('#person');
+        plus.addEventListener('click',function (){
+            if (parseInt(person.innerText)>3){
+                alert('4명까지만 예약할 수 있습니다');
+            }
+            else{
+                person.innerText = parseInt(person.innerText)+1;
+            }
+        })
+        minus.addEventListener('click',function (){
+            if (parseInt(person.innerText)>0){
+                person.innerText = parseInt(person.innerText)-1;
+            }
+        })
+    })
+</script>

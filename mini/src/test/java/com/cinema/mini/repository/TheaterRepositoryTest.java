@@ -24,13 +24,13 @@ public class TheaterRepositoryTest {
 
     @Test
     void saveTest(){
-        Theater theater1 = getTheater("1관", 30);
-        Theater theater2 = getTheater("2관", 130);
+        Theater theater1 = getTheater("3관", 30);
+        Theater theater2 = getTheater("5관", 130);
         Theater save1 = theaterRepository.save(theater1);
         Theater save2 = theaterRepository.save(theater2);
 
-        Theater findTheater1 = theaterRepository.findByTheaterName("1관").orElseThrow();
-        Theater findTheater2 = theaterRepository.findByTheaterName("2관").orElseThrow();
+        Theater findTheater1 = theaterRepository.findByTheaterName("3관").orElseThrow();
+        Theater findTheater2 = theaterRepository.findByTheaterName("5관").orElseThrow();
 
         assertThat(save1.getTheaterId()).isEqualTo(findTheater1.getTheaterId());
         assertThat(save2.getTheaterId()).isEqualTo(findTheater2.getTheaterId());

@@ -1,5 +1,6 @@
 package com.cinema.mini.controller;
 
+import com.cinema.mini.dto.MovieAndScreeningDto;
 import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
@@ -22,12 +23,24 @@ public class ReservationController {
     @GetMapping
     public String reservationForm(Model model){
         model.addAttribute("playingMovieDtos", movieService.playingMovie());
-        return "view/reservation";
+        return "view/reservation/reservation";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/screening")
     @ResponseBody
-    public List<ScreeningDto> test(@RequestParam String movieId, @RequestParam String selectedDate){
+    public List<ScreeningDto> screeningInfo(@RequestParam String movieId, @RequestParam String selectedDate){
         return reservationService.getScreeningInfoForTheater(movieId,selectedDate);
+    }
+
+    @PostMapping("/seat")
+    public String seatForm(@RequestParam Long screeningId, Model model,
+                           @CookieValue("ticketing") boolean isTicketing){
+        if(!isTicketing){
+            return "redirect:/reservation";
+        }
+        MovieAndScreeningDto movieAndScreeningDto = reservationService.getScreeningInfoForScreeningId(screeningId);
+
+
+        return "view/reservation/seat";
     }
 }

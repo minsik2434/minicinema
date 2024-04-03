@@ -54,7 +54,6 @@ public class MemberServiceTest {
     void isDuplicateMemberIdTest(){
         saveTestMember();
         boolean check = memberService.isDuplicateMemberId("test");
-        log.info("check={}",check);
         assertThat(check).isEqualTo(true);
     }
 

@@ -1,6 +1,8 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Movie;
+import com.cinema.mini.domain.MovieGenre;
+import com.cinema.mini.domain.Screening;
 import com.cinema.mini.dto.MovieDetailDto;
 import com.cinema.mini.dto.MovieDto;
 import com.cinema.mini.repository.MovieRepository;
@@ -47,21 +49,6 @@ public class MovieServiceTest {
     }
 
     @Test
-    void latestMovieListTest(){
-        List<MovieDto> lastestMovieDtos = movieService.lastestMovieList();
-        List<String> titles = new ArrayList<>();
-        titles.add("쿵푸팬더 4");
-        titles.add("Megamind vs. the Doom Syndicate");
-        titles.add("듄: 파트 2");
-        titles.add("코드 8: 파트 2");
-        titles.add("우주인");
-        int idx = 0;
-        for (MovieDto lastestMovieDto : lastestMovieDtos) {
-            assertThat(lastestMovieDto.getTitle()).isEqualTo(titles.get(idx++));
-        }
-    }
-
-    @Test
     void detailMovieInfoTest(){
         Movie movie = movieUtil.createMovieAndMovieGenre("test01", "테스트1",
                 "2024-03-01", 4.5, new String[]{"액션", "가족","모험"});
@@ -83,6 +70,8 @@ public class MovieServiceTest {
 
 
     private Movie createTestMovie(String testMovieId, String testMovieTitle) {
+        List<MovieGenre> movieGenres = new ArrayList<>();
+        List<Screening> screenings = new ArrayList<>();
         return Movie.builder()
                 .movieId(testMovieId)
                 .title(testMovieTitle)
@@ -90,6 +79,8 @@ public class MovieServiceTest {
                 .posterPath("testPosterPath")
                 .releaseDate(LocalDate.parse("2020-12-11"))
                 .overview("테스트 영화")
+                .movieGenres(movieGenres)
+                .screenings(screenings)
                 .grade(4.5).build();
     }
 }

@@ -1,7 +1,6 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Movie;
-import com.cinema.mini.domain.MovieGenre;
 import com.cinema.mini.dto.MovieDetailDto;
 import com.cinema.mini.dto.MovieDto;
 import com.cinema.mini.repository.MovieRepository;
@@ -11,14 +10,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MovieServiceImpl implements MovieService{
+public class JpaMovieService implements MovieService{
 
     private final MovieRepository movieRepository;
     @Override
@@ -54,7 +51,6 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<MovieDto> playingMovie() {
-        //screenings 가 있는 영화 정보..
         List<Movie> playingMovieList = movieRepository.findByPlayingMovie();
         return playingMovieList.stream().map(MovieDto::new).toList();
     }

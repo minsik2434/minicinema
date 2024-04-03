@@ -8,7 +8,6 @@ import java.util.List;
 public interface MovieService {
     List<MovieDto> searchMovieByTitle(String title);
     MovieDetailDto detailMovieInfo(String movieId);
-
     List<MovieDto> lastestMovieList();
     List<MovieDto> popularMovieList();
     List<MovieDto> genreByMovieList(String genreName);
