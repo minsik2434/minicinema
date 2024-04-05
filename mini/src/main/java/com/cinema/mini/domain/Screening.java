@@ -25,4 +25,5 @@ public class Screening {
     @ManyToOne
     @JoinColumn(name = "theater_id")
     private Theater theater;
+
 }

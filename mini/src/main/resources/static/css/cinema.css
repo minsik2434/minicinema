@@ -858,3 +858,35 @@ button, input, select, textarea {
 .seat_container{
     padding: 50px 100px;
 }
+.seat_wrap{
+    display:flex;
+    justify-content: center;
+    padding-top:50px;
+    border-top: black solid 1px;
+}
+.screen{
+    background: #999999;
+    text-align: center;
+}
+.seat_inner{
+    width: 370px;
+}
+.seat_list{
+    padding-top: 50px;
+}
+.seat_line{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px
+}
+.seat_line ul{
+    display: flex;
+    list-style: none;
+    gap: 1px;
+    padding-left: 0;
+    justify-content: center;
+}
+.seat_btn{
+    background: #8e8e8e;
+}
