@@ -24,7 +24,7 @@ public class MovieUtil {
     MovieRepository movieRepository;
     @Autowired
     GenreRepository genreRepository;
-    public Movie createTestMovie(String movieId, String movieTitle, String localDate, double grade) {
+    public Movie buildTestMovie(String movieId, String movieTitle, String localDate, double grade) {
         List<MovieGenre> movieGenres = new ArrayList<>();
         List<Screening> screenings = new ArrayList<>();
         return Movie.builder()
@@ -42,7 +42,7 @@ public class MovieUtil {
 
     @Transactional
     public Movie createMovieAndMovieGenre(String movieId, String title, String releaseDate, double grade, String[] genreNames) {
-        Movie movie = createTestMovie(movieId, title, releaseDate, grade);
+        Movie movie = buildTestMovie(movieId, title, releaseDate, grade);
         for (String genreName : genreNames) {
             MovieGenre movieGenre = getMovieGenre(genreName, movie);
             movie.getMovieGenres().add(movieGenre);

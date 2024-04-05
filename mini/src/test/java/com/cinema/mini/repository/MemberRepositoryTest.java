@@ -1,6 +1,8 @@
 package com.cinema.mini.repository;
 
 import com.cinema.mini.domain.Member;
+import com.cinema.mini.domain.MemberGrade;
+import com.cinema.mini.util.MemberUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,20 @@ public class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private MemberUtil memberUtil;
+
     @Test
     @DisplayName("findById 테스트")
     void findByIdTest(){
-        Member newMember = createTestMember();
-        Member saveMember = memberRepository.save(newMember);
-        Member member = memberRepository.findById((newMember.getMemberId())).get();
-        assertThat(saveMember).isEqualTo(member);
+        Member member = memberUtil.saveMember("test",
+                "test@",
+                "test@naver.com",
+                "테스터",
+                "1999-12-25",
+                MemberGrade.BRONZE);
+        Member findMember = memberRepository.findById(member.getMemberId()).orElseThrow();
+        assertThat(findMember).isEqualTo(member);
     }
 
     @Test
@@ -42,6 +51,6 @@ public class MemberRepositoryTest {
                 .email("test@naver.com")
                 .name("테스터")
                 .birth(localDate)
-                .grade("Bronze").build();
+                .grade(MemberGrade.BRONZE).build();
     }
 }

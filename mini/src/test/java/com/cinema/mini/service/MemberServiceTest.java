@@ -1,6 +1,7 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Member;
+import com.cinema.mini.domain.MemberGrade;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
 import com.cinema.mini.repository.MemberRepository;
@@ -57,7 +58,7 @@ public class MemberServiceTest {
         assertThat(check).isEqualTo(true);
     }
 
-    private Member saveTestMember() {
+    public Member saveTestMember() {
         LocalDate localDate = LocalDate.parse("1999-12-25");
         Member newMember = Member.builder()
                 .loginId("test")
@@ -65,7 +66,7 @@ public class MemberServiceTest {
                 .email("test@naver.com")
                 .name("테스터")
                 .birth(localDate)
-                .grade("Bronze").build();
+                .grade(MemberGrade.BRONZE).build();
         return memberRepository.save(newMember);
     }
 }

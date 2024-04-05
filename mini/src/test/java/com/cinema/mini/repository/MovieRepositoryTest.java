@@ -34,11 +34,11 @@ public class MovieRepositoryTest {
     @Test
     void findLastestMovieList(){
         List<Movie> createMovieList = new ArrayList<>();
-        createMovieList.add(movieUtil.createTestMovie("test01","테스트1", "2024-03-01",4.5));
-        createMovieList.add(movieUtil.createTestMovie("test02","테스트2", "2024-03-02",4.5));
-        createMovieList.add(movieUtil.createTestMovie("test03","테스트3", "2024-03-03",4.5));
-        createMovieList.add(movieUtil.createTestMovie("test04","테스트4", "2024-03-04",4.5));
-        createMovieList.add(movieUtil.createTestMovie("test05","테스트5", "2024-03-05",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test01","테스트1", "2024-03-01",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test02","테스트2", "2024-03-02",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test03","테스트3", "2024-03-03",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test04","테스트4", "2024-03-04",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test05","테스트5", "2024-03-05",4.5));
         movieRepository.saveAll(createMovieList);
         List<Movie> lastestMovieList = movieRepository.findLastestMovieList();
 
@@ -52,11 +52,11 @@ public class MovieRepositoryTest {
     @Test
     void findPopularMovieList(){
         List<Movie> createMovieList = new ArrayList<>();
-        createMovieList.add(movieUtil.createTestMovie("test01","테스트1", "2024-03-01",1.5));
-        createMovieList.add(movieUtil.createTestMovie("test02","테스트2", "2024-03-02",2.5));
-        createMovieList.add(movieUtil.createTestMovie("test03","테스트3", "2024-03-03",3.5));
-        createMovieList.add(movieUtil.createTestMovie("test04","테스트4", "2024-03-04",4.5));
-        createMovieList.add(movieUtil.createTestMovie("test05","테스트5", "2024-03-05",5.0));
+        createMovieList.add(movieUtil.buildTestMovie("test01","테스트1", "2024-03-01",1.5));
+        createMovieList.add(movieUtil.buildTestMovie("test02","테스트2", "2024-03-02",2.5));
+        createMovieList.add(movieUtil.buildTestMovie("test03","테스트3", "2024-03-03",3.5));
+        createMovieList.add(movieUtil.buildTestMovie("test04","테스트4", "2024-03-04",4.5));
+        createMovieList.add(movieUtil.buildTestMovie("test05","테스트5", "2024-03-05",5.0));
         movieRepository.saveAll(createMovieList);
         List<Movie> popularMovieList = movieRepository.findPopularMovieList();
         assertThat(popularMovieList).hasSize(5);
@@ -100,10 +100,10 @@ public class MovieRepositoryTest {
     @Test
     void findByTitleIsLikeTest(){
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(movieUtil.createTestMovie("test01", "테스트1", "2024-03-01", 4.5));
-        movieList.add(movieUtil.createTestMovie("test02", "테스트2", "2024-03-01", 4.5));
-        movieList.add(movieUtil.createTestMovie("test03", "테스트3", "2024-03-01", 4.5));
-        movieList.add(movieUtil.createTestMovie("test04", "abc", "2024-03-01", 4.5));
+        movieList.add(movieUtil.buildTestMovie("test01", "테스트1", "2024-03-01", 4.5));
+        movieList.add(movieUtil.buildTestMovie("test02", "테스트2", "2024-03-01", 4.5));
+        movieList.add(movieUtil.buildTestMovie("test03", "테스트3", "2024-03-01", 4.5));
+        movieList.add(movieUtil.buildTestMovie("test04", "abc", "2024-03-01", 4.5));
         movieRepository.saveAll(movieList);
 
 

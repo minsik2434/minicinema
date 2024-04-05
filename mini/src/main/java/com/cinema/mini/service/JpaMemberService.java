@@ -1,6 +1,7 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Member;
+import com.cinema.mini.domain.MemberGrade;
 import com.cinema.mini.dto.LoginDto;
 import com.cinema.mini.dto.MemberRegisterDto;
 import com.cinema.mini.dto.ProfileUpdateDto;
@@ -11,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class JpaMemberService implements MemberService{
     private final MemberRepository memberRepository;
-    public static final String BRONZE = "Bronze";
     @Override
     @Transactional
     public Member memberRegister(MemberRegisterDto memberRegisterDto) {
@@ -27,7 +28,7 @@ public class JpaMemberService implements MemberService{
                 .email(memberRegisterDto.getEmail())
                 .name(memberRegisterDto.getName())
                 .birth(memberBirth)
-                .grade(BRONZE).build();
+                .grade(MemberGrade.BRONZE).build();
         return memberRepository.save(member);
     }
     @Override
