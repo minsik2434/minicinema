@@ -4,6 +4,8 @@ import com.cinema.mini.domain.Member;
 import com.cinema.mini.domain.MemberGrade;
 import com.cinema.mini.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestComponent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

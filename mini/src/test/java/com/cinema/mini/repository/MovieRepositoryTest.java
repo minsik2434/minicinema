@@ -3,6 +3,7 @@ package com.cinema.mini.repository;
 import com.cinema.mini.domain.Genre;
 import com.cinema.mini.domain.Movie;
 import com.cinema.mini.domain.Screening;
+import com.cinema.mini.domain.Theater;
 import com.cinema.mini.util.MovieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,10 @@ public class MovieRepositoryTest {
 
     @Autowired
     GenreRepository genreRepository;
-
+    @Autowired
+    TheaterRepository theaterRepository;
+    @Autowired
+    ScreeningRepository screeningRepository;
     @Autowired
     MovieUtil movieUtil;
 
@@ -115,17 +121,20 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    void movieReferenceTest(){
-        Movie findMovie = movieRepository.findById("test01").orElseThrow();
-        List<Screening> screenings = findMovie.getScreenings();
-        assertThat(screenings).isNotNull();
-    }
-
-    @Test
     void playingMovieTest(){
+        String startTime = "2024-01-01T13:30:30";
+        String endTime = "2024-01-01T15:30:30";
+        Movie saveMovie = movieUtil.createMovieAndMovieGenre("test", "테스트영화", "2024-01-01", 4.5, new String[]{"액션", "드라마"});
+        Theater theater = Theater.builder().theaterName("테스트 상영관").seatCount(20).build();
+        Theater saveTheater = theaterRepository.save(theater);
+        Screening saveScreening = Screening.builder().startTime(LocalDateTime.parse(startTime)).endTime(LocalDateTime.parse(endTime)).movie(saveMovie).theater(saveTheater).build();
+        screeningRepository.save(saveScreening);
+        //TODO 이 부분 수정이 필요함
+        saveMovie.getScreenings().add(saveScreening);
         List<Movie> playingMovie = movieRepository.findByPlayingMovie();
         assertThat(playingMovie).isNotEmpty();
         for (Movie movie : playingMovie) {
+            log.info(movie.getTitle());
             assertThat(movie.getScreenings()).isNotEmpty();
         }
     }

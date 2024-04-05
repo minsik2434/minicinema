@@ -1,10 +1,18 @@
 package com.cinema.mini.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
