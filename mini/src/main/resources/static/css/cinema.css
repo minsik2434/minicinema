@@ -802,7 +802,7 @@ button, input, select, textarea {
 }
 .select_num_people{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .people_num_box{
