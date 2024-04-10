@@ -45,31 +45,22 @@
                     <span>screen</span>
                 </div>
                 <div class="seat_list">
-                    <div class="seat_line">
-                        <span>A</span>
+                    <div th:each="rowGroup : ${seatInfoMap}" class="seat_line">
+                        <span style="color: white">A</span>
                         <ul>
-                            <li>
-                                <button class="seat_btn">1</button>
-                            </li>
-                            <li>
-                                <button class="seat_btn">1</button>
-                            </li>
-                            <li>
-                                <button class="seat_btn">1</button>
-                            </li>
-                            <li>
-                                <button class="seat_btn">1</button>
-                            </li>
-                            <li>
-                                <button class="seat_btn">1</button>
-                            </li>
-                            <li>
-                                <button class="seat_btn">1</button>
+                            <li th:each="seat : ${rowGroup.value}">
+                                <button class="seat_btn"
+                                        th:text="${seat.getSeatNumber()}"
+                                        th:class="${seat.isReserved()} ? 'reserved' : 'seat_btn'"
+                                        th:disabled="${seat.isReserved()}"></button>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            
         </div>
     </div>
 </section>

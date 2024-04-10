@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/reservation")
@@ -43,7 +45,8 @@ public class ReservationController {
         model.addAttribute("screeningInfo",movieAndScreeningDto);
 
         List<SeatDto> seatInfo = reservationService.getSeatInfo(screeningId);
-        model.addAttribute("seatInfo",seatInfo);
+        Map<Integer, List<SeatDto>> seatInfoMap = seatInfo.stream().collect(Collectors.groupingBy(SeatDto::getSeatRow));
+        model.addAttribute("seatInfoMap",seatInfoMap);
         return "view/reservation/seat";
     }
 }

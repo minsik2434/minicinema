@@ -107,7 +107,8 @@
         dayItems.forEach(item => {
             item.addEventListener('click', function (){
                 const isAlreadyChecked = this.classList.contains('checked-date');
-
+                const timeSelectDiv = document.querySelector('.time_select');
+                timeSelectDiv.innerHTML=``;
                 dayItems.forEach(item => {
                     item.classList.remove('checked-date');
                     let selected_date = document.querySelector('#selected-date');
@@ -130,6 +131,8 @@
         const movieItems = document.querySelectorAll('.movie_item');
         movieItems.forEach(item => {
             item.addEventListener('click', function() {
+                const timeSelectDiv = document.querySelector('.time_select');
+                timeSelectDiv.innerHTML=``;
 
                 const isAlreadyChecked = this.classList.contains('checked');
 
