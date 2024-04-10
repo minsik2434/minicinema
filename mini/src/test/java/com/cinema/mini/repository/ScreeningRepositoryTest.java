@@ -98,6 +98,8 @@ public class ScreeningRepositoryTest {
         log.info("localDate2={}",localDate2);
         log.info("localDate3={}",localDate3);
     }
+
+
     private Theater getTheater(String theaterName, int seatCount) {
         List<Screening> list = new ArrayList<>();
         return Theater.builder().theaterName(theaterName).seatCount(seatCount).screenings(list).build();

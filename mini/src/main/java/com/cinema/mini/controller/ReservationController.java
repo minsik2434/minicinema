@@ -2,6 +2,7 @@ package com.cinema.mini.controller;
 
 import com.cinema.mini.dto.MovieAndScreeningDto;
 import com.cinema.mini.dto.ScreeningDto;
+import com.cinema.mini.dto.SeatDto;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,8 @@ public class ReservationController {
         MovieAndScreeningDto movieAndScreeningDto = reservationService.getScreeningInfoForScreeningId(screeningId);
         model.addAttribute("screeningInfo",movieAndScreeningDto);
 
+        List<SeatDto> seatInfo = reservationService.getSeatInfo(screeningId);
+        model.addAttribute("seatInfo",seatInfo);
         return "view/reservation/seat";
     }
 }

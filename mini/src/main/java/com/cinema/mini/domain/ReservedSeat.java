@@ -1,19 +1,26 @@
 package com.cinema.mini.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 @Entity
+@Builder
+@AllArgsConstructor
 public class ReservedSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservedSeatId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
+    public ReservedSeat() {
+
+    }
 }

@@ -16,12 +16,12 @@ import java.io.Serializable;
 public class MovieGenre implements Serializable {
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", insertable = false, updatable = false)
     private Movie movie;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id", insertable = false, updatable = false)
     private Genre genre;
 

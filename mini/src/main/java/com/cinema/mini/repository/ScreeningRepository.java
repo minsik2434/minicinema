@@ -14,5 +14,5 @@ import java.util.Optional;
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
     Optional<List<Screening>> findByMovieMovieIdAndStartTimeBetween(String movieId, LocalDateTime startDateTime, LocalDateTime endDateTime);
-    Optional<Screening> findByScreeningId(Long screeningId);
+//    Optional<Screening> findByScreeningId(Long screeningId);
 }

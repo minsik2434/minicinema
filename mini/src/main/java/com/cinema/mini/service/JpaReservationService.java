@@ -1,8 +1,11 @@
 package com.cinema.mini.service;
 
 import com.cinema.mini.domain.Screening;
+import com.cinema.mini.domain.Seat;
 import com.cinema.mini.dto.MovieAndScreeningDto;
 import com.cinema.mini.dto.ScreeningDto;
+import com.cinema.mini.dto.SeatDto;
+import com.cinema.mini.repository.ReservedSeatRepository;
 import com.cinema.mini.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JpaReservationService implements ReservationService{
     private final ScreeningRepository screeningRepository;
+    private final ReservedSeatRepository reservedSeatRepository;
     @Override
     public List<ScreeningDto> getScreeningInfoForTheater(String movieId, String selectedDate) {
         log.info("movieId={}",movieId);
@@ -56,7 +60,23 @@ public class JpaReservationService implements ReservationService{
 
     @Override
     public MovieAndScreeningDto getScreeningInfoForScreeningId(Long screeningId) {
-        Screening screening = screeningRepository.findByScreeningId(screeningId).orElseThrow();
+        Screening screening = screeningRepository.findById(screeningId).orElseThrow();
         return new MovieAndScreeningDto(screening);
+    }
+
+    @Override
+    public List<SeatDto> getSeatInfo(Long screeningId) {
+        Screening screening = screeningRepository.findById(screeningId).orElseThrow();
+        List<Seat> seats = screening.getTheater().getSeats();
+        List<Seat> seatsByScreeningId = reservedSeatRepository.findSeatsByScreeningId(screeningId);
+        List<SeatDto> seatInfo = seats.stream().map(seat -> {
+            SeatDto seatDto = new SeatDto();
+            seatDto.setSeatId(seat.getSeatId());
+            seatDto.setSeatRow(seat.getSeatRow());
+            seatDto.setSeatNumber(seat.getSeatNumber());
+            seatDto.setReserved(seatsByScreeningId.contains(seat));
+            return seatDto;
+        }).toList();
+        return seatInfo;
     }
 }

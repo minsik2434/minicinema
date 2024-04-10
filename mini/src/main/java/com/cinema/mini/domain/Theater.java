@@ -3,6 +3,7 @@ package com.cinema.mini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,4 +23,7 @@ public class Theater {
 
     @OneToMany(mappedBy = "theater")
     private List<Screening> screenings;
+
+    @OneToMany(mappedBy = "theater")
+    private List<Seat> seats;
 }
