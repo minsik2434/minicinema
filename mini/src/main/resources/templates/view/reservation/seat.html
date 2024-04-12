@@ -62,20 +62,16 @@
             </div>
         </div>
         <div class="pay-wrap">
-            <form id="seatForm" action="/pay" method="post">
-                <div style="display: flex; gap: 100px; height: 50px;">
-                    <div style="height: 100%;">
-                        <strong> 총 가격 :</strong>
-                        <a id="price">0</a>원
-                    </div>
-                    <div style="background-color: aqua;">
-                        <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
-                        <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
-                        <input type="hidden" id="totalPrice" name="totalPrice" value="">
-                        <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
-                    </div>
+            <div style="display: flex; gap: 100px; height: 50px;">
+                <div style="height: 100%;">
+                    <strong> 총 가격 :</strong>
+                    <a id="price">0</a>원
                 </div>
-            </form>
+                <div style="background-color: aqua;">
+                    <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
+                    <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -84,10 +80,11 @@
 <script th:inline="javascript">
     let selectedSeats = [];
     let selectedSeatsCount = 0;
+    let selectedPersonCount = 0;
     document.addEventListener('DOMContentLoaded', function (){
         document.querySelectorAll('.seat_list button').forEach(function(button) {
             button.addEventListener('click', function() {
-                let selectedPersonCount = parseInt(document.querySelector('#person').textContent);
+                selectedPersonCount = parseInt(document.querySelector('#person').textContent);
                 if(selectedPersonCount === 0){
                     alert('인원을 선택해주세요');
                 }
@@ -100,7 +97,6 @@
                         selectedSeats.push(seatId);
                         if(selectedSeatsCount === selectedPersonCount){
                             document.querySelector('#price').innerText = String(selectedPersonCount * 15000);
-                            document.getElementById('totalPrice').value = selectedPersonCount*15000;
                             document.querySelector('#payBtn').disabled = false;
                             document.querySelectorAll('.seat_btn:not(.selected)').forEach(function(btn) {
                                 btn.disabled = true;
@@ -110,7 +106,6 @@
                     } else {
                         this.classList.remove('selected');
                         document.querySelector('#price').innerText = '0';
-                        document.getElementById('totalPrice').value = 0;
                         document.querySelector('#payBtn').disabled = true;
                         this.style.backgroundColor = 'white';
                         selectedSeatsCount--;
@@ -158,11 +153,21 @@
         })
     });
 
-
-    document.getElementById('submitBtn').addEventListener('click', function() {
-        const selectedSeats = Array.from(document.querySelectorAll('.seat.selected'))
-            .map(seat => seat.textContent.trim());
-        document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats);
-        document.getElementById('seatForm').submit();
+    document.getElementById('payBtn').addEventListener('click', function() {
+        let screeningId = document.getElementById('screeningId').value;
+        const dataToSend = {
+            selectedSeat: selectedSeats,
+            "screeningId" : screeningId,
+            "totalPersonNum" : selectedSeatsCount
+        };
+        fetch('/reservation/pay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        })
+            .then(data => console.log(data))
+            .catch((error) => console.error('Error:', error));
     });
 </script>

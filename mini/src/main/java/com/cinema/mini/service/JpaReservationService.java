@@ -27,8 +27,6 @@ public class JpaReservationService implements ReservationService{
     private final ReservedSeatRepository reservedSeatRepository;
     @Override
     public List<ScreeningDto> getScreeningInfoForTheater(String movieId, String selectedDate) {
-        log.info("movieId={}",movieId);
-        log.info("selectedDate={}",selectedDate);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
         LocalDate startDate = LocalDate.parse(selectedDate,formatter);
         LocalDateTime startDateTime = startDate.atStartOfDay();

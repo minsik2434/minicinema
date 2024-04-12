@@ -1,10 +1,16 @@
 package com.cinema.mini.controller;
 
+import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.MovieAndScreeningDto;
+import com.cinema.mini.dto.PayInfoDto;
 import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.dto.SeatDto;
+import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -48,5 +54,19 @@ public class ReservationController {
         Map<Integer, List<SeatDto>> seatInfoMap = seatInfo.stream().collect(Collectors.groupingBy(SeatDto::getSeatRow));
         model.addAttribute("seatInfoMap",seatInfoMap);
         return "view/reservation/seat";
+    }
+
+    @PostMapping("/pay")
+    @ResponseBody
+    public String payForm(@SessionAttribute(name = SessionConst.SESSION_NAME) Member loginMember,
+                          @RequestBody PayInfoDto payInfoDto){
+        log.info("memberId={}",loginMember.getMemberId());
+        log.info("screeningId={}",payInfoDto.getScreeningId());
+        List<String> selectedSeats = payInfoDto.getSelectedSeat();
+        log.info("selectedSeatCount={}",payInfoDto.getTotalPersonNum());
+        for (String selectedSeat : selectedSeats) {
+            log.info("selectedSeat={}",selectedSeat);
+        }
+        return "ok";
     }
 }
