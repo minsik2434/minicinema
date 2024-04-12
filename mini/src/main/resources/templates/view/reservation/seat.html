@@ -52,26 +52,93 @@
                                 <button class="seat_btn"
                                         th:text="${seat.getSeatNumber()}"
                                         th:class="${seat.isReserved()} ? 'reserved' : 'seat_btn'"
-                                        th:disabled="${seat.isReserved()}"></button>
+                                        th:disabled="${seat.isReserved()}"
+                                        th:data-seat-id="${seat.getSeatId()}">
+                                </button>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            
+        <div class="pay-wrap">
+            <form id="seatForm" action="/pay" method="post">
+                <div style="display: flex; gap: 100px; height: 50px;">
+                    <div style="height: 100%;">
+                        <strong> 총 가격 :</strong>
+                        <a id="price">0</a>원
+                    </div>
+                    <div style="background-color: aqua;">
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
+                        <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
+                        <input type="hidden" id="totalPrice" name="totalPrice" value="">
+                        <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>
 </body>
 </html>
 <script th:inline="javascript">
+    let selectedSeats = [];
+    let selectedSeatsCount = 0;
+    document.addEventListener('DOMContentLoaded', function (){
+        document.querySelectorAll('.seat_list button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let selectedPersonCount = parseInt(document.querySelector('#person').textContent);
+                if(selectedPersonCount === 0){
+                    alert('인원을 선택해주세요');
+                }
+                else{
+                    let seatId = this.dataset.seatId;
+                    if (!this.classList.contains('selected')) {
+                        this.classList.add('selected');
+                        this.style.backgroundColor = 'gray';
+                        selectedSeatsCount++;
+                        selectedSeats.push(seatId);
+                        if(selectedSeatsCount === selectedPersonCount){
+                            document.querySelector('#price').innerText = String(selectedPersonCount * 15000);
+                            document.getElementById('totalPrice').value = selectedPersonCount*15000;
+                            document.querySelector('#payBtn').disabled = false;
+                            document.querySelectorAll('.seat_btn:not(.selected)').forEach(function(btn) {
+                                btn.disabled = true;
+                            });
+                        }
+
+                    } else {
+                        this.classList.remove('selected');
+                        document.querySelector('#price').innerText = '0';
+                        document.getElementById('totalPrice').value = 0;
+                        document.querySelector('#payBtn').disabled = true;
+                        this.style.backgroundColor = 'white';
+                        selectedSeatsCount--;
+                        const index = selectedSeats.indexOf(seatId);
+                        if (index > -1) {
+                            selectedSeats.splice(index, 1);
+                        }
+                        if(selectedSeatsCount < selectedPersonCount){
+                            document.querySelectorAll('.seat_btn:not(.selected)').forEach(function(btn) {
+                                btn.disabled = false;
+                            });
+                        }
+                    }
+                }
+            });
+        });
+    })
+
     document.addEventListener('DOMContentLoaded', function (){
         const plus = document.querySelector('#plus');
         const minus = document.querySelector('#minus');
         let person = document.querySelector('#person');
         plus.addEventListener('click',function (){
+            document.querySelectorAll('.seat_btn.selected').forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.style.backgroundColor = 'white';
+            });
+            selectedSeatsCount = 0;
             if (parseInt(person.innerText)>3){
                 alert('4명까지만 예약할 수 있습니다');
             }
@@ -80,9 +147,22 @@
             }
         })
         minus.addEventListener('click',function (){
+            document.querySelectorAll('.seat_btn.selected').forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.style.backgroundColor = 'white';
+            });
+            selectedSeatsCount = 0;
             if (parseInt(person.innerText)>0){
                 person.innerText = parseInt(person.innerText)-1;
             }
         })
-    })
+    });
+
+
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        const selectedSeats = Array.from(document.querySelectorAll('.seat.selected'))
+            .map(seat => seat.textContent.trim());
+        document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats);
+        document.getElementById('seatForm').submit();
+    });
 </script>
