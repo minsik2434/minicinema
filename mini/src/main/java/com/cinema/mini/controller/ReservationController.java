@@ -1,22 +1,23 @@
 package com.cinema.mini.controller;
 
 import com.cinema.mini.domain.Member;
+import com.cinema.mini.domain.Seat;
 import com.cinema.mini.dto.MovieAndScreeningDto;
-import com.cinema.mini.dto.PayInfoDto;
+import com.cinema.mini.dto.PayDto;
 import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.dto.SeatDto;
 import com.cinema.mini.interceptor.SessionConst;
+import com.cinema.mini.repository.SeatRepository;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class ReservationController {
 
     private final MovieService movieService;
     private final ReservationService reservationService;
+    private final SeatRepository seatRepository;
     @GetMapping
     public String reservationForm(Model model){
         model.addAttribute("playingMovieDtos", movieService.playingMovie());
@@ -51,22 +53,26 @@ public class ReservationController {
         model.addAttribute("screeningInfo",movieAndScreeningDto);
 
         List<SeatDto> seatInfo = reservationService.getSeatInfo(screeningId);
-        Map<Integer, List<SeatDto>> seatInfoMap = seatInfo.stream().collect(Collectors.groupingBy(SeatDto::getSeatRow));
+        Map<String, List<SeatDto>> seatInfoMap = seatInfo.stream().collect(Collectors.groupingBy(SeatDto::getSeatRow));
         model.addAttribute("seatInfoMap",seatInfoMap);
         return "view/reservation/seat";
     }
 
-    @PostMapping("/pay")
-    @ResponseBody
+    @PostMapping("/payForm")
     public String payForm(@SessionAttribute(name = SessionConst.SESSION_NAME) Member loginMember,
-                          @RequestBody PayInfoDto payInfoDto){
-        log.info("memberId={}",loginMember.getMemberId());
-        log.info("screeningId={}",payInfoDto.getScreeningId());
-        List<String> selectedSeats = payInfoDto.getSelectedSeat();
-        log.info("selectedSeatCount={}",payInfoDto.getTotalPersonNum());
-        for (String selectedSeat : selectedSeats) {
-            log.info("selectedSeat={}",selectedSeat);
+                          @ModelAttribute PayDto payDto, Model model){
+        MovieAndScreeningDto movieAndScreeningDto = reservationService.getScreeningInfoForScreeningId(payDto.getScreeningId());
+        model.addAttribute("screeningInfo",movieAndScreeningDto);
+        StringBuilder st = new StringBuilder();
+        Long[] selectedSeats = payDto.getSelectedSeats();
+        for (Long selectedSeat : selectedSeats) {
+            Seat seat = seatRepository.findById(selectedSeat).orElseThrow();
+            st.append(seat.getSeatRow()).append(seat.getSeatNumber()).append(", ");
         }
-        return "ok";
+        String seats = st.substring(0, st.length()-2);
+        model.addAttribute("selectedSeats",seats);
+        model.addAttribute("totalPersonNum", payDto.getTotalPersonNum());
+
+        return "view/reservation/pay";
     }
 }

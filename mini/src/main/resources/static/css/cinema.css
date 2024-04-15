@@ -899,3 +899,33 @@ button, input, select, textarea {
     display:flex;
     justify-content: space-evenly
 }
+.pay_image{
+    width: 100px;
+    height: 130px;
+}
+.pay_info{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    background-color: #343434;
+    border-top: #8e8e8e 1px solid;
+}
+.pay_info strong{
+    color: white;
+}
+
+.select-seat{
+    padding: 30px 10px;
+    border-bottom: black 1px solid;
+    border-top: black 1px solid;
+}
+
+.payment_wrap{
+    width: 300px;
+}
+
+.membership_discount{
+    display: flex;
+    flex-direction: column;
+    text-align: center
+}

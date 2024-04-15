@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mini 시네마</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/cinema.css">
+</head>
+<body>
+    <section>
+        <div style="display: flex; gap: 30px; padding: 0 200px; justify-content: center">
+            <div>
+                <div class="group_info" >
+                    <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${screeningInfo.posterPath}__}" alt="test">
+                    <div class="screening_info_wrap">
+                        <strong class="movieTitle" th:text="${screeningInfo.title}"></strong><br>
+                        <span th:text="${#temporals.format(screeningInfo.getStartTime(), 'yyyy-MM-dd')}">날짜</span>
+                        <span>
+                            <a th:text="${#temporals.format(screeningInfo.getStartTime(), 'HH:mm')}"></a> ~
+                            <a th:text="${#temporals.format(screeningInfo.getEndTime(), 'HH:mm')}"></a>
+                        </span>
+                        <span th:text="${screeningInfo.theaterName}">상영관 번호</span>
+                        <span>인원 : <a th:text="${totalPersonNum}"></a> 명</span>
+                    </div>
+                </div>
+                <div class="select-seat">
+                    <strong>좌석 : </strong>
+                    <strong th:text="${selectedSeats}"></strong>
+                </div>
+            </div>
+            <div class="payment_wrap">
+                <div class="membership_discount">
+                    <span><img class="membership_image" th:src="@{/image/bronze.png}" src="../../static/image/bronze.png" alt="브론즈"></span>
+                    <div>
+                        <strong> 멤버쉽 등급 </strong>
+                        <strong> BRONZE </strong>
+                    </div>
+                    <strong> 3% 할인 </strong>
+                </div>
+                <div class="pay_info">
+                    <strong>결제 금액</strong>
+                    <strong> 10000 원 </strong>
+                </div>
+                <div class="pay_info">
+                    <strong>결제 금액</strong>
+                    <strong> 10000 원 </strong>
+                </div>
+                <div class="pay_info">
+                    <strong>결제 금액</strong>
+                    <strong> 10000 원 </strong>
+                </div>
+                <div>
+                    결제 버튼
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

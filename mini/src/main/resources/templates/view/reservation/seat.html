@@ -46,7 +46,7 @@
                 </div>
                 <div class="seat_list">
                     <div th:each="rowGroup : ${seatInfoMap}" class="seat_line">
-                        <span style="color: white">A</span>
+                        <span style="color: white" th:text="${rowGroup.getKey()}"></span>
                         <ul>
                             <li th:each="seat : ${rowGroup.value}">
                                 <button class="seat_btn"
@@ -63,13 +63,17 @@
         </div>
         <div class="pay-wrap">
             <div style="display: flex; gap: 100px; height: 50px;">
-                <div style="height: 100%;">
-                    <strong> 총 가격 :</strong>
+                <div style="display:flex; flex-direction: column; height: 100%;">
+                    <strong> 가격 :</strong>
                     <a id="price">0</a>원
                 </div>
                 <div style="background-color: aqua;">
-                    <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
-                    <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
+                    <form th:action="@{payForm}" method="post">
+                        <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
+                        <input type="hidden" id="totalPersonNum" name="totalPersonNum" value="">
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
+                        <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -154,20 +158,8 @@
     });
 
     document.getElementById('payBtn').addEventListener('click', function() {
-        let screeningId = document.getElementById('screeningId').value;
-        const dataToSend = {
-            selectedSeat: selectedSeats,
-            "screeningId" : screeningId,
-            "totalPersonNum" : selectedSeatsCount
-        };
-        fetch('/reservation/pay', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        })
-            .then(data => console.log(data))
-            .catch((error) => console.error('Error:', error));
+        document.getElementById('totalPersonNum').value = selectedPersonCount;
+        document.getElementById('selectedSeats').value = selectedSeats;
+        document.getElementById('seatForm').submit();
     });
 </script>

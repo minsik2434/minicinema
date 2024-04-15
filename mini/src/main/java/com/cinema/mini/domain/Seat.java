@@ -18,7 +18,7 @@ public class Seat {
     @JoinColumn(name = "theater_id")
     private Theater theater;
     private int seatNumber;
-    private int seatRow;
+    private String seatRow;
 
     public Seat() {
 
