@@ -906,6 +906,7 @@ button, input, select, textarea {
 .pay_info{
     display: flex;
     justify-content: space-between;
+    width: 100%;
     padding: 5px 0;
     background-color: #343434;
     border-top: #8e8e8e 1px solid;
@@ -921,11 +922,24 @@ button, input, select, textarea {
 }
 
 .payment_wrap{
-    width: 300px;
+    min-width: 300px;
 }
 
 .membership_discount{
     display: flex;
     flex-direction: column;
     text-align: center
+}
+.payment_container{
+    display: flex;
+    gap: 30px;
+    padding: 0 200px;
+    justify-content: center;
+}
+#payment_btn{
+    text-align: center;
+    width: 100%;
+    padding: 5px 0;
+    background-color: #D5D5D5;
+    border-top: #8e8e8e 1px solid;
 }

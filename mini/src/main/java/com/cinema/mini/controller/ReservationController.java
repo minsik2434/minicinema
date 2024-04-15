@@ -2,22 +2,17 @@ package com.cinema.mini.controller;
 
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.domain.Seat;
-import com.cinema.mini.dto.MovieAndScreeningDto;
-import com.cinema.mini.dto.PayDto;
-import com.cinema.mini.dto.ScreeningDto;
-import com.cinema.mini.dto.SeatDto;
+import com.cinema.mini.dto.*;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.repository.SeatRepository;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,6 +58,7 @@ public class ReservationController {
                           @ModelAttribute PayDto payDto, Model model){
         MovieAndScreeningDto movieAndScreeningDto = reservationService.getScreeningInfoForScreeningId(payDto.getScreeningId());
         model.addAttribute("screeningInfo",movieAndScreeningDto);
+
         StringBuilder st = new StringBuilder();
         Long[] selectedSeats = payDto.getSelectedSeats();
         for (Long selectedSeat : selectedSeats) {
@@ -70,9 +66,19 @@ public class ReservationController {
             st.append(seat.getSeatRow()).append(seat.getSeatNumber()).append(", ");
         }
         String seats = st.substring(0, st.length()-2);
+        PaymentInfo paymentInfo = new PaymentInfo(loginMember,payDto.getTotalPersonNum());
+        model.addAttribute("paymentInfo", paymentInfo);
         model.addAttribute("selectedSeats",seats);
+        model.addAttribute("seatIds",selectedSeats);
         model.addAttribute("totalPersonNum", payDto.getTotalPersonNum());
 
         return "view/reservation/pay";
+    }
+
+    @PostMapping("/payment")
+    @ResponseBody
+    public String payment(@RequestBody PaymentDto paymentDto){
+
+        return "ok";
     }
 }

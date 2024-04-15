@@ -3,8 +3,10 @@ package com.cinema.mini.service;
 import com.cinema.mini.domain.Screening;
 import com.cinema.mini.domain.Seat;
 import com.cinema.mini.dto.MovieAndScreeningDto;
+import com.cinema.mini.dto.PaymentDto;
 import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.dto.SeatDto;
+import com.cinema.mini.exception.NotFoundResourceException;
 import com.cinema.mini.repository.ReservedSeatRepository;
 import com.cinema.mini.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +78,14 @@ public class JpaReservationService implements ReservationService{
             return seatDto;
         }).toList();
         return seatInfo;
+    }
+
+    @Override
+    public void reserve(PaymentDto paymentDto) {
+        Optional<Screening> optionalScreening = screeningRepository.findById(paymentDto.getScreeningId());
+        if(optionalScreening.isEmpty()){
+            throw new NotFoundResourceException("해당 상영이 없습니다");
+        }
+
     }
 }

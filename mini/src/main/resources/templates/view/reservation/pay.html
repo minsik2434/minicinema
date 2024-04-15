@@ -6,7 +6,7 @@
 </head>
 <body>
     <section>
-        <div style="display: flex; gap: 30px; padding: 0 200px; justify-content: center">
+        <div class="payment_container">
             <div>
                 <div class="group_info" >
                     <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${screeningInfo.posterPath}__}" alt="test">
@@ -31,27 +31,45 @@
                     <span><img class="membership_image" th:src="@{/image/bronze.png}" src="../../static/image/bronze.png" alt="브론즈"></span>
                     <div>
                         <strong> 멤버쉽 등급 </strong>
-                        <strong> BRONZE </strong>
+                        <strong th:text="${paymentInfo.memberGrade}"> </strong>
                     </div>
-                    <strong> 3% 할인 </strong>
+                    <strong> <a th:text="${paymentInfo.discountPercent}"></a>% 할인 </strong>
+                </div>
+                <div class="pay_info">
+                    <strong>상품 금액</strong>
+                    <strong> <a th:text="${paymentInfo.originPrice}"></a> 원 </strong>
+                </div>
+                <div class="pay_info">
+                    <strong>할인 금액</strong>
+                    <strong> <a th:text="${paymentInfo.discountPrice}"></a> 원 </strong>
                 </div>
                 <div class="pay_info">
                     <strong>결제 금액</strong>
-                    <strong> 10000 원 </strong>
+                    <strong> <a th:text="${paymentInfo.totalPrice}"></a> 원 </strong>
                 </div>
-                <div class="pay_info">
-                    <strong>결제 금액</strong>
-                    <strong> 10000 원 </strong>
-                </div>
-                <div class="pay_info">
-                    <strong>결제 금액</strong>
-                    <strong> 10000 원 </strong>
-                </div>
-                <div>
-                    결제 버튼
-                </div>
+                <div id="payment_btn"><strong>결제 버튼</strong></div>
             </div>
         </div>
     </section>
 </body>
 </html>
+
+<script th:inline="javascript">
+    document.getElementById('payment_btn').addEventListener('click',function (){
+        let totalPrice = [[${paymentInfo.totalPrice}]];
+        let screeningId = [[${screeningInfo.screeningId}]];
+        let selectedSeatIds = [[${seatIds}]];
+        let totalPersonNum = [[${totalPersonNum}]];
+        let dataToSend = {
+            totalPrice: totalPrice,
+            screeningId: screeningId,
+            selectedSeatIds : selectedSeatIds,
+            totalPersonNum : totalPersonNum
+        };
+
+        axios.post('/reservation/payment', dataToSend)
+            .then(function(response) {
+                console.log('Success:', response);
+            })
+    });
+</script>

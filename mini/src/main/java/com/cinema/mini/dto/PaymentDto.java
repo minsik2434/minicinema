@@ -1,19 +1,20 @@
 package com.cinema.mini.dto;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
 @Setter
-public class PayDto {
+@Getter
+public class PaymentDto {
+    @Min(15000)
+    private int totalPrice;
     @NotBlank
     private Long screeningId;
-    @Min(1)
-    @Max(4)
-    private int totalPersonNum;
     @NotBlank
-    private Long[] selectedSeats;
+    private String[] selectedSeatIds;
+    @Min(1)
+    private Integer totalPersonNum;
 }

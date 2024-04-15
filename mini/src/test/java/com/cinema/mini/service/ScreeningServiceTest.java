@@ -50,8 +50,8 @@ public class ScreeningServiceTest {
                 4.5,
                 new String[]{"액션", "드라마"});
         Theater saveTheater = theaterRepository.save(getTheater(theaterName, 30));
-        Seat s1 = Seat.builder().seatNumber(1).seatRow(1).theater(saveTheater).build();
-        Seat s2 = Seat.builder().seatNumber(2).seatRow(1).theater(saveTheater).build();
+        Seat s1 = Seat.builder().seatNumber(1).seatRow("A").theater(saveTheater).build();
+        Seat s2 = Seat.builder().seatNumber(2).seatRow("A").theater(saveTheater).build();
         seatRepository.save(s1);
         seatRepository.save(s2);
         saveTheater.getSeats().add(s1);
