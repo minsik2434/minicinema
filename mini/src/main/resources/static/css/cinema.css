@@ -944,3 +944,15 @@ button, input, select, textarea {
     background-color: #D5D5D5;
     border-top: #8e8e8e 1px solid;
 }
+.reserve_btn{
+    background-color: aqua;
+    height: 100%; display:
+        flex; flex-direction: column;
+    justify-content: center
+}
+.reserve_price{
+    display: flex;
+    gap: 100px;
+    height: 50px;
+    align-items: center;
+}

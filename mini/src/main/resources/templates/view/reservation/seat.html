@@ -62,17 +62,16 @@
             </div>
         </div>
         <div class="pay-wrap">
-            <div style="display: flex; gap: 100px; height: 50px;">
-                <div style="display:flex; flex-direction: column; height: 100%;">
-                    <strong> 가격 :</strong>
-                    <a id="price">0</a>원
+            <div class="reserve_price">
+                <div>
+                    <strong> 가격 : <a id="price">0</a>원 </strong>
                 </div>
-                <div style="background-color: aqua;">
+                <div class="reserve_btn">
                     <form th:action="@{payForm}" method="post">
                         <input type="hidden" id="screeningId" name="screeningId" th:value="${screeningInfo.screeningId}">
                         <input type="hidden" id="totalPersonNum" name="totalPersonNum" value="">
                         <input type="hidden" id="selectedSeats" name="selectedSeats" value="">
-                        <button type="submit" id="payBtn" disabled style="height: 100%">예약</button>
+                        <button type="submit" id="payBtn" disabled >예약</button>
                     </form>
                 </div>
             </div>

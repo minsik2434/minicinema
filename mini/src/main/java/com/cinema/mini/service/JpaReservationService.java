@@ -55,7 +55,8 @@ public class JpaReservationService implements ReservationService{
                 screeningByTheater.setEndTime(screening.getEndTime());
                 screeningByTheater.setMaxSeat(screening.getTheater().getSeatCount());
                 //TODO 남은 좌석은 예약 좌석 로직 구현후 구현예정
-                screeningByTheater.setRemainSeat(0);
+                int reservedSeatCount = reservedSeatRepository.reservedSeatCount(screening.getScreeningId());
+                screeningByTheater.setRemainSeat(screeningByTheater.getMaxSeat()-reservedSeatCount);
                 return screeningByTheater;
             }).toList();
             screeningDto.setScreenings(screenings);

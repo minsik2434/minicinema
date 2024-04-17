@@ -48,9 +48,10 @@ public class ReservationController {
     }
 
     @GetMapping("/screening")
-    @ResponseBody
-    public List<ScreeningDto> screeningInfo(@RequestParam String movieId, @RequestParam String selectedDate){
-        return reservationService.getScreeningInfoForTheater(movieId,selectedDate);
+    public ResponseEntity<List<ScreeningDto>> screeningInfo(@RequestParam String movieId, @RequestParam String selectedDate){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(reservationService.getScreeningInfoForTheater(movieId,selectedDate));
+
     }
 
     @PostMapping("/seat")
@@ -96,5 +97,4 @@ public class ReservationController {
         reservationService.reserve(loginMember,paymentDto);
         return ResponseEntity.ok().body("Reservation Success");
     }
-
 }
