@@ -1,16 +1,15 @@
 package com.cinema.mini.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 public class Reservation {
@@ -25,5 +24,8 @@ public class Reservation {
     private Screening screening;
     private LocalDateTime reservationDatetime;
     private int price;
+
+    @OneToMany(mappedBy = "reservation")
+    private List<ReservedSeat> reservedSeatList;
 
 }

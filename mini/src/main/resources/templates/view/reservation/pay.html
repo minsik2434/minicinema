@@ -67,9 +67,18 @@
             totalPersonNum : totalPersonNum
         };
 
-        axios.post('/reservation/payment', dataToSend)
-            .then(function(response) {
-                console.log('Success:', response);
-            })
+    axios.post('/reservation/payment', dataToSend)
+        .then(function(response) {
+            if(response.status === 200){
+                alert('성공적으로 예약되었습니다');
+                window.location.href = '/';
+            }
+        })
+        .catch(function(error) {
+            if(error.response && error.response.status === 409){
+                alert('중복된 좌석이 있습니다 다시 예약해주세요');
+                window.location.href = '/reservation';
+            }
+        });
     });
 </script>

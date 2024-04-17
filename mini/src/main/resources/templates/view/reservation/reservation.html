@@ -58,49 +58,84 @@
 
 <script th:inline="javascript">
     let currentDate = new Date();
+    currentDate.setHours(0,0,0,0);
     let checked_date = null;
     let checked_movieId = null;
     let checked_screening = null;
-
     function updateWeek(shift = 0) {
         let today = new Date();
-        today.setHours(0,0,0,0);
-
-        const oneDay = 24 * 60 * 60 * 1000;
-        const dayOfWeek = currentDate.getDay();
-        const startOfWeek = new Date(currentDate.valueOf() - dayOfWeek * oneDay);
-        startOfWeek.setDate(startOfWeek.getDate()+ shift * 7);
+        today.setHours(0,0,0,1);
+        currentDate.setDate(currentDate.getDate() + shift * 7);
 
         let nextMonth = new Date(today.getFullYear(), today.getMonth()+2, 0);
-        document.getElementById('prevWeekBtn').disabled = startOfWeek < today;
-        document.getElementById('nextWeekBtn').disabled = startOfWeek >= nextMonth;
+
+        document.getElementById('prevWeekBtn').disabled = currentDate < today;
+        document.getElementById('nextWeekBtn').disabled = currentDate >= nextMonth;
 
         let weekDates = '';
         let lastMonth = null;
         const daysOfWeek = ['일','월','화','수','목','금','토'];
+        const oneDay = 24 * 60 * 60 * 1000; // 하루의 밀리초
         for (let i = 0; i < 7; i++) {
-            const day = new Date(startOfWeek.valueOf() + i * oneDay);
+            const day = new Date(currentDate.valueOf() + i * oneDay);
             const month = day.getMonth();
             const dayOfWeek = daysOfWeek[day.getDay()];
 
             if(lastMonth !== null && month !== lastMonth){
                 weekDates += `<div>
-                                <h5>${day.getFullYear()}</h5>
-                                ${day.toLocaleDateString('ko-KR',{month : 'long'})}
-                              </div>`;
+                            <h5>${day.getFullYear()}</h5>
+                            ${day.toLocaleDateString('ko-KR',{month : 'long'})}
+                          </div>`;
             }
             weekDates += `<div class="day-item" data-date="${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}">
-                                <h5>${day.getDate()}</h5>
-                                ${dayOfWeek}
-                          </div>`;
+                            <h5>${day.getDate()}</h5>
+                            ${dayOfWeek}
+                      </div>`;
 
             lastMonth = month;
         }
         document.getElementById('weekDates').innerHTML = weekDates;
-        currentDate = startOfWeek;
-
         addClickEventToDays();
     }
+    // function updateWeek(shift = 0) {
+    //     let today = new Date();
+    //     today.setHours(0,0,0,0);
+    //
+    //     const oneDay = 24 * 60 * 60 * 1000;
+    //     const dayOfWeek = currentDate.getDay();
+    //     const startOfWeek = new Date(currentDate.valueOf() - dayOfWeek * oneDay);
+    //     startOfWeek.setDate(startOfWeek.getDate()+ shift * 7);
+    //
+    //     let nextMonth = new Date(today.getFullYear(), today.getMonth()+2, 0);
+    //     document.getElementById('prevWeekBtn').disabled = startOfWeek < today;
+    //     document.getElementById('nextWeekBtn').disabled = startOfWeek >= nextMonth;
+    //
+    //     let weekDates = '';
+    //     let lastMonth = null;
+    //     const daysOfWeek = ['일','월','화','수','목','금','토'];
+    //     for (let i = 0; i < 7; i++) {
+    //         const day = new Date(startOfWeek.valueOf() + i * oneDay);
+    //         const month = day.getMonth();
+    //         const dayOfWeek = daysOfWeek[day.getDay()];
+    //
+    //         if(lastMonth !== null && month !== lastMonth){
+    //             weekDates += `<div>
+    //                             <h5>${day.getFullYear()}</h5>
+    //                             ${day.toLocaleDateString('ko-KR',{month : 'long'})}
+    //                           </div>`;
+    //         }
+    //         weekDates += `<div class="day-item" data-date="${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}">
+    //                             <h5>${day.getDate()}</h5>
+    //                             ${dayOfWeek}
+    //                       </div>`;
+    //
+    //         lastMonth = month;
+    //     }
+    //     document.getElementById('weekDates').innerHTML = weekDates;
+    //     currentDate = startOfWeek;
+    //
+    //     addClickEventToDays();
+    // }
 
     function addClickEventToDays() {
         const dayItems = document.querySelectorAll('#weekDates > div.day-item');
@@ -232,5 +267,10 @@
     window.onload = function() {
         updateWeek();
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateWeek();
+    });
+
 
 </script>

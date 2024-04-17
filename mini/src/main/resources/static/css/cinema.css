@@ -610,7 +610,7 @@ button, input, select, textarea {
     padding-left: 0;
     gap: 55px;
     flex-wrap: wrap;
-    min-width: 1000px; /* ul의 최대 너비를 설정 */
+    min-width: 1000px;
     width: 100%;
 
 }
@@ -667,6 +667,7 @@ button, input, select, textarea {
     display: flex;
     overflow: auto;
     height: 500px;
+    width: 354px;
     border-left: 1px solid #D5D5D5;
     border-right: 1px solid #D5D5D5;
     border-bottom: 1px solid #D5D5D5;

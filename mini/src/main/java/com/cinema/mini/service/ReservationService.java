@@ -1,5 +1,6 @@
 package com.cinema.mini.service;
 
+import com.cinema.mini.domain.Member;
 import com.cinema.mini.dto.MovieAndScreeningDto;
 import com.cinema.mini.dto.PaymentDto;
 import com.cinema.mini.dto.ScreeningDto;
@@ -11,5 +12,5 @@ public interface ReservationService {
     List<ScreeningDto> getScreeningInfoForTheater(String movieId, String selectedDate);
     MovieAndScreeningDto getScreeningInfoForScreeningId(Long screeningId);
     List<SeatDto> getSeatInfo(Long screeningId);
-    void reserve(PaymentDto paymentDto);
+    void reserve(Member member , PaymentDto paymentDto);
 }

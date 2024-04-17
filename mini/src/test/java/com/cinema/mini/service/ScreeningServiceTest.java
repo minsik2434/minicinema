@@ -6,7 +6,6 @@ import com.cinema.mini.repository.*;
 import com.cinema.mini.util.MemberUtil;
 import com.cinema.mini.util.MovieUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -82,7 +80,7 @@ public class ScreeningServiceTest {
 
         Screening findScreening = screeningRepository.findById(saveScreening.getScreeningId()).orElseThrow();
         List<Seat> seats = findScreening.getTheater().getSeats();
-        List<Seat> seatsByScreeningId = reservedSeatRepository.findSeatsByScreeningId(findScreening.getScreeningId());
+        List<Seat> seatsByScreeningId = reservedSeatRepository.findReservedSeatsByScreeningId(findScreening.getScreeningId());
         List<SeatDto> seatDtoList = seats.stream().map(seat -> {
             SeatDto seatDto = new SeatDto();
             seatDto.setSeatId(seat.getSeatId());

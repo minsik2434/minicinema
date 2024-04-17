@@ -14,7 +14,7 @@ public class PaymentDto {
     @NotBlank
     private Long screeningId;
     @NotBlank
-    private String[] selectedSeatIds;
+    private Long[] selectedSeatIds;
     @Min(1)
     private Integer totalPersonNum;
 }

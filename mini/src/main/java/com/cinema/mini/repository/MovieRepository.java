@@ -20,7 +20,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     List<Movie> findByTitleContaining(String title);
 
-    @Query("select distinct m from Movie m JOIN m.screenings s")
+    @Query("select distinct m from Movie m JOIN m.screenings s where DATE(s.startTime) >= CURDATE()")
     List<Movie> findByPlayingMovie();
 
 }

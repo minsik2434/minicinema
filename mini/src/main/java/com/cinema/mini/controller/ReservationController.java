@@ -3,12 +3,16 @@ package com.cinema.mini.controller;
 import com.cinema.mini.domain.Member;
 import com.cinema.mini.domain.Seat;
 import com.cinema.mini.dto.*;
+import com.cinema.mini.exception.DuplicateException;
+import com.cinema.mini.exception.NotFoundResourceException;
 import com.cinema.mini.interceptor.SessionConst;
 import com.cinema.mini.repository.SeatRepository;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +27,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ReservationController {
 
+    @ExceptionHandler(NotFoundResourceException.class)
+    public ResponseEntity<String> notFoundResourceHandler(NotFoundResourceException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<String> duplicateHandler(DuplicateException e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
     private final MovieService movieService;
     private final ReservationService reservationService;
     private final SeatRepository seatRepository;
+
     @GetMapping
     public String reservationForm(Model model){
         model.addAttribute("playingMovieDtos", movieService.playingMovie());
@@ -76,9 +91,10 @@ public class ReservationController {
     }
 
     @PostMapping("/payment")
-    @ResponseBody
-    public String payment(@RequestBody PaymentDto paymentDto){
-
-        return "ok";
+    public ResponseEntity<String> payment(@SessionAttribute(name= SessionConst.SESSION_NAME) Member loginMember,
+                                  @RequestBody PaymentDto paymentDto){
+        reservationService.reserve(loginMember,paymentDto);
+        return ResponseEntity.ok().body("Reservation Success");
     }
+
 }
