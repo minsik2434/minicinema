@@ -3,10 +3,12 @@ package com.cinema.mini.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 
 @Entity
 @Builder
 @AllArgsConstructor
+@Getter
 public class ReservedSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

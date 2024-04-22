@@ -844,7 +844,6 @@ button, input, select, textarea {
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
-    width: 220px;
 }
 .group_info{
     display: flex;
@@ -945,9 +944,10 @@ button, input, select, textarea {
     border-top: #8e8e8e 1px solid;
 }
 .reserve_btn{
-    background-color: aqua;
-    height: 100%; display:
-        flex; flex-direction: column;
+    background-color: #fE9912;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center
 }
 .reserve_price{
@@ -955,4 +955,27 @@ button, input, select, textarea {
     gap: 100px;
     height: 50px;
     align-items: center;
+}
+
+.seat_info_wrap{
+    padding: 10px 20px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    border-left: #D5D5D5 solid 1px;
+    border-right: #D5D5D5 solid 1px
+}
+.reserve_detail_container{
+    padding: 50px 200px
+}
+
+.reserve_detail_wrap{
+    display: flex;
+    justify-content: center;
+
+}
+.reserve_discount_info{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
 }

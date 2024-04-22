@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{view/layout/base :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
@@ -9,6 +10,44 @@
 <section>
     <div>
         <div th:replace="~{view/layout/mynav::mynavbar}">
+        </div>
+        <div class="reserve_detail_container">
+            <div th:each="reserveDetailDto : ${reserveDetailDtoList}">
+                <div class="reserve_detail_wrap">
+                    <div>
+                        <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${reserveDetailDto.getScreeningInfoDto().posterPath}__}"
+                             th:alt="${reserveDetailDto.getScreeningInfoDto().getMovieTitle()}">
+                    </div>
+                    <div class="screening_info_wrap">
+                        <strong> 예약 번호 : <a th:text="${reserveDetailDto.reservationId}">1230123</a> </strong>
+                        <strong class="movieTitle" th:text="${reserveDetailDto.getScreeningInfoDto().getMovieTitle()}"></strong>
+                        <span th:text="${#temporals.format(reserveDetailDto.getScreeningInfoDto().getStartTime(), 'yyyy-MM-dd')}">yyyy-MM-dd</span>
+                        <span>
+                                <a th:text="${#temporals.format(reserveDetailDto.getScreeningInfoDto().getStartTime(), 'HH:mm')}">HH:mm</a> ~
+                                <a th:text="${#temporals.format(reserveDetailDto.getScreeningInfoDto().getEndTime(), 'HH:mm')}">HH:mm</a>
+                        </span>
+                        <span>상영관 : <a th:text="${reserveDetailDto.screeningInfoDto.theaterName}">2</a></span>
+                        <span>인원 :  <a th:text="${reserveDetailDto.reserveSeats.size()}">2</a>명</span>
+                    </div>
+                    <div class="seat_info_wrap">
+                        <strong> 예약 좌석 </strong>
+                        <span >
+                            <a th:each="seat : ${reserveDetailDto.getReserveSeats()}" th:text="|${seat},|"></a>
+                        </span>
+                    </div>
+                    <div class="reserve_discount_info">
+                        <div>
+                            <strong>상품금액 :</strong>
+                            <a th:text="${reserveDetailDto.originPrice}"></a>원<br>
+                            <strong>할인금액 :</strong>
+                            <a th:text="${reserveDetailDto.discountPrice}"></a>원<br>
+                            <strong>결제금액 :</strong>
+                            <a th:text="${reserveDetailDto.totalPrice}"></a>원
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
         </div>
     </div>
 </section>

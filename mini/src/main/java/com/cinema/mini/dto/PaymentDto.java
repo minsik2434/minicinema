@@ -9,8 +9,9 @@ import lombok.ToString;
 @Setter
 @Getter
 public class PaymentDto {
-    @Min(15000)
     private int totalPrice;
+    private int originPrice;
+    private int discountPrice;
     @NotBlank
     private Long screeningId;
     @NotBlank

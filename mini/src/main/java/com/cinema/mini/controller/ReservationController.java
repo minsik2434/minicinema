@@ -6,6 +6,7 @@ import com.cinema.mini.dto.*;
 import com.cinema.mini.exception.DuplicateException;
 import com.cinema.mini.exception.NotFoundResourceException;
 import com.cinema.mini.interceptor.SessionConst;
+import com.cinema.mini.repository.MemberRepository;
 import com.cinema.mini.repository.SeatRepository;
 import com.cinema.mini.service.MovieService;
 import com.cinema.mini.service.ReservationService;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ReservationController {
 
+
     @ExceptionHandler(NotFoundResourceException.class)
     public ResponseEntity<String> notFoundResourceHandler(NotFoundResourceException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -40,7 +42,7 @@ public class ReservationController {
     private final MovieService movieService;
     private final ReservationService reservationService;
     private final SeatRepository seatRepository;
-
+    private final MemberRepository memberRepository;
     @GetMapping
     public String reservationForm(Model model){
         model.addAttribute("playingMovieDtos", movieService.playingMovie());
@@ -82,7 +84,8 @@ public class ReservationController {
             st.append(seat.getSeatRow()).append(seat.getSeatNumber()).append(", ");
         }
         String seats = st.substring(0, st.length()-2);
-        PaymentInfo paymentInfo = new PaymentInfo(loginMember,payDto.getTotalPersonNum());
+        Member findMember = memberRepository.findById(loginMember.getMemberId()).orElseThrow();
+        PaymentInfo paymentInfo = new PaymentInfo(findMember,payDto.getTotalPersonNum());
         model.addAttribute("paymentInfo", paymentInfo);
         model.addAttribute("selectedSeats",seats);
         model.addAttribute("seatIds",selectedSeats);
@@ -94,6 +97,7 @@ public class ReservationController {
     @PostMapping("/payment")
     public ResponseEntity<String> payment(@SessionAttribute(name= SessionConst.SESSION_NAME) Member loginMember,
                                   @RequestBody PaymentDto paymentDto){
+
         reservationService.reserve(loginMember,paymentDto);
         return ResponseEntity.ok().body("Reservation Success");
     }

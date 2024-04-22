@@ -23,9 +23,10 @@ public class Reservation {
     @JoinColumn(name = "screening_id")
     private Screening screening;
     private LocalDateTime reservationDatetime;
-    private int price;
+    private int originPrice;
+    private int discountPrice;
+    private int totalPrice;
 
     @OneToMany(mappedBy = "reservation")
     private List<ReservedSeat> reservedSeatList;
-
 }

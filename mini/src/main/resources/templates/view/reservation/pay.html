@@ -9,7 +9,8 @@
         <div class="payment_container">
             <div>
                 <div class="group_info" >
-                    <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${screeningInfo.posterPath}__}" alt="test">
+                    <img class="screening_img" th:src="@{https://image.tmdb.org/t/p/original/__${screeningInfo.posterPath}__}"
+                         th:alt="${screeningInfo.title}">
                     <div class="screening_info_wrap">
                         <strong class="movieTitle" th:text="${screeningInfo.title}"></strong><br>
                         <span th:text="${#temporals.format(screeningInfo.getStartTime(), 'yyyy-MM-dd')}">날짜</span>
@@ -28,7 +29,10 @@
             </div>
             <div class="payment_wrap">
                 <div class="membership_discount">
-                    <span><img class="membership_image" th:src="@{/image/bronze.png}" src="../../static/image/bronze.png" alt="브론즈"></span>
+                    <span th:if="${paymentInfo.memberGrade} == 'BRONZE'"><img class="membership_image" th:src="@{/image/bronze.png}" th:alt="브론즈"></span>
+                    <span th:if="${paymentInfo.memberGrade} == 'GOLD'"><img class="membership_image" th:src="@{/image/gold.png}" th:alt="골드"></span>
+                    <span th:if="${paymentInfo.memberGrade} == 'PLATINUM'"><img class="membership_image" th:src="@{/image/platium.png}" th:alt="플래티넘"></span>
+                    <span th:if="${paymentInfo.memberGrade} == 'DIA'"><img class="membership_image" th:src="@{/image/dia.png}" th:alt="다이아"></span>
                     <div>
                         <strong> 멤버쉽 등급 </strong>
                         <strong th:text="${paymentInfo.memberGrade}"> </strong>
@@ -58,9 +62,13 @@
     document.getElementById('payment_btn').addEventListener('click',function (){
         let totalPrice = [[${paymentInfo.totalPrice}]];
         let screeningId = [[${screeningInfo.screeningId}]];
+        let originPrice = [[${paymentInfo.originPrice}]];
+        let discountPrice = [[${paymentInfo.discountPrice}]];
         let selectedSeatIds = [[${seatIds}]];
         let totalPersonNum = [[${totalPersonNum}]];
         let dataToSend = {
+            originPrice: originPrice,
+            discountPrice : discountPrice,
             totalPrice: totalPrice,
             screeningId: screeningId,
             selectedSeatIds : selectedSeatIds,

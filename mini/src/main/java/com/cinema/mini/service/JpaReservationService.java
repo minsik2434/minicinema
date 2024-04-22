@@ -7,10 +7,7 @@ import com.cinema.mini.dto.ScreeningDto;
 import com.cinema.mini.dto.SeatDto;
 import com.cinema.mini.exception.DuplicateException;
 import com.cinema.mini.exception.NotFoundResourceException;
-import com.cinema.mini.repository.ReservationRepository;
-import com.cinema.mini.repository.ReservedSeatRepository;
-import com.cinema.mini.repository.ScreeningRepository;
-import com.cinema.mini.repository.SeatRepository;
+import com.cinema.mini.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,6 +28,7 @@ public class JpaReservationService implements ReservationService{
     private final ScreeningRepository screeningRepository;
     private final ReservedSeatRepository reservedSeatRepository;
     private final ReservationRepository reservationRepository;
+    private final MemberRepository memberRepository;
     private final SeatRepository seatRepository;
     @Override
     public List<ScreeningDto> getScreeningInfoForTheater(String movieId, String selectedDate) {
@@ -103,7 +101,11 @@ public class JpaReservationService implements ReservationService{
                 .reservationDatetime(LocalDateTime.now())
                 .screening(optionalScreening.get())
                 .member(member)
-                .price(paymentDto.getTotalPrice()).reservedSeatList(new ArrayList<>()).build();
+                .originPrice(paymentDto.getOriginPrice())
+                .discountPrice(paymentDto.getDiscountPrice())
+                .totalPrice(paymentDto.getTotalPrice())
+                .reservedSeatList(new ArrayList<>())
+                .build();
 
         Reservation saveReservation = reservationRepository.save(reservation);
         Long[] selectedSeatIds = paymentDto.getSelectedSeatIds();
@@ -112,6 +114,19 @@ public class JpaReservationService implements ReservationService{
             ReservedSeat rs = ReservedSeat.builder().seat(seat).reservation(saveReservation).build();
             reservedSeatRepository.save(rs);
             saveReservation.getReservedSeatList().add(rs);
+        }
+//        member.plusReserveCount(); //reserve 메소드의 파라미터로 넘겨받은 member 는 준영속 객체이므로 변경 감지 안됨
+//        memberRepository.save(member);
+        Member findMember = memberRepository.findById(member.getMemberId()).orElseThrow();
+        findMember.plusReserveCount();
+        if(findMember.getTotalReserveCount() == 10){
+            findMember.upGrade();
+        }
+        else if (findMember.getTotalReserveCount() == 30) {
+            findMember.upGrade();
+        }
+        else if (findMember.getTotalReserveCount() == 50) {
+            findMember.upGrade();
         }
     }
 

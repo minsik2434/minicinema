@@ -28,7 +28,9 @@ public class JpaMemberService implements MemberService{
                 .email(memberRegisterDto.getEmail())
                 .name(memberRegisterDto.getName())
                 .birth(memberBirth)
-                .grade(MemberGrade.BRONZE).build();
+                .grade(MemberGrade.BRONZE)
+                .totalReserveCount(0)
+                .build();
         return memberRepository.save(member);
     }
     @Override
