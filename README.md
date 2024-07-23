@@ -83,12 +83,68 @@ Spring MVC를 사용해 개발한 영화 예약 사이트 입니다 Spring boot�
   <summary>영화 정보</summary>
 
   <br>
+  - 영화 상세 페이지
   <img width="1440" alt="영화 상세페이지" src="https://github.com/user-attachments/assets/d39b85a3-4b3d-4043-8ca2-acd22d6667fe">
+  - 장르별 영화 페이지
+  <img width="1440" alt="장르별 영화페이지" src="https://github.com/user-attachments/assets/a7fd40c6-6ee3-4536-9b18-a682844bfbf0">
 
   <hr>
 
   * 영화 정보 페이지
+  * 장르별 영화 조회
   * 영화 평점정보, 줄거리, 장르, 개봉일 정보 표기
 
+
+</details>
+
+<details>
+  <summary>혜택 정보</summary>
+
+  <br>
+  <img width="1440" alt="혜택 정보 페이지" src="https://github.com/user-attachments/assets/d3fab2ff-44d2-4215-b160-8a389c0dd96b">
+
+  <hr>
+
+  * 멤버쉽 혜택 페이지
+  * 등급별 혜택 정보 표기
+
+</details>
+<details>
+  <summary>마이페이지</summary>
+
+  <br>
+  - 결제 내역 페이지
+  <img width="1440" alt="결제내역" src="https://github.com/user-attachments/assets/c331773b-9e0e-45d5-928a-9aaaca02b0f4">
+  - 회원 정보 조회,변경 페이지
+  <img width="1440" alt="프로필" src="https://github.com/user-attachments/assets/49c303e3-b0e6-4d05-ba47-c28d3411a27f">
+  - 회원 멤버쉽 정보
+  <img width="1440" alt="멤버쉽" src="https://github.com/user-attachments/assets/f2497913-7527-4296-9468-2ac502315f79">
+
+
+  <hr>
+
+  * 회원이 예매한 영화 정보
+  * 회원 정보 표기와 회원 정보 수정
+  * 회원 멤버쉽 정보 표기
+
+</details>
+
+<details>
+  <summary>예매 페이지</summary>
+
+  <br>
+  - 영화 선택 및 시간, 상영관 선택 페이지
+  <img width="1438" alt="영화선택및 시간 선택 페이지" src="https://github.com/user-attachments/assets/5c02bfa7-cd75-4ac5-8c56-e50daac1eb7f">
+  - 좌석 선택 페이지
+  <img width="1440" alt="좌석 선택 페이지" src="https://github.com/user-attachments/assets/8bb872f3-c2e7-403e-a0e3-4826becf2f12">
+  - 결제 페이지
+  <img width="1439" alt="결제페이지" src="https://github.com/user-attachments/assets/127e3c26-24f4-4d73-b8be-ea00bc31de0f">
+
+
+  <hr>
+
+  * 예매 가능 영화와 영화 상영시간, 상영관 선택 
+  * 좌석 예매 이미 예매되어있는 좌석은 선택할 수 없음
+  * 영화 예약 결제, 회원 멤버쉽에 따라 할인율 적용
 
 </details>
