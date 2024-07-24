@@ -148,3 +148,16 @@ Spring MVC를 사용해 개발한 영화 예약 사이트 입니다 Spring boot�
   * 영화 예약 결제, 회원 멤버쉽에 따라 할인율 적용
 
 </details>
+<details>
+  <summary>검색 페이지</summary>
+
+  <br>
+  <img width="1440" alt="스크린샷 2024-07-24 오후 1 31 42" src="https://github.com/user-attachments/assets/82464a60-bf8e-4fdb-84b6-b4fa740cd558">
+
+
+  <hr>
+
+  * 영화 검색페이지
+  * 제목으로 영화 검색
+
+</details>
